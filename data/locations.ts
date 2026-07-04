@@ -1,0 +1,249 @@
+export interface CampusLocation {
+  /** URL-friendly identifier, e.g. "brisbane-fortitude-valley" */
+  slug: string;
+  /** Display name, e.g. "Brisbane – Fortitude Valley" */
+  name: string;
+  /** Gym or facility hosting the campus */
+  venue: string;
+  address: string;
+  suburb: string;
+  state: StateCode;
+  postcode: string;
+  phone: string;
+}
+
+export type StateCode = "QLD" | "NSW" | "VIC" | "SA" | "WA" | "ACT" | "TAS";
+
+export const STATE_NAMES: Record<StateCode, string> = {
+  QLD: "Queensland",
+  NSW: "New South Wales",
+  VIC: "Victoria",
+  SA: "South Australia",
+  WA: "Western Australia",
+  ACT: "Australian Capital Territory",
+  TAS: "Tasmania",
+};
+
+export const PHONE = "1300 887 017";
+
+export const HEAD_OFFICE = {
+  name: "FIT College Head Office",
+  address: "Suite 8, Level 1, 102 Wises Road",
+  suburb: "Maroochydore",
+  state: "QLD" as StateCode,
+  postcode: "4558",
+  phone: PHONE,
+};
+
+export const LOCATIONS: CampusLocation[] = [
+  {
+    slug: "brisbane-fortitude-valley",
+    name: "Brisbane – Fortitude Valley",
+    venue: "PCYC Fortitude Valley",
+    address: "35 Church St",
+    suburb: "Fortitude Valley",
+    state: "QLD",
+    postcode: "4006",
+    phone: PHONE,
+  },
+  {
+    slug: "brisbane-carseldine",
+    name: "Brisbane North – Carseldine",
+    venue: "Goodlife Carseldine",
+    address: "16 Graham Rd",
+    suburb: "Carseldine",
+    state: "QLD",
+    postcode: "4034",
+    phone: PHONE,
+  },
+  {
+    slug: "cairns-city-centre",
+    name: "Cairns – City Centre",
+    venue: "PCYC Cairns",
+    address: "91-97 MacNamara St",
+    suburb: "Manunda",
+    state: "QLD",
+    postcode: "4870",
+    phone: PHONE,
+  },
+  {
+    slug: "gold-coast-nerang",
+    name: "Gold Coast – Nerang",
+    venue: "Goodlife Nerang",
+    address: "7027 Southport Nerang Rd",
+    suburb: "Nerang",
+    state: "QLD",
+    postcode: "4211",
+    phone: PHONE,
+  },
+  {
+    slug: "ipswich",
+    name: "Ipswich – Redbank Plains",
+    venue: "Anytime Fitness Redbank Plains",
+    address: "357-403 Redbank Plains Rd",
+    suburb: "Redbank Plains",
+    state: "QLD",
+    postcode: "4301",
+    phone: PHONE,
+  },
+  {
+    slug: "sunshine-coast-maroochydore",
+    name: "Sunshine Coast – Maroochydore",
+    venue: "Suncoast Fitness",
+    address: "8/102 Wises Rd",
+    suburb: "Maroochydore",
+    state: "QLD",
+    postcode: "4558",
+    phone: PHONE,
+  },
+  {
+    slug: "toowoomba",
+    name: "Toowoomba",
+    venue: "Goodlife Health Clubs Toowoomba",
+    address: "39 Dent St",
+    suburb: "Toowoomba",
+    state: "QLD",
+    postcode: "4350",
+    phone: PHONE,
+  },
+  {
+    slug: "newcastle",
+    name: "Newcastle",
+    venue: "The Forum Gym, University of Newcastle",
+    address: "5 Workshop Way",
+    suburb: "Newcastle",
+    state: "NSW",
+    postcode: "2300",
+    phone: PHONE,
+  },
+  {
+    slug: "sydney-caringbah",
+    name: "Sydney – Caringbah",
+    venue: "Vision Personal Training Caringbah",
+    address: "3/30 Endeavour Rd",
+    suburb: "Caringbah",
+    state: "NSW",
+    postcode: "2229",
+    phone: PHONE,
+  },
+  {
+    slug: "sydney-city-centre",
+    name: "Sydney – City Centre",
+    venue: "Fitness First Bond St Platinum",
+    address: "20 Bond St",
+    suburb: "Sydney",
+    state: "NSW",
+    postcode: "2000",
+    phone: PHONE,
+  },
+  {
+    slug: "sydney-penrith",
+    name: "Sydney – Penrith",
+    venue: "The Y, Western Sydney University",
+    address: "Western Sydney University",
+    suburb: "Kingswood",
+    state: "NSW",
+    postcode: "2747",
+    phone: PHONE,
+  },
+  {
+    slug: "sydney-parramatta",
+    name: "Sydney West – Parramatta",
+    venue: "Genesis Parramatta",
+    address: "91-95 Fennell St",
+    suburb: "Parramatta",
+    state: "NSW",
+    postcode: "2150",
+    phone: PHONE,
+  },
+  {
+    slug: "geelong-north",
+    name: "Geelong – North Geelong",
+    venue: "Carbon Gym",
+    address: "21-31 The Blvd",
+    suburb: "Norlane",
+    state: "VIC",
+    postcode: "3214",
+    phone: PHONE,
+  },
+  {
+    slug: "melbourne-south-melbourne",
+    name: "Melbourne – South Melbourne",
+    venue: "Goodlife Health Clubs",
+    address: "111 Cecil St",
+    suburb: "South Melbourne",
+    state: "VIC",
+    postcode: "3205",
+    phone: PHONE,
+  },
+  {
+    slug: "melbourne-wantirna",
+    name: "Melbourne – Wantirna",
+    venue: "Goodlife Health Club",
+    address: "141 Mountain Hwy",
+    suburb: "Wantirna",
+    state: "VIC",
+    postcode: "3152",
+    phone: PHONE,
+  },
+  {
+    slug: "adelaide-glenelg",
+    name: "Adelaide – Glenelg",
+    venue: "Goodlife Health & Fitness Glenelg",
+    address: "520 Anzac Hwy",
+    suburb: "Glenelg East",
+    state: "SA",
+    postcode: "5045",
+    phone: PHONE,
+  },
+  {
+    slug: "perth-joondalup",
+    name: "Perth North – Joondalup",
+    venue: "Goodlife Joondalup",
+    address: "11 Injune Way",
+    suburb: "Joondalup",
+    state: "WA",
+    postcode: "6027",
+    phone: PHONE,
+  },
+  {
+    slug: "perth-bibra-lake",
+    name: "Perth South – Bibra Lake",
+    venue: "Roar Fitness 247",
+    address: "23 Port Kembla Dr",
+    suburb: "Bibra Lake",
+    state: "WA",
+    postcode: "6163",
+    phone: PHONE,
+  },
+  {
+    slug: "canberra-deakin",
+    name: "Canberra – Deakin",
+    venue: "Fitness First Deakin",
+    address: "81 MacGregor St",
+    suburb: "Deakin",
+    state: "ACT",
+    postcode: "2600",
+    phone: PHONE,
+  },
+  {
+    slug: "hobart",
+    name: "Hobart – Aquatic Centre",
+    venue: "Hobart Aquatic Centre",
+    address: "1 Davies Ave",
+    suburb: "Queens Domain",
+    state: "TAS",
+    postcode: "7000",
+    phone: PHONE,
+  },
+];
+
+/** Locations grouped by state, in a fixed display order. */
+export function locationsByState(): { state: StateCode; stateName: string; locations: CampusLocation[] }[] {
+  const order: StateCode[] = ["QLD", "NSW", "VIC", "SA", "WA", "ACT", "TAS"];
+  return order.map((state) => ({
+    state,
+    stateName: STATE_NAMES[state],
+    locations: LOCATIONS.filter((l) => l.state === state),
+  }));
+}

@@ -2,7 +2,9 @@ import Link from "next/link";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
+  { href: "/courses", label: "Courses" },
   { href: "/locations", label: "Locations" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function SiteHeader() {

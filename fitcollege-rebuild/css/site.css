@@ -1,0 +1,298 @@
+/* ==========================================================================
+   FIT COLLEGE — SITE REBUILD DESIGN SYSTEM
+   RTO 31903 | North-star prototype for Kook CMS implementation | July 2026
+
+   [KOOK] One stylesheet for the whole rebuild. Everything here is
+   plain CSS — no preprocessor, no build step, no framework. Class
+   names are template-block oriented so they map to CMS blocks.
+   Brand: FIT College Brand Guidelines 2026.
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------- */
+:root{
+  /* Brand palette */
+  --core-black:#181818;
+  --energy-red:#CE2829;
+  --energy-red-dark:#A81F20;
+  --academy-blue:#21428D;
+  --paper:#FFFFFF;
+  --mist:#F4F4F4;
+  --line:#E3E3E3;
+  --ink-soft:#4A4A4A;
+  --ink-faint:#9B9B9B;
+
+  /* Layout */
+  --max:1140px;
+  --radius:6px;
+  --section-y:84px;
+  --section-y-tight:60px;
+
+  /* Type */
+  --font:'Poppins',Arial,sans-serif;
+}
+
+/* ---------- 2. RESET & BASE ---------- */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  font-family:var(--font);
+  color:var(--core-black);
+  background:var(--paper);
+  line-height:1.65;
+  font-size:16px;
+}
+img{max-width:100%;display:block}
+a{color:var(--energy-red)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ---------- 3. TYPE SCALE ---------- */
+h1,h2,h3,h4{line-height:1.15;font-weight:800;letter-spacing:-0.01em}
+h1{font-size:clamp(2rem,5vw,3.4rem);text-transform:uppercase}
+h2{font-size:clamp(1.5rem,3.4vw,2.2rem)}
+h3{font-size:1.15rem;font-weight:700}
+h4{font-size:1rem;font-weight:700}
+.eyebrow{
+  display:inline-block;font-size:.78rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--energy-red);
+  margin-bottom:14px;
+}
+.eyebrow--light{color:#FF6B6B}
+p.lede{font-size:1.15rem;color:var(--ink-soft)}
+.small{font-size:.85rem;color:var(--ink-soft)}
+
+/* ---------- 4. BUTTONS ---------- */
+.btn{
+  display:inline-block;font-weight:700;font-size:1rem;
+  padding:16px 32px;border-radius:4px;text-decoration:none;
+  transition:transform .15s ease,box-shadow .15s ease;
+  text-align:center;cursor:pointer;font-family:inherit;border:0;
+}
+.btn:focus-visible{outline:3px solid var(--academy-blue);outline-offset:3px}
+.btn--primary{background:var(--energy-red);color:#fff}
+.btn--primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(206,40,41,.35)}
+.btn--ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55)}
+.btn--ghost:hover{border-color:#fff}
+.btn--ghost-dark{background:transparent;color:var(--core-black);border:2px solid var(--core-black)}
+.btn--ghost-dark:hover{background:var(--core-black);color:#fff}
+.btn--sm{padding:10px 20px;font-size:.9rem}
+
+/* ---------- 5. HEADER ----------
+   [KOOK] Single nav render — replaces the current duplicated nav
+   block flagged in the audit (mobile perf). One header, CSS-only
+   responsive collapse, vanilla JS toggle. */
+header.site{
+  background:var(--core-black);color:#fff;
+  position:sticky;top:0;z-index:50;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:20px}
+.logo{font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-decoration:none;font-size:1.05rem;white-space:nowrap}
+.logo span{color:var(--energy-red)}
+.logo small{display:block;font-size:.55rem;letter-spacing:.2em;color:var(--ink-faint);font-weight:600}
+nav.main{display:flex;align-items:center}
+nav.main a{color:#fff;text-decoration:none;font-size:.9rem;font-weight:500;margin-left:26px}
+nav.main a:hover{color:#FF6B6B}
+nav.main .nav-cta{background:var(--energy-red);padding:9px 18px;border-radius:4px;font-weight:700}
+nav.main .nav-cta:hover{color:#fff;background:var(--energy-red-dark)}
+.menu-btn{display:none;background:none;border:2px solid rgba(255,255,255,.5);color:#fff;font-weight:700;padding:7px 14px;border-radius:4px;font-family:inherit;cursor:pointer}
+@media (max-width:900px){
+  nav.main{display:none;position:absolute;top:66px;left:0;right:0;background:var(--core-black);padding:18px 24px 24px;flex-direction:column;align-items:flex-start}
+  nav.main.open{display:flex}
+  nav.main a{margin:10px 0 0}
+  .menu-btn{display:block}
+}
+
+/* ---------- 6. SECTIONS ---------- */
+section{padding:var(--section-y) 0}
+section.tight{padding:var(--section-y-tight) 0}
+section.alt{background:var(--mist)}
+section.dark{background:var(--core-black);color:#fff}
+section.dark h2{color:#fff}
+section.dark p{color:#C9C9C9}
+.section-head{max-width:46em;margin-bottom:44px}
+.section-head--center{margin-left:auto;margin-right:auto;text-align:center}
+
+/* Red angle device — brand collateral echo */
+.angle{height:70px;background:linear-gradient(to right bottom,var(--energy-red) 0 50%,transparent 50.5% 100%)}
+
+/* ---------- 7. HERO ---------- */
+.hero{background:var(--core-black);color:#fff;padding:84px 0 0;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;padding-bottom:84px}
+.hero h1 .tm{font-size:.5em;vertical-align:super}
+.hero .descriptor{display:block;font-size:clamp(1rem,2.2vw,1.35rem);font-weight:600;letter-spacing:.04em;color:#fff;opacity:.92;margin-top:10px;text-transform:none}
+.hero p.promise{font-size:1.15rem;color:#D8D8D8;margin:26px 0 34px;max-width:34em}
+.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.hero .rto{margin-top:34px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+@media (max-width:840px){
+  .hero .wrap{grid-template-columns:1fr;gap:36px;padding-bottom:64px}
+  .hero{padding-top:56px}
+}
+
+/* ---------- 8. IMAGE / VIDEO SLOTS (prototype only) ----------
+   [KOOK][DAMIAN] Placeholder pattern for real photography. */
+.img-slot{
+  background:repeating-linear-gradient(135deg,#242424,#242424 12px,#1E1E1E 12px,#1E1E1E 24px);
+  border:1px dashed #4A4A4A;border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink-faint);font-size:.85rem;text-align:center;padding:20px;
+  min-height:420px;
+}
+.img-slot--light{background:repeating-linear-gradient(135deg,#EDEDED,#EDEDED 12px,#E4E4E4 12px,#E4E4E4 24px);border-color:#C9C9C9;color:#7A7A7A;min-height:300px}
+.img-slot--short{min-height:200px}
+@media (max-width:840px){.img-slot{min-height:280px}}
+
+/* ---------- 9. CARDS ---------- */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card-grid--2{grid-template-columns:repeat(2,1fr)}
+@media (max-width:900px){.card-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.card-grid,.card-grid--2{grid-template-columns:1fr}}
+
+.card{border:1px solid var(--line);border-radius:var(--radius);padding:32px;background:#fff;display:flex;flex-direction:column}
+.card h3{margin-bottom:6px}
+.card .code{font-size:.82rem;color:var(--ink-soft);margin-bottom:14px}
+.card p{font-size:.95rem;color:var(--ink-soft);flex:1}
+.card .card-link{margin-top:20px;font-weight:700;text-decoration:none;font-size:.95rem}
+.card .card-link::after{content:" →"}
+.card--flag{border-top:6px solid var(--energy-red)}
+.card--blue{border-top:6px solid var(--academy-blue)}
+.card .tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:99px;margin-bottom:16px;background:rgba(206,40,41,.1);color:var(--energy-red);align-self:flex-start}
+.card .tag--blue{background:rgba(33,66,141,.1);color:var(--academy-blue)}
+
+/* ---------- 10. PROOF GRID ---------- */
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.proof div{background:#fff;padding:30px 26px}
+.proof strong{display:block;font-size:1.02rem;font-weight:700;margin-bottom:6px}
+.proof span{font-size:.9rem;color:var(--ink-soft)}
+@media (max-width:840px){.proof{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.proof{grid-template-columns:1fr}}
+
+/* ---------- 11. INTAKE STRIP ---------- */
+.intakes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
+.intake{border:1px solid var(--line);border-radius:var(--radius);padding:30px 20px;background:#fff}
+.intake .month{font-size:1.4rem;font-weight:800;text-transform:uppercase}
+.intake .status{display:inline-block;margin-top:10px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:99px}
+.intake .status--open{background:rgba(206,40,41,.1);color:var(--energy-red)}
+.intake .status--closed{background:var(--mist);color:var(--ink-faint)}
+.intake--live{border-color:var(--energy-red);border-width:2px}
+@media (max-width:640px){.intakes{grid-template-columns:1fr}}
+
+/* ---------- 12. CAMPUS NETWORK ---------- */
+.campus-band{background:var(--core-black);color:#fff;border-radius:var(--radius);padding:48px;display:grid;grid-template-columns:.9fr 1.1fr;gap:44px}
+.campus-band h2{color:#fff}
+.campus-band p{color:#C9C9C9;margin-top:12px}
+.campus-list{columns:2;gap:32px;font-size:.92rem}
+.campus-list li{list-style:none;padding:7px 0 7px 22px;position:relative;break-inside:avoid;color:#E8E8E8}
+.campus-list li::before{content:"";position:absolute;left:0;top:14px;width:9px;height:9px;border-radius:50%;background:var(--energy-red)}
+.campus-list .state{font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.75rem;color:var(--ink-faint);padding-left:0;margin-top:14px}
+.campus-list .state::before{display:none}
+@media (max-width:840px){.campus-band{grid-template-columns:1fr;padding:36px 28px}.campus-list{columns:1}}
+
+/* ---------- 13. FUNDING STRIP ---------- */
+.funding{background:var(--academy-blue);color:#fff;border-radius:var(--radius);padding:44px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
+.funding h2{color:#fff;font-size:1.5rem}
+.funding p{color:#D6DEF2;margin-top:8px;max-width:38em}
+@media (max-width:760px){.funding{grid-template-columns:1fr}}
+
+/* ---------- 14. REVIEWS ---------- */
+.review-band{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center}
+.stars{color:var(--energy-red);font-size:1.3rem;letter-spacing:.15em}
+.review-band strong{font-size:1.05rem}
+
+/* ---------- 15. TABLES ---------- */
+table.data{width:100%;border-collapse:collapse;font-size:.98rem}
+table.data caption{text-align:left;font-weight:700;padding-bottom:14px;font-size:1.05rem}
+table.data th,table.data td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+table.data th{font-weight:700;background:var(--mist)}
+table.data th[scope="row"]{width:34%}
+
+/* ---------- 16. FAQ (native details) ---------- */
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:600;font-size:1.02rem;padding:22px 44px 22px 0;list-style:none;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:1.5rem;font-weight:400;color:var(--energy-red)}
+.faq details[open] summary::after{content:"–"}
+.faq summary:focus-visible{outline:3px solid var(--academy-blue);outline-offset:2px}
+.faq .answer{padding:0 0 24px;color:var(--ink-soft);max-width:52em}
+
+/* ---------- 17. FINAL CTA ---------- */
+.final{background:var(--core-black);color:#fff;text-align:center}
+.final h2{color:#fff;max-width:22em;margin:0 auto 14px}
+.final p{color:#C9C9C9;max-width:36em;margin:0 auto 34px}
+.final .intake-note{display:inline-block;margin-top:30px;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:#FF8A8A;font-weight:700}
+
+/* ---------- 18. STICKY MOBILE CTA ---------- */
+.sticky-cta{display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--line);padding:12px 16px;box-shadow:0 -6px 24px rgba(0,0,0,.12)}
+.sticky-cta .btn{width:100%;padding:14px}
+@media (max-width:640px){.sticky-cta{display:block}body{padding-bottom:74px}}
+
+/* ---------- 19. FOOTER ---------- */
+footer.site{background:#0F0F0F;color:var(--ink-faint);font-size:.85rem;padding:56px 0 40px}
+footer.site .cols{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+footer.site h4{color:#fff;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+footer.site a{color:#C9C9C9;text-decoration:none;display:block;padding:4px 0}
+footer.site a:hover{color:#fff}
+footer.site .legal{border-top:1px solid #2A2A2A;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.78rem}
+@media (max-width:800px){footer.site .cols{grid-template-columns:1fr 1fr}}
+@media (max-width:500px){footer.site .cols{grid-template-columns:1fr}}
+
+/* ==========================================================================
+   STAGE 2–4 COMPONENTS — course, campus, funding, FAQ templates
+   ========================================================================== */
+
+/* Breadcrumb */
+.crumbs{font-size:.82rem;color:var(--ink-faint);padding:18px 0}
+.crumbs a{color:var(--ink-soft);text-decoration:none}
+.crumbs a:hover{color:var(--energy-red)}
+
+/* Course layout: content + quick-facts sidebar */
+.course-layout{display:grid;grid-template-columns:1.6fr .9fr;gap:48px;align-items:start}
+@media (max-width:900px){.course-layout{grid-template-columns:1fr}}
+.quick-facts{border:1px solid var(--line);border-radius:var(--radius);padding:28px;background:#fff;position:sticky;top:90px}
+.quick-facts h3{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:16px}
+.quick-facts dl{font-size:.92rem}
+.quick-facts dt{font-weight:700;margin-top:14px}
+.quick-facts dd{color:var(--ink-soft)}
+.quick-facts .btn{width:100%;margin-top:22px}
+.quick-facts .btn + .btn{margin-top:10px}
+
+/* Checklist */
+ul.check{list-style:none;margin-top:16px}
+ul.check li{padding:9px 0 9px 30px;position:relative;font-size:.98rem}
+ul.check li::before{content:"";position:absolute;left:0;top:15px;width:16px;height:16px;border-radius:50%;background:var(--energy-red);opacity:.12}
+ul.check li::after{content:"✓";position:absolute;left:3.5px;top:8px;font-size:.75rem;font-weight:700;color:var(--energy-red)}
+
+/* Campus header block */
+.campus-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:34px}
+.campus-meta div{background:#fff;padding:22px}
+.campus-meta strong{display:block;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:6px}
+@media (max-width:700px){.campus-meta{grid-template-columns:1fr}}
+.confirm{background:#FFF6E5;border:1px dashed #E0B45C;color:#7A5B14;font-size:.82rem;padding:3px 10px;border-radius:4px;display:inline-block}
+
+/* Eligibility checker */
+.checker{border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:40px;max-width:640px;margin:0 auto}
+.checker .step{display:none}
+.checker .step.active{display:block}
+.checker .q{font-size:1.15rem;font-weight:700;margin-bottom:22px}
+.checker .opts{display:grid;gap:12px}
+.checker .opt{border:2px solid var(--line);border-radius:6px;padding:16px 20px;font-family:inherit;font-size:1rem;font-weight:600;background:#fff;cursor:pointer;text-align:left;transition:border-color .15s}
+.checker .opt:hover{border-color:var(--academy-blue)}
+.checker .opt:focus-visible{outline:3px solid var(--academy-blue);outline-offset:2px}
+.checker .progress{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:16px}
+.checker .result h3{font-size:1.3rem;margin-bottom:12px}
+.checker .result p{color:var(--ink-soft);margin-bottom:22px}
+.checker .restart{background:none;border:0;color:var(--ink-faint);font-family:inherit;font-size:.85rem;cursor:pointer;text-decoration:underline;margin-top:18px}
+
+/* Figures panel (funding amounts) */
+.figures{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
+.figure{border:1px solid var(--line);border-radius:var(--radius);padding:30px 20px;background:#fff}
+.figure .amount{font-size:2rem;font-weight:800;color:var(--academy-blue)}
+.figure .label{font-size:.88rem;color:var(--ink-soft);margin-top:6px}
+@media (max-width:700px){.figures{grid-template-columns:1fr}}
+
+/* Contact split */
+.contact-split{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:800px){.contact-split{grid-template-columns:1fr}}

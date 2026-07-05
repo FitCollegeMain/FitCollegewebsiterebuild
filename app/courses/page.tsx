@@ -126,6 +126,28 @@ export default function CoursesPage() {
           </div>
         </div>
 
+        {/* International students */}
+        <div className="mt-8 flex flex-col items-start justify-between gap-6 border-l-4 border-academy bg-slate-50 p-8 sm:flex-row sm:items-center">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-academy">
+              CRICOS-approved · Student visa study
+            </p>
+            <h2 className="font-display mt-1 text-2xl font-bold uppercase">
+              International students
+            </h2>
+            <p className="mt-2 max-w-xl text-slate-600">
+              Study in Australia at a CRICOS-approved campus — from a 6-month
+              certificate to a two-year Cert III + IV + Diploma pathway.
+            </p>
+          </div>
+          <Link
+            href="/courses/international-fitness-student-pathway"
+            className="shrink-0 rounded-full bg-brand px-6 py-3 font-bold text-white hover:bg-brand-light"
+          >
+            International pathway →
+          </Link>
+        </div>
+
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           <section className="bg-slate-50 p-8">
             <h2 className="font-display text-xl font-bold uppercase">Study online</h2>

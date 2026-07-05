@@ -144,7 +144,7 @@ export const COURSES: Course[] = [
     notes: [
       "Qualifies you to deliver personalised instruction and programs as a Personal Trainer — step two of the Personal Training pathway.",
       "Includes a four-week Behaviour Project Report from the Nutrition & Behaviour Change topic.",
-      "Student visa pathway available (CRICOS 110302D): 25 hrs/week blended study, 6-month student-visa eligible, intakes Jan · Apr · Jul · Oct at Cairns, Sunshine Coast, Gold Coast, Brisbane, Melbourne and Sydney.",
+      "Student visa pathway available (CRICOS 110302D): 25 hrs/week blended study, 6-month student-visa eligible, intakes Jan · Apr · Jul · Oct — see the International Student Pathway for details.",
     ],
   },
 ];
@@ -220,6 +220,51 @@ export const PROOF_POINTS = [
     label: "A Careers Liaison at every campus connecting you to local jobs",
   },
 ];
+
+/* International Student Pathway — CRICOS-approved courses for student-visa
+   study (fitcollege.edu.au/courses/international-fitness-student-pathway). */
+export const INTERNATIONAL = {
+  name: "International Student Pathway",
+  slug: "international-fitness-student-pathway",
+  courses: [
+    {
+      code: "SIS30321",
+      name: "Certificate III in Fitness",
+      cricos: "110301E",
+      duration: "Two terms — 6-month student visa",
+    },
+    {
+      code: "SIS40221",
+      name: "Certificate IV in Fitness",
+      cricos: "110302D",
+      duration: "Two terms — 6-month student visa",
+    },
+    {
+      code: "SIS50321",
+      name: "Diploma of Sport — Coaching",
+      cricos: "114406H",
+      duration: "One year of study",
+    },
+  ],
+  bundle:
+    "The most popular pathway bundles the Cert III & IV plus the Diploma for two full years of study.",
+  campuses: ["Brisbane", "Gold Coast", "Sydney", "Melbourne", "Perth", "Tasmania"],
+  englishTests: [
+    { test: "IELTS Academic", requirement: "6.0 overall, no band less than 5.5" },
+    {
+      test: "TOEFL iBT",
+      requirement: "64 overall — min. Reading 5, Listening 5, Speaking 14, Writing 15",
+    },
+    {
+      test: "Cambridge English: Advanced (CAE)",
+      requirement: "169 overall, no less than 154 in any component",
+    },
+    {
+      test: "Pearson PTE Academic",
+      requirement: "50 overall, no less than 36 in any communication band",
+    },
+  ],
+};
 
 /* FIT Elite™ — the Dual-Career Personal Trainer Program.
    Complete PT + Advanced Skills (30 CPD) + a specialisation stream. */

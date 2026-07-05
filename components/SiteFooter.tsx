@@ -4,6 +4,7 @@ import { HEAD_OFFICE } from "@/data/locations";
 const FOOTER_LINKS = [
   { href: "/courses", label: "Courses" },
   { href: "/fit-elite", label: "FIT Elite™" },
+  { href: "/courses/international-fitness-student-pathway", label: "International (CRICOS)" },
   { href: "/study-online", label: "Study Online" },
   { href: "/locations", label: "Locations" },
   { href: "/funding", label: "Funding" },

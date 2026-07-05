@@ -1,8 +1,18 @@
 import Link from "next/link";
 
-const NAV_LINKS = [
-  { href: "/courses", label: "Courses" },
+const COURSE_LINKS = [
+  { href: "/courses", label: "All courses" },
+  { href: "/courses/certificate-iii-in-fitness", label: "Certificate III in Fitness" },
+  { href: "/courses/certificate-iv-in-fitness", label: "Certificate IV in Fitness" },
+  { href: "/courses/complete-pt", label: "Complete PT — Cert III + IV" },
   { href: "/fit-elite", label: "FIT Elite™" },
+  {
+    href: "/courses/international-fitness-student-pathway",
+    label: "International (CRICOS)",
+  },
+];
+
+const NAV_LINKS = [
   { href: "/study-online", label: "Study Online" },
   { href: "/locations", label: "Locations" },
   { href: "/funding", label: "Funding" },
@@ -10,8 +20,9 @@ const NAV_LINKS = [
 ];
 
 /*
-  The mobile menu is CSS-only (hidden checkbox + peer-checked panel), so it
-  needs no JavaScript and works in static exports too.
+  Desktop "Courses" dropdown and the mobile menu are both CSS-only
+  (hover/focus-within for the dropdown, hidden checkbox for the mobile
+  panel) so they need no JavaScript and work in static exports too.
 */
 export default function SiteHeader() {
   return (
@@ -28,6 +39,35 @@ export default function SiteHeader() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-5 text-sm font-semibold lg:flex">
+          <div className="group relative">
+            <Link
+              href="/courses"
+              className="flex items-center gap-1 py-2 underline-offset-4 hover:underline hover:decoration-accent hover:decoration-2"
+            >
+              Courses
+              <svg
+                viewBox="0 0 24 24"
+                className="h-3.5 w-3.5 fill-none stroke-current stroke-2 transition-transform group-hover:rotate-180"
+                aria-hidden
+              >
+                <path strokeLinecap="round" d="M6 9l6 6 6-6" />
+              </svg>
+            </Link>
+            {/* Dropdown — opens on hover or keyboard focus */}
+            <div className="invisible absolute left-0 top-full z-30 w-72 pt-2 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+              <div className="border-t-4 border-accent bg-brand py-2 shadow-xl">
+                {COURSE_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="block px-5 py-2.5 text-sm font-semibold text-white/90 hover:bg-brand-light hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -79,7 +119,19 @@ export default function SiteHeader() {
           </label>
 
           {/* Mobile panel */}
-          <nav className="absolute left-0 right-0 top-full z-30 hidden flex-col border-t border-white/10 bg-brand px-4 pb-6 pt-2 shadow-lg peer-checked:flex">
+          <nav className="absolute left-0 right-0 top-full z-30 hidden max-h-[calc(100vh-4rem)] flex-col overflow-y-auto border-t border-white/10 bg-brand px-4 pb-6 pt-2 shadow-lg peer-checked:flex">
+            <p className="pt-3 text-xs font-bold uppercase tracking-[0.2em] text-white/50">
+              Courses
+            </p>
+            {COURSE_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="border-b border-white/10 py-3 pl-3 text-base font-semibold"
+              >
+                {link.label}
+              </Link>
+            ))}
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}

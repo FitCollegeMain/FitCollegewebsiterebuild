@@ -112,6 +112,19 @@ export default function ContactPage() {
                 {HEAD_OFFICE.suburb} {HEAD_OFFICE.state} {HEAD_OFFICE.postcode}
               </address>
             </div>
+            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h2 className="text-lg font-bold text-brand">Quick answers</h2>
+              <p className="mt-2 text-sm text-slate-600">
+                Course lengths, payment plans, online study, RPL — the
+                questions we hear most are already answered.
+              </p>
+              <Link
+                href="/faqs"
+                className="mt-4 inline-block text-sm font-semibold text-accent-dark hover:underline"
+              >
+                Read the FAQs →
+              </Link>
+            </div>
             <div className="rounded-xl bg-slate-50 p-6">
               <h2 className="text-lg font-bold text-brand">Visit a campus</h2>
               <p className="mt-2 text-sm text-slate-600">

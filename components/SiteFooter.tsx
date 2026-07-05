@@ -7,6 +7,7 @@ const FOOTER_LINKS = [
   { href: "/study-online", label: "Study Online" },
   { href: "/locations", label: "Locations" },
   { href: "/funding", label: "Funding" },
+  { href: "/faqs", label: "FAQs" },
   { href: "/contact", label: "Contact" },
 ];
 

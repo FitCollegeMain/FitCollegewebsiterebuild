@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LOCATIONS } from "@/data/locations";
 import { COURSES, PROOF_POINTS, FIT_ELITE } from "@/data/courses";
+import AustraliaMap from "@/components/AustraliaMap";
 
 export default function HomePage() {
   return (
@@ -143,6 +144,45 @@ export default function HomePage() {
             >
               Check your eligibility
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Campus map — the brand's "Campuses Australia Wide" graphic */}
+      <section className="bg-brand text-white">
+        <div className="h-1.5 bg-accent" />
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">
+                {LOCATIONS.length} campuses · 7 states &amp; territories
+              </p>
+              <h2 className="font-display mt-3 text-3xl font-bold uppercase tracking-tight sm:text-4xl">
+                Campuses
+                <br />
+                Australia&nbsp;wide
+              </h2>
+              <p className="mt-4 max-w-md text-white/80">
+                Every red marker is a real classroom inside a working gym — from
+                Cairns to Hobart, Perth to the Gold Coast. Click a marker to see
+                that campus, or study online from anywhere in Australia.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link
+                  href="/locations"
+                  className="rounded-full bg-accent px-6 py-3 font-bold text-white hover:bg-accent-dark"
+                >
+                  Browse all campuses
+                </Link>
+                <a
+                  href="tel:1300887017"
+                  className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white hover:border-accent"
+                >
+                  Ask about online study
+                </a>
+              </div>
+            </div>
+            <AustraliaMap />
           </div>
         </div>
       </section>

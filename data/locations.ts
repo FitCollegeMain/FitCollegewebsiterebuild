@@ -10,6 +10,9 @@ export interface CampusLocation {
   state: StateCode;
   postcode: string;
   phone: string;
+  /** Approximate campus coordinates, used by the Australia map */
+  lat: number;
+  lng: number;
 }
 
 export type StateCode = "QLD" | "NSW" | "VIC" | "SA" | "WA" | "ACT" | "TAS";
@@ -45,6 +48,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "QLD",
     postcode: "4006",
     phone: PHONE,
+    lat: -27.457,
+    lng: 153.034,
   },
   {
     slug: "brisbane-carseldine",
@@ -55,6 +60,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "QLD",
     postcode: "4034",
     phone: PHONE,
+    lat: -27.347,
+    lng: 153.023,
   },
   {
     slug: "cairns-city-centre",
@@ -65,6 +72,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "QLD",
     postcode: "4870",
     phone: PHONE,
+    lat: -16.917,
+    lng: 145.741,
   },
   {
     slug: "gold-coast-nerang",
@@ -75,6 +84,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "QLD",
     postcode: "4211",
     phone: PHONE,
+    lat: -27.989,
+    lng: 153.336,
   },
   {
     slug: "ipswich",
@@ -85,6 +96,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "QLD",
     postcode: "4301",
     phone: PHONE,
+    lat: -27.647,
+    lng: 152.856,
   },
   {
     slug: "sunshine-coast-maroochydore",
@@ -95,6 +108,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "QLD",
     postcode: "4558",
     phone: PHONE,
+    lat: -26.65,
+    lng: 153.091,
   },
   {
     slug: "toowoomba",
@@ -105,6 +120,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "QLD",
     postcode: "4350",
     phone: PHONE,
+    lat: -27.561,
+    lng: 151.954,
   },
   {
     slug: "newcastle",
@@ -115,6 +132,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "NSW",
     postcode: "2300",
     phone: PHONE,
+    lat: -32.927,
+    lng: 151.776,
   },
   {
     slug: "sydney-caringbah",
@@ -125,6 +144,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "NSW",
     postcode: "2229",
     phone: PHONE,
+    lat: -34.042,
+    lng: 151.121,
   },
   {
     slug: "sydney-city-centre",
@@ -135,6 +156,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "NSW",
     postcode: "2000",
     phone: PHONE,
+    lat: -33.865,
+    lng: 151.209,
   },
   {
     slug: "sydney-penrith",
@@ -145,6 +168,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "NSW",
     postcode: "2747",
     phone: PHONE,
+    lat: -33.762,
+    lng: 150.722,
   },
   {
     slug: "sydney-parramatta",
@@ -155,6 +180,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "NSW",
     postcode: "2150",
     phone: PHONE,
+    lat: -33.815,
+    lng: 151.001,
   },
   {
     slug: "geelong-north",
@@ -165,6 +192,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "VIC",
     postcode: "3214",
     phone: PHONE,
+    lat: -38.099,
+    lng: 144.353,
   },
   {
     slug: "melbourne-south-melbourne",
@@ -175,6 +204,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "VIC",
     postcode: "3205",
     phone: PHONE,
+    lat: -37.831,
+    lng: 144.955,
   },
   {
     slug: "melbourne-wantirna",
@@ -185,6 +216,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "VIC",
     postcode: "3152",
     phone: PHONE,
+    lat: -37.851,
+    lng: 145.216,
   },
   {
     slug: "adelaide-glenelg",
@@ -195,6 +228,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "SA",
     postcode: "5045",
     phone: PHONE,
+    lat: -34.976,
+    lng: 138.531,
   },
   {
     slug: "perth-joondalup",
@@ -205,6 +240,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "WA",
     postcode: "6027",
     phone: PHONE,
+    lat: -31.745,
+    lng: 115.766,
   },
   {
     slug: "perth-bibra-lake",
@@ -215,6 +252,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "WA",
     postcode: "6163",
     phone: PHONE,
+    lat: -32.093,
+    lng: 115.823,
   },
   {
     slug: "canberra-deakin",
@@ -225,6 +264,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "ACT",
     postcode: "2600",
     phone: PHONE,
+    lat: -35.315,
+    lng: 149.103,
   },
   {
     slug: "hobart",
@@ -235,6 +276,8 @@ export const LOCATIONS: CampusLocation[] = [
     state: "TAS",
     postcode: "7000",
     phone: PHONE,
+    lat: -42.867,
+    lng: 147.325,
   },
 ];
 

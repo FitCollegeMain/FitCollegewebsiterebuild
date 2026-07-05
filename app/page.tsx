@@ -133,35 +133,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Funding hook — Career Start */}
-      <section className="bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
-                Queensland Career Start funding
-              </p>
-              <h2 className="font-display mt-2 text-2xl font-bold uppercase sm:text-3xl">
-                Eligible Queenslanders study the Cert III from a $1,750
-                co-contribution
-              </h2>
-              <p className="mt-3 max-w-2xl text-slate-600">
-                FIT College is an approved Skills Assure Supplier under the QLD
-                Government&apos;s Career Start programme. If you live in
-                Queensland, have finished school and don&apos;t hold a
-                Certificate III yet, your training could be subsidised.
-              </p>
-            </div>
-            <Link
-              href="/funding"
-              className="rounded-full bg-accent px-6 py-3 text-center font-bold text-white hover:bg-accent-dark"
-            >
-              Check your eligibility
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Recent 5-star reviews — continuous scroller, pauses on hover */}
       <section className="overflow-hidden bg-white py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">

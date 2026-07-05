@@ -58,6 +58,31 @@
   }
 }
 
+/* Campus finder state filter — CSS-only via :target.
+   When a state section is targeted (#qld, #nsw, …) the other state
+   sections are hidden and a "show all" reset link appears; linking to
+   #all-campuses (no matching element) clears the filter. */
+.finder:has(section:target) section[id]:not(:target) {
+  display: none;
+}
+.finder section:target .filter-reset {
+  display: inline-block;
+}
+/* Highlight the active pill (one rule per state; "All" is active when no
+   state section is targeted). */
+.campus-filter:has(#qld:target) .filter-pill[href="#qld"],
+.campus-filter:has(#nsw:target) .filter-pill[href="#nsw"],
+.campus-filter:has(#vic:target) .filter-pill[href="#vic"],
+.campus-filter:has(#sa:target) .filter-pill[href="#sa"],
+.campus-filter:has(#wa:target) .filter-pill[href="#wa"],
+.campus-filter:has(#act:target) .filter-pill[href="#act"],
+.campus-filter:has(#tas:target) .filter-pill[href="#tas"],
+.campus-filter:not(:has(section:target)) .filter-pill[href="#all-campuses"] {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: #fff;
+}
+
 /* Mobile nav toggle — swap hamburger/close icons inside the label
    (peer-checked can't reach the label's children). */
 #nav-toggle:checked ~ label .icon-open {

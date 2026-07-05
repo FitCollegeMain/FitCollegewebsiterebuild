@@ -34,39 +34,57 @@ export default function LocationsPage() {
         <div className="h-2 bg-accent" />
       </section>
 
-      <nav className="sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3 sm:px-6">
-          {groups.map((group) => (
+      {/* State filter — CSS-only via :target. Clicking a state hides the
+          other states' campuses; "All campuses" resets the view. */}
+      <div className="campus-filter">
+        <nav className="sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur">
+          <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-3 sm:px-6">
             <a
-              key={group.state}
-              href={`#${group.state.toLowerCase()}`}
-              className="whitespace-nowrap rounded-full border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-700 hover:border-accent hover:text-brand"
+              href="#all-campuses"
+              className="filter-pill whitespace-nowrap rounded-full border border-slate-200 px-4 py-1.5 text-sm font-semibold text-slate-700 hover:border-accent"
             >
-              {group.state}
+              All campuses
             </a>
+            {groups.map((group) => (
+              <a
+                key={group.state}
+                href={`#${group.state.toLowerCase()}`}
+                className="filter-pill whitespace-nowrap rounded-full border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-700 hover:border-accent"
+              >
+                {group.state}
+              </a>
+            ))}
+          </div>
+        </nav>
+
+        <div className="finder mx-auto max-w-6xl px-4 py-12 sm:px-6">
+          {groups.map((group) => (
+            <section key={group.state} id={group.state.toLowerCase()} className="scroll-mt-20 py-6">
+              <h2 className="font-display text-2xl font-bold uppercase text-brand">
+                {group.stateName}
+                <span className="ml-3 align-middle text-sm font-medium text-slate-400">
+                  {group.locations.length}{" "}
+                  {group.locations.length === 1 ? "campus" : "campuses"}
+                </span>
+              </h2>
+              <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {group.locations.map((location) => (
+                  <LocationCard key={location.slug} location={location} />
+                ))}
+              </div>
+              <a
+                href="#all-campuses"
+                className="filter-reset mt-8 hidden text-sm font-semibold text-accent hover:underline"
+              >
+                ← Show all campuses
+              </a>
+            </section>
           ))}
         </div>
-      </nav>
+      </div>
 
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        {groups.map((group) => (
-          <section key={group.state} id={group.state.toLowerCase()} className="scroll-mt-20 py-6">
-            <h2 className="font-display text-2xl font-bold uppercase text-brand">
-              {group.stateName}
-              <span className="ml-3 align-middle text-sm font-medium text-slate-400">
-                {group.locations.length}{" "}
-                {group.locations.length === 1 ? "campus" : "campuses"}
-              </span>
-            </h2>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {group.locations.map((location) => (
-                <LocationCard key={location.slug} location={location} />
-              ))}
-            </div>
-          </section>
-        ))}
-
-        <section className="mt-10 rounded-xl bg-slate-50 p-8">
+      <div className="mx-auto max-w-6xl px-4 pb-12 sm:px-6">
+        <section className="mt-2 rounded-xl bg-slate-50 p-8">
           <h2 className="text-xl font-bold text-brand">Can&apos;t make it to a campus?</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
             All of our fitness courses are also available online, so you can

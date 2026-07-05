@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LOCATIONS } from "@/data/locations";
 import { COURSES, PROOF_POINTS, FIT_ELITE } from "@/data/courses";
 import AustraliaMap from "@/components/AustraliaMap";
+import ReviewsMarquee from "@/components/ReviewsMarquee";
 
 export default function HomePage() {
   return (
@@ -148,6 +149,21 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Recent 5-star reviews — continuous scroller, pauses on hover */}
+      <section className="overflow-hidden bg-white py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+            500+ reviews on Trustpilot
+          </p>
+          <h2 className="font-display mt-2 text-3xl font-bold uppercase tracking-tight">
+            What our graduates say
+          </h2>
+        </div>
+        <div className="mt-8">
+          <ReviewsMarquee />
+        </div>
+      </section>
+
       {/* Campus map — the brand's "Campuses Australia Wide" graphic */}
       <section className="bg-brand text-white">
         <div className="h-1.5 bg-accent" />
@@ -164,8 +180,8 @@ export default function HomePage() {
               </h2>
               <p className="mt-4 max-w-md text-white/80">
                 Every red marker is a real classroom inside a working gym — from
-                Cairns to Hobart, Perth to the Gold Coast. Click a marker to see
-                that campus, or study online from anywhere in Australia.
+                Cairns to Hobart, Perth to the Gold Coast. Click your state to
+                see its campuses, or study online from anywhere in Australia.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link

@@ -1,11 +1,12 @@
-import { LOCATIONS } from "@/data/locations";
+import { LOCATIONS, STATE_NAMES, type StateCode } from "@/data/locations";
+import { STATE_PATHS } from "@/data/statePaths";
 
 /*
-  Self-contained SVG map of Australia with a marker per campus — the brand's
-  "Campuses Australia Wide" graphic (dark landmass, Energy Red markers).
-  Outline derived from Natural Earth country data (world.geo.json, AUS),
-  projected with the constants below; marker positions must use the same
-  projection.
+  Self-contained SVG map of Australia — the brand's "Campuses Australia Wide"
+  graphic (dark landmass, Energy Red markers). Each STATE is the click
+  target, linking to its section of the locations page; the campus pins are
+  decorative markers on top. Outlines from rowanhogan/australian-states
+  GeoJSON, simplified and projected with the constants below.
 */
 const LON_MIN = 112.5;
 const LON_MAX = 154.5;
@@ -17,32 +18,56 @@ const H = 786;
 const px = (lng: number) => ((lng - LON_MIN) / (LON_MAX - LON_MIN)) * W;
 const py = (lat: number) => ((LAT_MAX - lat) / (LAT_MAX - LAT_MIN)) * H;
 
-const AUSTRALIA_PATH =
-  "M658.0 702.7L677.3 710.5L688.2 707.4L703.8 703.1L715.8 704.6L717.2 731.3L710.3 739.0L708.3 757.1L701.3 750.9L687.4 766.6L683.3 765.4L671.0 764.7L658.6 745.4L655.9 730.6L644.4 711.1L644.9 700.8L658.0 702.7ZM621.2 95.7L628.4 113.4L641.3 104.9L647.9 114.4L657.5 123.2L655.4 133.1L659.7 152.4L662.7 163.6L667.8 166.3L673.2 185.5L671.3 197.2L677.7 212.4L699.4 224.1L713.6 234.8L727.0 244.6L724.3 250.0L735.8 264.1L743.6 288.4L751.5 283.5L759.7 293.2L764.5 289.8L768.0 313.6L782.2 327.3L791.5 335.9L807.1 354.1L812.7 372.1L813.2 384.9L811.9 398.8L821.4 417.9L820.2 437.8L816.8 448.2L811.4 468.2L811.8 481.1L807.8 497.2L799.0 517.6L784.2 528.7L776.9 546.1L770.2 557.2L764.3 576.6L756.6 587.7L751.5 604.6L748.9 620.0L749.9 627.1L738.5 634.9L716.1 635.7L697.6 645.0L688.4 653.6L676.4 663.3L659.8 653.4L647.5 649.4L650.6 637.7L639.7 641.9L622.2 658.2L604.9 652.1L593.6 648.6L582.1 647.0L562.8 640.5L549.8 626.6L546.1 609.6L541.5 598.2L531.7 589.1L512.4 586.4L519.0 575.5L514.2 558.8L504.4 574.4L486.6 578.5L497.0 566.1L500.1 553.1L507.8 542.1L506.2 525.5L489.9 544.6L477.4 552.3L469.8 570.2L454.2 560.9L454.8 549.0L442.3 532.7L431.7 524.3L435.5 519.1L409.8 505.5L395.8 504.9L376.5 494.0L340.7 496.1L314.8 504.1L292.1 511.6L273.0 510.1L251.8 521.7L234.4 526.8L230.6 538.6L223.2 547.7L206.2 548.3L193.7 550.3L176.0 546.2L161.6 548.6L147.9 549.7L136.0 561.6L130.1 560.6L120.1 567.0L110.5 574.1L95.9 573.2L82.5 573.2L61.3 558.9L50.5 554.6L51.0 541.7L60.9 538.7L64.3 533.6L63.6 525.5L66.0 509.9L63.8 496.6L53.2 473.9L49.9 461.1L50.8 448.3L42.8 433.7L42.3 427.1L33.5 418.1L31.0 400.5L19.5 382.7L16.8 373.2L25.6 382.9L18.8 362.0L28.7 368.5L34.7 377.2L34.3 365.7L24.4 348.1L22.5 341.0L17.9 334.3L20.0 321.3L24.1 315.8L26.9 304.5L24.7 291.4L33.0 275.2L34.5 292.3L43.0 276.9L59.2 269.4L68.9 259.8L84.2 251.6L93.3 249.8L98.8 252.6L114.6 244.2L126.7 241.7L129.8 236.8L135.0 234.7L146.1 235.3L167.1 228.7L178.0 218.7L183.1 206.7L194.8 195.3L195.7 186.4L196.3 174.2L210.3 155.1L218.7 174.5L227.2 170.0L220.1 159.4L226.3 148.5L235.2 153.3L237.6 136.2L248.5 125.2L253.3 116.3L263.4 112.5L263.7 106.2L272.5 108.9L272.9 103.2L281.7 100.0L291.3 97.0L306.1 107.3L317.2 120.6L329.7 120.7L342.4 122.8L338.2 110.5L347.8 92.5L356.8 86.6L353.7 81.0L362.4 68.2L374.5 60.3L384.7 62.9L401.5 58.7L401.1 47.2L386.5 39.8L397.1 36.6L410.4 42.1L421.0 51.3L437.9 57.1L443.6 54.8L456.0 61.7L467.7 55.3L475.2 57.3L479.8 52.9L489.0 64.0L483.7 76.1L476.1 85.1L469.2 85.9L471.6 94.9L465.7 106.1L458.6 117.1L460.0 123.5L475.9 135.9L491.3 143.1L501.6 150.8L516.1 164.1L521.7 164.1L532.2 169.8L535.2 176.8L554.3 184.4L567.5 176.7L571.4 164.7L575.5 154.7L578.0 142.4L584.0 124.5L581.3 113.7L582.7 107.1L580.4 94.3L583.0 77.4L586.9 72.8L583.7 65.3L588.6 53.4L592.4 41.1L592.9 34.6L600.3 26.2L605.9 37.2L607.3 51.3L612.3 54.0L613.2 63.5L620.4 74.9L621.9 87.6L621.2 95.7Z";
-
 export default function AustraliaMap() {
+  const campusCount = (code: string) =>
+    LOCATIONS.filter((l) => l.state === code).length;
+
   return (
     <svg
       viewBox={`0 0 ${W} ${H}`}
       role="img"
-      aria-label="Map of Australia showing all FIT College campus locations"
+      aria-label="Map of Australia — click a state to see its FIT College campuses"
       className="h-auto w-full"
     >
-      <path d={AUSTRALIA_PATH} fill="#242424" stroke="#3a3a3a" strokeWidth="1.5" />
-      {LOCATIONS.map((location) => (
-        <a key={location.slug} href={`/locations/${location.slug}`}>
-          <title>{`${location.name} — ${location.venue}`}</title>
-          <circle
-            cx={px(location.lng)}
-            cy={py(location.lat)}
-            r="8"
-            fill="#ce2829"
-            stroke="#181818"
-            strokeWidth="2.5"
-            className="transition-transform duration-150 hover:scale-110"
-            style={{ transformOrigin: `${px(location.lng)}px ${py(location.lat)}px` }}
+      {STATE_PATHS.map((state) => {
+        const count = campusCount(state.code);
+        const path = (
+          <path
+            d={state.d}
+            strokeWidth="1.5"
+            className={
+              count > 0
+                ? "cursor-pointer fill-[#242424] stroke-[#3a3a3a] transition-colors duration-150 hover:fill-[#3d2223] hover:stroke-accent"
+                : "fill-[#1e1e1e] stroke-[#2e2e2e]"
+            }
           />
-        </a>
+        );
+        if (count === 0) {
+          return <g key={state.code}>{path}</g>;
+        }
+        return (
+          <a
+            key={state.code}
+            href={`/locations#${state.code.toLowerCase()}`}
+            aria-label={`${STATE_NAMES[state.code as StateCode]} — ${count} ${count === 1 ? "campus" : "campuses"}`}
+          >
+            <title>{`${STATE_NAMES[state.code as StateCode]} — ${count} ${count === 1 ? "campus" : "campuses"}`}</title>
+            {path}
+          </a>
+        );
+      })}
+      {/* Campus markers — decorative; the states carry the interaction */}
+      {LOCATIONS.map((location) => (
+        <circle
+          key={location.slug}
+          cx={px(location.lng)}
+          cy={py(location.lat)}
+          r="7"
+          fill="#ce2829"
+          stroke="#181818"
+          strokeWidth="2.5"
+          pointerEvents="none"
+        />
       ))}
     </svg>
   );

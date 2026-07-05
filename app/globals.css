@@ -28,6 +28,33 @@
   letter-spacing: -0.01em;
 }
 
+/* Reviews marquee — continuous horizontal scroll, paused on hover.
+   The track holds the review list twice; sliding -50% loops seamlessly. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  width: max-content;
+  animation: marquee 70s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .marquee {
+    overflow-x: auto;
+  }
+}
+
 /* Angled graphic element — the brand's diagonal cut, as used on 2026
    print collateral. Apply to a coloured block. */
 .angle-tr {

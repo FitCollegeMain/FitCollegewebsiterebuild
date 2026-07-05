@@ -1,44 +1,80 @@
-# FIT College Website Rebuild
+# FIT College — Website Rebuild
 
-Rebuild of the FIT College website using [Next.js 15](https://nextjs.org) (App Router) and [Tailwind CSS 4](https://tailwindcss.com).
+A rebuild of the [FIT College](https://www.fitcollege.edu.au) website in
+[Next.js 15](https://nextjs.org) (App Router), [React 19](https://react.dev)
+and [Tailwind CSS 4](https://tailwindcss.com), written in TypeScript.
 
-## Getting started
+FIT College is a nationally recognised RTO (RTO 31903) delivering fitness
+qualifications on campus at 20 locations and online, Australia-wide.
+
+---
+
+## Run it from a fresh clone
+
+**Requirements:** Node.js 20+ (built and tested on Node 22) and npm 10+.
 
 ```bash
+git clone <this-repo-url>
+cd FitCollegewebsiterebuild
+git checkout claude/quirky-mendel-jc9321   # active development branch
 npm install
-npm run dev       # dev server at http://localhost:3000
-npm run build     # production build
-npm start         # serve the production build
+npm run dev
 ```
 
-Static export (plain HTML/CSS in `./out`, hostable anywhere):
+Open **http://localhost:3000**. That's the working demo — every page,
+the campus finder, the lead-capture modal and the advisor routing all run.
+
+### Other commands
 
 ```bash
-STATIC_EXPORT=1 npm run build
+npm run build            # production build (server target)
+npm start                # serve the production build at :3000
+npm run lint             # eslint / next lint
+
+STATIC_EXPORT=1 npm run build   # emit plain static HTML/CSS to ./out
 ```
 
-## Project structure
+`./out` is a fully static copy you can drop on any static host (S3, Netlify,
+Nginx, GitHub Pages). Use it for a zero-backend preview. **Note:** the
+lead-capture modal is a client React component — it works in `npm run dev`
+and `npm start`, and also in the static export, but the static export has no
+server to receive form posts (see [HANDOFF.md](./HANDOFF.md#lead-capture)).
+
+---
+
+## What's in the box
 
 | Path | What it is |
 | --- | --- |
 | `app/page.tsx` | Home page |
-| `app/courses/page.tsx` | Courses overview |
-| `app/locations/page.tsx` | Campus locations index (grouped by state) |
-| `app/locations/[slug]/page.tsx` | Individual campus detail pages (one per campus, statically generated) |
-| `app/contact/page.tsx` | Contact page (form is not wired to a backend yet) |
-| `app/layout.tsx` | Root layout — header, footer, metadata |
-| `components/` | Shared UI (`SiteHeader`, `SiteFooter`) |
-| `data/locations.ts` | **All campus data lives here** — edit this file to add/change campuses; pages update automatically |
-| `data/courses.ts` | Course catalogue data |
+| `app/courses/` | Courses index, per-course pages, Complete PT, International (CRICOS) |
+| `app/fit-elite/page.tsx` | FIT Elite™ dual-career program |
+| `app/study-online/page.tsx` | Online study page |
+| `app/locations/` | Campus finder + one page per campus (20, statically generated) |
+| `app/funding/page.tsx` | QLD Career Start funding page |
+| `app/faqs/page.tsx` | FAQs (with FAQPage structured data) |
+| `app/contact/page.tsx` | Contact page (form not yet wired to a backend) |
+| `components/` | Shared UI — header, footer, maps, marquees, lead modal |
+| `data/` | **All content lives here** — edit these, pages update automatically |
 
-## Editing content
+**Content is data-driven.** To add a campus, edit `data/locations.ts`; to
+edit a course, edit `data/courses.ts`. Pages regenerate from those files —
+you rarely touch JSX to change copy. See
+[HANDOFF.md](./HANDOFF.md) for the full data-file guide.
 
-- **Add or edit a campus:** edit `data/locations.ts`. Each entry's `slug` becomes its page URL (`/locations/<slug>`).
-- **Edit courses:** edit `data/courses.ts`.
-- **Brand colours:** defined as Tailwind theme tokens in `app/globals.css` (`--color-brand`, `--color-accent`, …).
+---
 
-## Known gaps / TODO
+## Documentation
 
-- Contact form has no backend — submissions go nowhere yet.
-- Campus "Why study here" copy is a shared template, not campus-specific.
-- No images/photography yet.
+- **[HANDOFF.md](./HANDOFF.md)** — developer hand-off: architecture, the
+  data model, brand tokens, the CSS-only interactivity patterns, deploy
+  options, and the prioritised list of what's left to wire up before launch.
+- **[SITEMAP.md](./SITEMAP.md)** — full sitemap of the **previous** live
+  site vs **this** rebuild, page-by-page, with the redirect map and content
+  gaps.
+
+## Brand
+
+Core Black `#181818`, Energy Red `#CE2829`, Academy Blue `#21428d`. Type is
+Poppins (body) + Archivo (a stand-in for the licensed Halyard Display).
+Tokens are defined in `app/globals.css` under `@theme`.

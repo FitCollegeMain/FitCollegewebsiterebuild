@@ -35,8 +35,8 @@ export async function generateMetadata({
   const location = getLocation(slug);
   if (!location) return {};
   return {
-    title: `${location.name} Campus`,
-    description: `Study nationally recognised fitness courses at FIT College ${location.name}, hosted at ${location.venue} in ${location.suburb}.`,
+    title: `Personal Training Courses ${location.suburb} — ${location.name} Campus`,
+    description: `Become a Personal Trainer in ${location.suburb}. FIT College's ${location.name} campus is hosted at ${location.venue} — Certificate III & IV in Fitness with three intakes a year.`,
   };
 }
 
@@ -68,15 +68,20 @@ export default async function CampusPage({
 
   return (
     <>
-      <section className="bg-brand text-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <section className="relative overflow-hidden bg-brand text-white">
+        <div
+          className="pointer-events-none absolute -right-20 top-0 h-full w-2/5 bg-accent"
+          style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 0 100%)" }}
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <nav className="text-sm text-white/60">
-            <Link href="/locations" className="hover:text-accent">
+            <Link href="/locations" className="underline-offset-4 hover:underline hover:decoration-accent">
               Locations
             </Link>{" "}
             / <span className="text-white/90">{location.name}</span>
           </nav>
-          <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
+          <h1 className="font-display mt-4 text-3xl font-bold uppercase tracking-tight sm:text-5xl">
             {location.name} Campus
           </h1>
           <p className="mt-3 max-w-2xl text-white/80">
@@ -90,7 +95,7 @@ export default async function CampusPage({
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[1fr_380px]">
           <div>
-            <h2 className="text-2xl font-bold text-brand">Courses at this campus</h2>
+            <h2 className="font-display text-2xl font-bold uppercase text-brand">Courses at this campus</h2>
             <div className="mt-6 space-y-6">
               {COURSES.map((course) => (
                 <div
@@ -111,19 +116,30 @@ export default async function CampusPage({
               ))}
             </div>
 
-            <h2 className="mt-12 text-2xl font-bold text-brand">Why study here</h2>
+            <h2 className="font-display mt-12 text-2xl font-bold uppercase text-brand">Why study here</h2>
             <p className="mt-4 max-w-2xl leading-relaxed text-slate-600">
               Our {location.name} campus operates inside {location.venue}, so you
               learn on the gym floor with real equipment and real members — not
               in a classroom pretending to be one. With intakes in February, May
               and September, you can graduate as a qualified Personal Trainer in
               as little as 14 weeks full-time or 29 weeks part-time.
+              Assessments are marked within five business days, and there are no
+              mandatory placement hours.
             </p>
+            {location.state === "QLD" && (
+              <p className="mt-4 max-w-2xl text-sm text-slate-600">
+                Studying in Queensland?{" "}
+                <Link href="/funding" className="font-semibold text-accent hover:underline">
+                  Career Start funding
+                </Link>{" "}
+                may subsidise your Certificate III at this campus.
+              </p>
+            )}
           </div>
 
           <aside>
             <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-bold text-brand">Campus details</h2>
+              <h2 className="font-display text-lg font-bold uppercase text-brand">Campus details</h2>
               <dl className="mt-4 space-y-3 text-sm">
                 <div>
                   <dt className="font-semibold text-slate-500">Venue</dt>
@@ -153,7 +169,7 @@ export default async function CampusPage({
                 href={mapsSearchUrl(location)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-block w-full rounded-full bg-accent px-5 py-2.5 text-center text-sm font-semibold text-brand hover:bg-accent-dark"
+                className="mt-5 inline-block w-full rounded-full bg-accent px-5 py-2.5 text-center text-sm font-bold text-white hover:bg-accent-dark"
               >
                 Get directions
               </a>
@@ -171,21 +187,21 @@ export default async function CampusPage({
         </div>
 
         <section className="mt-14 rounded-xl bg-brand p-8 text-white">
-          <h2 className="text-xl font-bold">Ready to get started?</h2>
+          <h2 className="font-display text-xl font-bold uppercase">Ready to get started?</h2>
           <p className="mt-2 max-w-2xl text-white/80">
-            Call our team to book a campus tour at {location.venue} or to find
-            out about the next intake at {location.name}.
+            Chat with a Career Advisor to book a campus tour at {location.venue}{" "}
+            or to find out about the next intake at {location.name}.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <a
               href="tel:1300887017"
-              className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-brand hover:bg-accent-dark"
+              className="rounded-full bg-accent px-6 py-2.5 text-sm font-bold text-white hover:bg-accent-dark"
             >
               Call 1300 887 017
             </a>
             <Link
               href="/locations"
-              className="rounded-full border border-white/40 px-6 py-2.5 text-sm font-semibold text-white hover:border-accent hover:text-accent"
+              className="rounded-full border border-white/40 px-6 py-2.5 text-sm font-semibold text-white hover:border-accent"
             >
               All locations
             </Link>

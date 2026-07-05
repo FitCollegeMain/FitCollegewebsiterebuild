@@ -11,13 +11,23 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="bg-brand text-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+      <section className="relative overflow-hidden bg-brand text-white">
+        <div
+          className="pointer-events-none absolute -right-20 top-0 h-full w-2/5 bg-accent"
+          style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 0 100%)" }}
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-5xl">
             Contact Us
           </h1>
           <p className="mt-3 max-w-2xl text-white/80">
-            Questions about a course, campus or enrolment? We&apos;re here to help.
+            The fastest answer is a five-minute chat with a Career Advisor —
+            call{" "}
+            <a href="tel:1300887017" className="font-bold text-white underline decoration-accent decoration-2 underline-offset-4">
+              1300 887 017
+            </a>{" "}
+            or request a callback below.
           </p>
         </div>
       </section>
@@ -72,7 +82,7 @@ export default function ContactPage() {
             </div>
             <button
               type="submit"
-              className="mt-6 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-brand hover:bg-accent-dark"
+              className="mt-6 rounded-full bg-accent px-6 py-2.5 text-sm font-bold text-white hover:bg-accent-dark"
             >
               Send enquiry
             </button>

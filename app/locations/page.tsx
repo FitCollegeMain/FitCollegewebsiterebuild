@@ -56,9 +56,14 @@ export default function LocationsPage() {
 
   return (
     <>
-      <section className="bg-brand text-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+      <section className="relative overflow-hidden bg-brand text-white">
+        <div
+          className="pointer-events-none absolute -right-20 top-0 h-full w-2/5 bg-accent"
+          style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 0 100%)" }}
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-5xl">
             Campus Locations
           </h1>
           <p className="mt-3 max-w-2xl text-white/80">
@@ -67,6 +72,7 @@ export default function LocationsPage() {
             anywhere.
           </p>
         </div>
+        <div className="h-2 bg-accent" />
       </section>
 
       <nav className="sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -86,7 +92,7 @@ export default function LocationsPage() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         {groups.map((group) => (
           <section key={group.state} id={group.state.toLowerCase()} className="scroll-mt-20 py-6">
-            <h2 className="text-2xl font-bold text-brand">
+            <h2 className="font-display text-2xl font-bold uppercase text-brand">
               {group.stateName}
               <span className="ml-3 align-middle text-sm font-medium text-slate-400">
                 {group.locations.length}{" "}

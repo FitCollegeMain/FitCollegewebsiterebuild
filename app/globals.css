@@ -1,8 +1,38 @@
 @import "tailwindcss";
 
+/*
+  FIT College brand tokens — Brand Guidelines 2026.
+  Core Black is the first primary in marketing material; Energy Red is the
+  second primary for contrast/standout elements; white is the usual text
+  colour on black; Academy Blue is a secondary accent only.
+  AA contrast (4.5:1) combos per the guide: white-on-black, white-on-red,
+  red-on-white, blue-on-white. Avoid red-on-black, red/blue-on-blue.
+*/
 @theme {
-  --color-brand: #0f2a43;
-  --color-brand-light: #1b4468;
-  --color-accent: #9fd435;
-  --color-accent-dark: #7fb01f;
+  --color-brand: #181818; /* Core Black */
+  --color-brand-light: #242424;
+  --color-accent: #ce2829; /* Energy Red */
+  --color-accent-dark: #a81f20;
+  --color-academy: #21428d; /* Academy Blue — accent use only */
+  --color-chalk: #ffffff;
+
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Display headings — Halyard Display per brand guide (licensed via Adobe
+   Fonts; Archivo stands in until the licence webfont is added). Large
+   headings are set in caps like the 2026 collateral. */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Angled graphic element — the brand's diagonal cut, as used on 2026
+   print collateral. Apply to a coloured block. */
+.angle-tr {
+  clip-path: polygon(0 0, 100% 18%, 100% 100%, 0 100%);
+}
+.angle-br {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 82%);
 }

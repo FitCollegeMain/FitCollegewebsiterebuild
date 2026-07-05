@@ -1,24 +1,30 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { COURSES } from "@/data/courses";
+import { COURSES, FIT_ELITE } from "@/data/courses";
 
 export const metadata: Metadata = {
-  title: "Fitness Courses",
+  title: "Fitness Courses — Certificate III & IV in Fitness",
   description:
-    "Nationally recognised Certificate III and Certificate IV in Fitness, delivered at campuses across Australia and online.",
+    "Nationally recognised SIS30321 Certificate III and SIS40221 Certificate IV in Fitness, on campus or online, with interest-free payment plans and three intakes a year.",
 };
 
 export default function CoursesPage() {
   return (
     <>
-      <section className="bg-brand text-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Fitness Courses
+      <section className="relative overflow-hidden bg-brand text-white">
+        <div
+          className="pointer-events-none absolute -right-20 top-0 h-full w-2/5 bg-accent"
+          style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 0 100%)" }}
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-5xl">
+            Fitness courses
           </h1>
           <p className="mt-3 max-w-2xl text-white/80">
-            Nationally recognised vocational qualifications that take you from
-            beginner to fully qualified Personal Trainer.
+            Nationally recognised qualifications that take you from beginner to
+            qualified Personal Trainer — with interest-free payment plans so
+            the fee never has to come first.
           </p>
         </div>
       </section>
@@ -28,13 +34,15 @@ export default function CoursesPage() {
           {COURSES.map((course) => (
             <div
               key={course.code}
-              className="flex flex-col rounded-xl border border-slate-200 bg-white p-8 shadow-sm"
+              className="flex flex-col border-l-4 border-accent bg-white p-8 shadow-sm ring-1 ring-slate-200"
             >
-              <p className="text-xs font-semibold uppercase tracking-wide text-accent-dark">
+              <p className="text-xs font-bold uppercase tracking-wide text-accent">
                 {course.code}
               </p>
-              <h2 className="mt-1 text-2xl font-bold text-brand">{course.name}</h2>
-              <p className="mt-1 text-sm font-medium text-slate-500">
+              <h2 className="font-display mt-1 text-2xl font-bold uppercase">
+                {course.name}
+              </h2>
+              <p className="mt-1 text-sm font-semibold text-slate-500">
                 Career outcome: {course.outcome}
               </p>
               <p className="mt-4 flex-1 leading-relaxed text-slate-600">
@@ -53,13 +61,13 @@ export default function CoursesPage() {
               <div className="mt-6 flex gap-3">
                 <a
                   href="tel:1300887017"
-                  className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-brand hover:bg-accent-dark"
+                  className="rounded-full bg-accent px-5 py-2.5 text-sm font-bold text-white hover:bg-accent-dark"
                 >
-                  Enquire now
+                  Chat with a Career Advisor
                 </a>
                 <Link
                   href="/locations"
-                  className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-brand hover:border-accent"
+                  className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold hover:border-accent hover:text-accent"
                 >
                   Find a campus
                 </Link>
@@ -68,20 +76,69 @@ export default function CoursesPage() {
           ))}
         </div>
 
-        <section className="mt-12 rounded-xl bg-slate-50 p-8">
-          <h2 className="text-xl font-bold text-brand">Study online</h2>
-          <p className="mt-2 max-w-2xl text-slate-600">
-            Both courses are also available fully online with the same
-            nationally recognised outcome, so you can study from anywhere in
-            Australia at your own pace.
-          </p>
-          <Link
-            href="/contact"
-            className="mt-5 inline-block rounded-full bg-brand px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-light"
-          >
-            Ask about online study
-          </Link>
-        </section>
+        {/* FIT Elite cross-sell */}
+        <div className="relative mt-10 overflow-hidden bg-brand p-8 text-white sm:p-10">
+          <div
+            className="pointer-events-none absolute right-0 top-0 h-full w-48 bg-accent"
+            style={{ clipPath: "polygon(60% 0, 100% 0, 100% 100%, 0 100%)" }}
+            aria-hidden
+          />
+          <div className="relative max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">
+              {FIT_ELITE.descriptor}
+            </p>
+            <h2 className="font-display mt-2 text-2xl font-bold uppercase">
+              Want both certificates plus a specialty stream?
+            </h2>
+            <p className="mt-3 text-white/80">
+              {FIT_ELITE.name} bundles the Cert III and Cert IV with a 30-CEC
+              short course pack and your choice of an NDIS disability or ASCA
+              strength &amp; conditioning stream.
+            </p>
+            <Link
+              href="/fit-elite"
+              className="mt-5 inline-block rounded-full bg-white px-6 py-2.5 text-sm font-bold text-brand hover:bg-white/90"
+            >
+              Explore FIT Elite™
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <section className="bg-slate-50 p-8">
+            <h2 className="font-display text-xl font-bold uppercase">Study online</h2>
+            <p className="mt-2 text-slate-600">
+              Both courses are available fully online with the same nationally
+              recognised outcome. Online study is self-paced and includes video
+              assessments and recruiting your own practice clients — a Career
+              Advisor will walk you through exactly what&apos;s involved before
+              you commit.
+            </p>
+            <Link
+              href="/contact"
+              className="mt-5 inline-block rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white hover:bg-brand-light"
+            >
+              Ask about online study
+            </Link>
+          </section>
+          <section className="bg-slate-50 p-8">
+            <h2 className="font-display text-xl font-bold uppercase">
+              Already working in a gym?
+            </h2>
+            <p className="mt-2 text-slate-600">
+              If you&apos;re gym staff, an athlete or an exercise-science
+              student, ask about credit transfer and recognition of prior
+              learning (RPL) — get credit for what you already do and finish
+              faster.
+            </p>
+            <a
+              href="tel:1300887017"
+              className="mt-5 inline-block rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white hover:bg-brand-light"
+            >
+              Ask about RPL
+            </a>
+          </section>
+        </div>
       </div>
     </>
   );

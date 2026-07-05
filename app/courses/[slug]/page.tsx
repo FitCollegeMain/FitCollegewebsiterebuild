@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LeadCta from "@/components/LeadCta";
 import { notFound } from "next/navigation";
 import { COURSES, DELIVERY_MODES, getCourse } from "@/data/courses";
 
@@ -62,12 +63,12 @@ export default async function CoursePage({
           </h1>
           <p className="mt-5 max-w-xl text-lg text-white/80">{course.description}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="tel:1300887017"
+            <LeadCta
+              source="course-page"
               className="rounded-full bg-accent px-6 py-3 font-bold text-white hover:bg-accent-dark"
             >
               Chat with a Career Advisor
-            </a>
+            </LeadCta>
             <Link
               href="/courses/complete-pt"
               className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white hover:border-accent"

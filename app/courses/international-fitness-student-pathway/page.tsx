@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LeadCta from "@/components/LeadCta";
 import { INTERNATIONAL } from "@/data/courses";
 
 export const metadata: Metadata = {
@@ -30,12 +31,12 @@ export default function InternationalPage() {
             III, Cert IV and Diploma of Sport.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="tel:1300887017"
+            <LeadCta
+              source="international"
               className="rounded-full bg-accent px-6 py-3 font-bold text-white hover:bg-accent-dark"
             >
               Chat with a Career Advisor
-            </a>
+            </LeadCta>
             <Link
               href="/contact"
               className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white hover:border-accent"

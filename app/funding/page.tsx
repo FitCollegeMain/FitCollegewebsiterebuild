@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import LeadCta from "@/components/LeadCta";
 
 export const metadata: Metadata = {
   title: "Government Funded Fitness Courses QLD — Career Start",
@@ -111,12 +111,12 @@ export default function FundingPage() {
               >
                 Call 1300 887 017
               </a>
-              <Link
-                href="/contact"
-                className="mt-3 block rounded-full border border-white/40 px-5 py-3 text-center text-sm font-semibold text-white hover:border-accent"
+              <LeadCta
+                source="funding"
+                className="mt-3 block w-full rounded-full border border-white/40 px-5 py-3 text-center text-sm font-semibold text-white hover:border-accent"
               >
                 Request a callback
-              </Link>
+              </LeadCta>
             </div>
             <div className="mt-6 bg-slate-50 p-6 text-sm text-slate-600">
               <p className="font-semibold text-brand">The fine print</p>

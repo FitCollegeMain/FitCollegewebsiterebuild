@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LeadCta from "@/components/LeadCta";
 import { COURSES, FIT_ELITE } from "@/data/courses";
 
 export const metadata: Metadata = {
@@ -65,12 +66,12 @@ export default function CoursesPage() {
                 >
                   Course details →
                 </Link>
-                <a
-                  href="tel:1300887017"
+                <LeadCta
+                  source="courses-index"
                   className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold hover:border-accent hover:text-accent"
                 >
                   Ask an advisor
-                </a>
+                </LeadCta>
               </div>
             </div>
           ))}

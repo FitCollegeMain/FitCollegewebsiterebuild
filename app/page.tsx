@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LOCATIONS } from "@/data/locations";
 import { COURSES, FIT_ELITE } from "@/data/courses";
 import UspMarquee from "@/components/UspMarquee";
+import LeadCta from "@/components/LeadCta";
 import AustraliaMap from "@/components/AustraliaMap";
 import ReviewsMarquee from "@/components/ReviewsMarquee";
 import { NEXT_INTAKE } from "@/data/intakes";
@@ -33,12 +34,12 @@ export default function HomePage() {
             eligible Queenslanders.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="tel:1300887017"
+            <LeadCta
+              source="home-hero"
               className="rounded-full bg-accent px-6 py-3 font-bold text-white hover:bg-accent-dark"
             >
               Chat with a Career Advisor
-            </a>
+            </LeadCta>
             <Link
               href="/locations"
               className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white hover:border-accent"
@@ -50,12 +51,12 @@ export default function HomePage() {
       </section>
 
       {/* Intake urgency — fixed Feb/May/Sep intakes are the honest deadline */}
-      <a
-        href="tel:1300887017"
-        className="block bg-accent text-white transition hover:bg-accent-dark"
+      <LeadCta
+        source="intake-banner"
+        className="block w-full bg-accent text-left text-white transition hover:bg-accent-dark"
       >
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-3 text-sm font-semibold sm:px-6">
-          <p>
+        <span className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-3 text-sm font-semibold sm:px-6">
+          <span>
             <span className="font-display font-bold uppercase">
               {NEXT_INTAKE.isFinalOfYear
                 ? "Final intake of 2026"
@@ -63,12 +64,12 @@ export default function HomePage() {
             </span>
             {" · "}
             {NEXT_INTAKE.startsLabel} — then doors close until February.
-          </p>
-          <p className="font-bold underline underline-offset-4">
+          </span>
+          <span className="font-bold underline underline-offset-4">
             Secure your place →
-          </p>
-        </div>
-      </a>
+          </span>
+        </span>
+      </LeadCta>
 
       {/* Provable claims — a side-scrolling banner of verifiable specifics */}
       <section className="overflow-hidden border-b border-slate-200 bg-white py-10">

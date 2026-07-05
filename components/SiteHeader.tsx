@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LeadCta from "@/components/LeadCta";
 
 const COURSE_LINKS = [
   { href: "/courses", label: "All courses" },
@@ -77,12 +78,12 @@ export default function SiteHeader() {
               {link.label}
             </Link>
           ))}
-          <a
-            href="tel:1300887017"
+          <LeadCta
+            source="header"
             className="rounded-full bg-accent px-4 py-2 font-bold text-white hover:bg-accent-dark"
           >
             Chat with a Career Advisor
-          </a>
+          </LeadCta>
         </nav>
 
         {/* Mobile: tap-to-call + menu toggle */}
@@ -141,12 +142,12 @@ export default function SiteHeader() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="tel:1300887017"
-              className="mt-5 rounded-full bg-accent px-5 py-3 text-center font-bold text-white hover:bg-accent-dark"
+            <LeadCta
+              source="mobile-menu"
+              className="mt-5 w-full rounded-full bg-accent px-5 py-3 text-center font-bold text-white hover:bg-accent-dark"
             >
               Chat with a Career Advisor
-            </a>
+            </LeadCta>
           </nav>
         </div>
       </div>

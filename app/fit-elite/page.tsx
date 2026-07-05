@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LeadCta from "@/components/LeadCta";
 import { FIT_ELITE, INTAKES } from "@/data/courses";
 
 export const metadata: Metadata = {
@@ -32,12 +33,12 @@ export default function FitElitePage() {
             qualify for paid disability support work from week one while your
             PT business grows.
           </p>
-          <a
-            href="tel:1300887017"
+          <LeadCta
+            source="fit-elite"
             className="mt-8 inline-block rounded-full bg-accent px-6 py-3 font-bold text-white hover:bg-accent-dark"
           >
             Chat with a Career Advisor
-          </a>
+          </LeadCta>
         </div>
       </section>
 

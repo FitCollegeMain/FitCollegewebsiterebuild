@@ -58,6 +58,15 @@
   }
 }
 
+/* Mobile nav toggle — swap hamburger/close icons inside the label
+   (peer-checked can't reach the label's children). */
+#nav-toggle:checked ~ label .icon-open {
+  display: none;
+}
+#nav-toggle:checked ~ label .icon-close {
+  display: block;
+}
+
 /* Angled graphic element — the brand's diagonal cut, as used on 2026
    print collateral. Apply to a coloured block. */
 .angle-tr {

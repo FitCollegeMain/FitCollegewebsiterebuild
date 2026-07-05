@@ -71,7 +71,7 @@ export default async function CampusPage({
     <>
       <section className="relative overflow-hidden bg-brand text-white">
         <div
-          className="pointer-events-none absolute -right-20 top-0 h-full w-2/5 bg-accent"
+          className="pointer-events-none absolute -right-20 top-0 hidden h-full w-2/5 bg-accent sm:block"
           style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 0 100%)" }}
           aria-hidden
         />

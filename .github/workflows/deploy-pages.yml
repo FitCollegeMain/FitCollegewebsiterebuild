@@ -1,0 +1,60 @@
+name: Deploy demo to GitHub Pages
+
+# Builds the static export and publishes it to GitHub Pages.
+# One-time setup in the repo: Settings → Pages → Source → "GitHub Actions".
+# If deploying from a non-default branch, also allow it under
+# Settings → Environments → github-pages → Deployment branches.
+
+on:
+  push:
+    branches:
+      - claude/quirky-mendel-jc9321
+  workflow_dispatch: {}
+
+# Allow the workflow to publish to Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; don't cancel an in-progress deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static export
+        env:
+          STATIC_EXPORT: "1"
+          # Serve from the repo subpath, e.g. /FitCollegewebsiterebuild
+          PAGES_BASE_PATH: "/${{ github.event.repository.name }}"
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -163,6 +163,23 @@ The static export is what the demo/preview uses. Nothing in the current
 feature set *requires* a Node server — the HubSpot Forms API is a client-side
 POST — so static hosting is viable for launch if you prefer.
 
+### GitHub Pages (the demo host)
+
+`.github/workflows/deploy-pages.yml` builds the static export and publishes it
+to GitHub Pages on every push to the dev branch (and via manual
+"Run workflow"). It sets `PAGES_BASE_PATH=/<repo-name>` so assets resolve at
+the repo subpath; local `npm run dev` is unaffected (base path is empty when
+the env var is unset).
+
+**One-time repo settings (done in the GitHub UI, once):**
+1. **Settings → Pages → Source → "GitHub Actions".**
+2. If deploying from a non-default branch (we currently deploy from
+   `claude/quirky-mendel-jc9321`): **Settings → Environments → `github-pages`
+   → Deployment branches** → add that branch (or set "All branches").
+
+The published URL is `https://<owner>.github.io/<repo-name>/` and appears in
+the workflow run's `deploy` job summary.
+
 ---
 
 ## 7. Pre-launch checklist (prioritised)

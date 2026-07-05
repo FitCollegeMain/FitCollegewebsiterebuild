@@ -3,6 +3,7 @@ import { LOCATIONS } from "@/data/locations";
 import { COURSES, PROOF_POINTS, FIT_ELITE } from "@/data/courses";
 import AustraliaMap from "@/components/AustraliaMap";
 import ReviewsMarquee from "@/components/ReviewsMarquee";
+import { NEXT_INTAKE } from "@/data/intakes";
 
 export default function HomePage() {
   return (
@@ -45,8 +46,28 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="h-2 bg-accent" />
       </section>
+
+      {/* Intake urgency — fixed Feb/May/Sep intakes are the honest deadline */}
+      <a
+        href="tel:1300887017"
+        className="block bg-accent text-white transition hover:bg-accent-dark"
+      >
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-3 text-sm font-semibold sm:px-6">
+          <p>
+            <span className="font-display font-bold uppercase">
+              {NEXT_INTAKE.isFinalOfYear
+                ? "Final intake of 2026"
+                : `${NEXT_INTAKE.name} intake`}
+            </span>
+            {" · "}
+            {NEXT_INTAKE.startsLabel} — then doors close until February.
+          </p>
+          <p className="font-bold underline underline-offset-4">
+            Secure your place →
+          </p>
+        </div>
+      </a>
 
       {/* Provable claims — verifiable specifics, not superlatives */}
       <section className="border-b border-slate-200 bg-white">

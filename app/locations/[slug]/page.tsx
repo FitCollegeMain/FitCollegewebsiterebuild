@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LOCATIONS, STATE_NAMES, type CampusLocation } from "@/data/locations";
+import { INTAKE_MONTHS, NEXT_INTAKE, TIMETABLE } from "@/data/intakes";
 
 export const dynamicParams = false;
 
@@ -185,6 +186,56 @@ export default async function CampusPage({
             </div>
           </aside>
         </div>
+
+        {/* Next intake timetable */}
+        <section className="mt-14">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+                {NEXT_INTAKE.isFinalOfYear ? "Final intake of the year" : "Next intake"}
+              </p>
+              <h2 className="font-display mt-1 text-2xl font-bold uppercase text-brand">
+                {NEXT_INTAKE.name} intake timetable
+              </h2>
+            </div>
+            <p className="text-sm text-slate-500">
+              Face-to-face intakes run {INTAKE_MONTHS} — when doors close, the
+              next intake is months away.
+            </p>
+          </div>
+          <div className="mt-6 overflow-x-auto">
+            <table className="w-full min-w-[640px] text-sm">
+              <thead>
+                <tr className="bg-brand text-left text-white">
+                  <th className="px-4 py-3 font-semibold">Course</th>
+                  <th className="px-4 py-3 font-semibold">Mode</th>
+                  <th className="px-4 py-3 font-semibold">Schedule</th>
+                  <th className="px-4 py-3 font-semibold">Starts</th>
+                </tr>
+              </thead>
+              <tbody>
+                {TIMETABLE.map((row) => (
+                  <tr
+                    key={`${row.code}-${row.mode}`}
+                    className="border-b border-slate-100 even:bg-slate-50"
+                  >
+                    <td className="px-4 py-3 font-semibold text-brand">
+                      {row.course}{" "}
+                      <span className="font-normal text-slate-400">({row.code})</span>
+                    </td>
+                    <td className="px-4 py-3 text-slate-700">{row.mode}</td>
+                    <td className="px-4 py-3 text-slate-700">{row.schedule}</td>
+                    <td className="px-4 py-3 font-bold text-accent-dark">{row.starts}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-xs text-slate-400">
+            September 2026 timetable shown — confirm session times for{" "}
+            {location.name} with a Career Advisor when you enrol.
+          </p>
+        </section>
 
         <section className="mt-14 rounded-xl bg-brand p-8 text-white">
           <h2 className="font-display text-xl font-bold uppercase">Ready to get started?</h2>

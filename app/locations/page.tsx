@@ -1,54 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { HEAD_OFFICE, locationsByState, type CampusLocation } from "@/data/locations";
+import { HEAD_OFFICE, locationsByState } from "@/data/locations";
+import LocationCard from "@/components/LocationCard";
 
 export const metadata: Metadata = {
   title: "Campus Locations",
   description:
     "Find your nearest FIT College campus. Campuses across Queensland, New South Wales, Victoria, South Australia, Western Australia, ACT and Tasmania.",
 };
-
-function mapsUrl(location: CampusLocation) {
-  const query = `${location.venue}, ${location.address}, ${location.suburb} ${location.state} ${location.postcode}`;
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-}
-
-function LocationCard({ location }: { location: CampusLocation }) {
-  return (
-    <div className="flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
-      <h3 className="text-lg font-bold text-brand">
-        <Link href={`/locations/${location.slug}`} className="hover:underline">
-          {location.name}
-        </Link>
-      </h3>
-      <p className="mt-1 text-sm font-medium text-accent-dark">{location.venue}</p>
-      <address className="mt-3 text-sm not-italic leading-relaxed text-slate-600">
-        {location.address}
-        <br />
-        {location.suburb} {location.state} {location.postcode}
-      </address>
-      <div className="mt-4 flex flex-1 items-end gap-4 text-sm font-semibold">
-        <a href={`tel:${location.phone.replace(/\s/g, "")}`} className="text-brand hover:underline">
-          {location.phone}
-        </a>
-        <a
-          href={mapsUrl(location)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-accent-dark hover:underline"
-        >
-          Get directions
-        </a>
-        <Link
-          href={`/locations/${location.slug}`}
-          className="ml-auto text-brand hover:underline"
-        >
-          View campus →
-        </Link>
-      </div>
-    </div>
-  );
-}
 
 export default function LocationsPage() {
   const groups = locationsByState().filter((group) => group.locations.length > 0);

@@ -13,16 +13,69 @@ const COURSE_LINKS = [
   },
 ];
 
+const CONTACT_LINKS = [
+  { href: "/about", label: "About FIT College" },
+  { href: "/faqs", label: "FAQs" },
+  { href: "/contact", label: "Contact us" },
+];
+
 const NAV_LINKS = [
   { href: "/study-online", label: "Study Online" },
   { href: "/locations", label: "Locations" },
   { href: "/funding", label: "Funding" },
-  { href: "/contact", label: "Contact" },
 ];
 
+type NavLink = { href: string; label: string };
+
+/* Desktop dropdown — opens on hover or keyboard focus, CSS-only. */
+function NavDropdown({
+  trigger,
+  triggerHref,
+  links,
+  width = "w-72",
+}: {
+  trigger: string;
+  triggerHref: string;
+  links: NavLink[];
+  width?: string;
+}) {
+  return (
+    <div className="group relative">
+      <Link
+        href={triggerHref}
+        className="flex items-center gap-1 py-2 underline-offset-4 hover:underline hover:decoration-accent hover:decoration-2"
+      >
+        {trigger}
+        <svg
+          viewBox="0 0 24 24"
+          className="h-3.5 w-3.5 fill-none stroke-current stroke-2 transition-transform group-hover:rotate-180"
+          aria-hidden
+        >
+          <path strokeLinecap="round" d="M6 9l6 6 6-6" />
+        </svg>
+      </Link>
+      <div
+        className={`invisible absolute left-0 top-full z-30 ${width} pt-2 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100`}
+      >
+        <div className="border-t-4 border-accent bg-brand py-2 shadow-xl">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="block px-5 py-2.5 text-sm font-semibold text-white/90 hover:bg-brand-light hover:text-white"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /*
-  Desktop "Courses" dropdown and the mobile menu are both CSS-only
-  (hover/focus-within for the dropdown, hidden checkbox for the mobile
+  Desktop "Courses" and "Contact" dropdowns and the mobile menu are all
+  CSS-only (hover/focus-within for dropdowns, hidden checkbox for the mobile
   panel) so they need no JavaScript and work in static exports too.
 */
 export default function SiteHeader() {
@@ -40,35 +93,7 @@ export default function SiteHeader() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-5 text-sm font-semibold lg:flex">
-          <div className="group relative">
-            <Link
-              href="/courses"
-              className="flex items-center gap-1 py-2 underline-offset-4 hover:underline hover:decoration-accent hover:decoration-2"
-            >
-              Courses
-              <svg
-                viewBox="0 0 24 24"
-                className="h-3.5 w-3.5 fill-none stroke-current stroke-2 transition-transform group-hover:rotate-180"
-                aria-hidden
-              >
-                <path strokeLinecap="round" d="M6 9l6 6 6-6" />
-              </svg>
-            </Link>
-            {/* Dropdown — opens on hover or keyboard focus */}
-            <div className="invisible absolute left-0 top-full z-30 w-72 pt-2 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-              <div className="border-t-4 border-accent bg-brand py-2 shadow-xl">
-                {COURSE_LINKS.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="block px-5 py-2.5 text-sm font-semibold text-white/90 hover:bg-brand-light hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
+          <NavDropdown trigger="Courses" triggerHref="/courses" links={COURSE_LINKS} />
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -78,6 +103,12 @@ export default function SiteHeader() {
               {link.label}
             </Link>
           ))}
+          <NavDropdown
+            trigger="Contact"
+            triggerHref="/contact"
+            links={CONTACT_LINKS}
+            width="w-60"
+          />
           <LeadCta
             source="header"
             className="rounded-full bg-accent px-4 py-2 font-bold text-white hover:bg-accent-dark"
@@ -138,6 +169,18 @@ export default function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 className="border-b border-white/10 py-3.5 text-base font-semibold"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <p className="pt-4 text-xs font-bold uppercase tracking-[0.2em] text-white/50">
+              Company
+            </p>
+            {CONTACT_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="border-b border-white/10 py-3 pl-3 text-base font-semibold"
               >
                 {link.label}
               </Link>

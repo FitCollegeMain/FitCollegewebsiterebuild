@@ -56,6 +56,7 @@ app/
     [slug]/page.tsx   One page per campus (20)
   funding/page.tsx    QLD Career Start
   faqs/page.tsx       FAQs + FAQPage JSON-LD
+  about/page.tsx      About FIT College (in the header Contact dropdown)
   contact/page.tsx    Contact (form has NO backend yet)
 
 components/

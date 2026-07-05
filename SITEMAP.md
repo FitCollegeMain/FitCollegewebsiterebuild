@@ -7,7 +7,7 @@ you'll need to preserve SEO. Legend: ✅ rebuilt · 🔀 merged into another pag
 
 ---
 
-## 1. This rebuild — full sitemap (32 pages)
+## 1. This rebuild — full sitemap (33 pages)
 
 ```
 /                                                     Home
@@ -41,8 +41,12 @@ you'll need to preserve SEO. Legend: ✅ rebuilt · 🔀 merged into another pag
   /locations/hobart                                   ┘
 /funding                                              QLD Career Start funding
 /faqs                                                 FAQs (+ FAQPage JSON-LD)
+/about                                                About FIT College
 /contact                                              Contact (form backend TODO)
 ```
+
+> Nav note: `/about`, `/faqs` and `/contact` are grouped under a **Contact**
+> dropdown in the header (mirroring the Courses dropdown).
 
 ---
 
@@ -113,6 +117,7 @@ Set these as 301s at the host/CDN before cutover.
 | `/study-online/online-fitness-courses` | `/study-online` | ✅ |
 | `/StudyOnline/*` (requirements, tour, assessment, locations, courses-offered) | `/study-online` | 🔀 consolidated |
 | `/Study/Funding-513/` | `/funding` | ✅ |
+| `/Study/AboutUs-446/` | `/about` | ✅ |
 | `/Study/EnrolNow-385/`, `/Contact/RequestanInfoPack-514/` (+backup) | `/contact` (opens lead-capture modal) | 🔀 |
 | `/Locations/LocationFinder-453/` | `/locations` | ✅ |
 | `/locations/nerang` | `/locations/gold-coast-nerang` | ✅ slug changed |
@@ -131,7 +136,6 @@ Set these as 301s at the host/CDN before cutover.
 Decisions for the business, grouped by recommendation:
 
 **🕒 Consider rebuilding (real content, currently missing):**
-- **About Us** (`/Study/AboutUs-446/`) — no About page in the rebuild yet.
 - **RTO / compliance pages:** Student Handbook, Audit Information, USI, RPL
   info, Privacy Policy, Terms of Use. Legally/compliance-expected for an RTO — these
   should return as simple content pages (or link to PDFs).

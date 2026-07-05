@@ -136,24 +136,27 @@ Set these as 301s at the host/CDN before cutover.
 Decisions for the business, grouped by recommendation:
 
 **🕒 Consider rebuilding (real content, currently missing):**
-- **RTO / compliance pages:** Student Handbook, Audit Information, USI, RPL
-  info, Privacy Policy, Terms of Use. Legally/compliance-expected for an RTO — these
-  should return as simple content pages (or link to PDFs).
-- **First Aid** (`HLTAID011`, `HLTAID009`) and **TAE / Trainer & Assessor**
-  (`tae40122`, upgrade path) courses — real offerings not in the rebuilt
-  catalogue. Add to `data/courses.ts` if still sold.
+- **RTO / compliance pages:** Student Handbook, Privacy Policy, Terms of Use.
+  Legally/compliance-expected for an RTO — these should return as simple
+  content pages (or link to PDFs).
+- **TAE / Trainer & Assessor** (`tae40122`, upgrade path) courses — real
+  offerings not in the rebuilt catalogue. Add to `data/courses.ts` if still sold.
 - **Diploma of Sport Coaching** — referenced inside the International pathway
   but has no standalone page.
-- **Insurance** (`/BecomeaPersonalTrainer/FITCollegeInsurance-603/`).
 
 **❓ Confirm still offered, then add or retire:**
-- Cert IV in Weight Management, Cert III in Travel — unusual; verify.
+- Cert III in Travel — unusual; verify.
 - Prahran and Fiji campuses (in old material, not in `locations.ts`).
 
 **🗑️ Intentionally retired (no action beyond redirect to `/`):**
 - All seasonal promos and affiliate/partner landing pages, `/Expo`, `/LinAs`,
   `/landing`, `/promo`, internal `/Study/Salesforce-627/` and staff forms.
+- Audit Information, USI and RPL info pages (`/Study/AuditInformation-574/`,
+  `/Study/…/USI-475/`, `/Study/…/RPL-478/`).
+- First Aid (`/courses/first-aid-provider`, `HLTAID011`, `HLTAID009`),
+  Cert IV in Weight Management, and Insurance
+  (`/BecomeaPersonalTrainer/FITCollegeInsurance-603/`).
 
 > Counts: previous site ≈ 95 URLs (heavily inflated by one-off promo pages);
-> rebuild = 32 evergreen pages. The reduction is deliberate — the rebuild is
+> rebuild = 33 evergreen pages. The reduction is deliberate — the rebuild is
 > the durable core; campaign pages are handled separately by marketing.

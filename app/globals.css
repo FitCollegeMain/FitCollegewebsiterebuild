@@ -42,6 +42,9 @@
   width: max-content;
   animation: marquee 70s linear infinite;
 }
+.usp-track {
+  animation-duration: 50s;
+}
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track {
   animation-play-state: paused;

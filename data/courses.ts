@@ -176,7 +176,8 @@ export const COMPLETE_PT = {
 };
 
 /* Verifiable specifics — provable claims used in place of superlatives
-   (per the 2026 growth strategy: "real classrooms, provable claims"). */
+   (per the 2026 growth strategy: "real classrooms, provable claims").
+   Shown as a continuous side-scrolling USP banner on the home page. */
 export const PROOF_POINTS = [
   {
     stat: "5 days",
@@ -193,6 +194,30 @@ export const PROOF_POINTS = [
   {
     stat: "20 campuses",
     label: "Real classrooms inside working gyms, in every mainland state plus Tasmania",
+  },
+  {
+    stat: "24/7",
+    label: "Round-the-clock help requests through the learning platform",
+  },
+  {
+    stat: "12 hours",
+    label: "Of live virtual coaching support available every week",
+  },
+  {
+    stat: "$0 interest",
+    label: "Interest-free payment plans on every course",
+  },
+  {
+    stat: "Since 2009",
+    label: "Graduating work-ready trainers across Australia and internationally",
+  },
+  {
+    stat: "100% TAE",
+    label: "Every educator is a TAE-qualified PT with real industry experience",
+  },
+  {
+    stat: "1 per campus",
+    label: "A Careers Liaison at every campus connecting you to local jobs",
   },
 ];
 

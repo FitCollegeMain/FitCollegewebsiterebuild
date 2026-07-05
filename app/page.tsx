@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LOCATIONS } from "@/data/locations";
-import { COURSES, PROOF_POINTS, FIT_ELITE } from "@/data/courses";
+import { COURSES, FIT_ELITE } from "@/data/courses";
+import UspMarquee from "@/components/UspMarquee";
 import AustraliaMap from "@/components/AustraliaMap";
 import ReviewsMarquee from "@/components/ReviewsMarquee";
 import { NEXT_INTAKE } from "@/data/intakes";
@@ -69,18 +70,9 @@ export default function HomePage() {
         </div>
       </a>
 
-      {/* Provable claims — verifiable specifics, not superlatives */}
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
-          {PROOF_POINTS.map((point) => (
-            <div key={point.stat}>
-              <p className="font-display text-3xl font-bold uppercase text-accent">
-                {point.stat}
-              </p>
-              <p className="mt-1 text-sm leading-relaxed text-slate-600">{point.label}</p>
-            </div>
-          ))}
-        </div>
+      {/* Provable claims — a side-scrolling banner of verifiable specifics */}
+      <section className="overflow-hidden border-b border-slate-200 bg-white py-10">
+        <UspMarquee />
       </section>
 
       {/* Courses */}

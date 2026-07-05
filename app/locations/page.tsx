@@ -111,8 +111,11 @@ export default function LocationsPage() {
           <h2 className="text-xl font-bold text-brand">Can&apos;t make it to a campus?</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
             All of our fitness courses are also available online, so you can
-            study from anywhere in Australia. Contact our team to find out which
-            study option suits you best.
+            study from anywhere in Australia —{" "}
+            <Link href="/study-online" className="font-semibold text-accent hover:underline">
+              see how online study works
+            </Link>
+            . Contact our team to find out which study option suits you best.
           </p>
           <p className="mt-4 text-sm text-slate-600">
             <span className="font-semibold text-brand">{HEAD_OFFICE.name}:</span>{" "}

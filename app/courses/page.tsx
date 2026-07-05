@@ -109,16 +109,14 @@ export default function CoursesPage() {
             <h2 className="font-display text-xl font-bold uppercase">Study online</h2>
             <p className="mt-2 text-slate-600">
               Both courses are available fully online with the same nationally
-              recognised outcome. Online study is self-paced and includes video
-              assessments and recruiting your own practice clients — a Career
-              Advisor will walk you through exactly what&apos;s involved before
-              you commit.
+              recognised outcome — study from anywhere with 7-day support, no
+              mandatory gym hours, and the option to drop into any campus.
             </p>
             <Link
-              href="/contact"
+              href="/study-online"
               className="mt-5 inline-block rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white hover:bg-brand-light"
             >
-              Ask about online study
+              How online study works
             </Link>
           </section>
           <section className="bg-slate-50 p-8">

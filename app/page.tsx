@@ -190,12 +190,12 @@ export default function HomePage() {
                 >
                   Browse all campuses
                 </Link>
-                <a
-                  href="tel:1300887017"
+                <Link
+                  href="/study-online"
                   className="rounded-full border border-white/40 px-6 py-3 font-semibold text-white hover:border-accent"
                 >
-                  Ask about online study
-                </a>
+                  Study online instead
+                </Link>
               </div>
             </div>
             <AustraliaMap />

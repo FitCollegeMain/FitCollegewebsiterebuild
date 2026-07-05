@@ -3,6 +3,7 @@ import Link from "next/link";
 const NAV_LINKS = [
   { href: "/courses", label: "Courses" },
   { href: "/fit-elite", label: "FIT Elite™" },
+  { href: "/study-online", label: "Study Online" },
   { href: "/locations", label: "Locations" },
   { href: "/funding", label: "Funding" },
   { href: "/contact", label: "Contact" },

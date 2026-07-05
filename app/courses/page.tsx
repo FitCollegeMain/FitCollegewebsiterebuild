@@ -59,21 +59,42 @@ export default function CoursesPage() {
                 </div>
               </dl>
               <div className="mt-6 flex gap-3">
-                <a
-                  href="tel:1300887017"
+                <Link
+                  href={`/courses/${course.slug}`}
                   className="rounded-full bg-accent px-5 py-2.5 text-sm font-bold text-white hover:bg-accent-dark"
                 >
-                  Chat with a Career Advisor
-                </a>
-                <Link
-                  href="/locations"
+                  Course details →
+                </Link>
+                <a
+                  href="tel:1300887017"
                   className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold hover:border-accent hover:text-accent"
                 >
-                  Find a campus
-                </Link>
+                  Ask an advisor
+                </a>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Complete PT — the Cert III + IV package */}
+        <div className="mt-8 flex flex-col items-start justify-between gap-6 border-l-4 border-accent bg-slate-50 p-8 sm:flex-row sm:items-center">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+              The Certificate III + IV package
+            </p>
+            <h2 className="font-display mt-1 text-2xl font-bold uppercase">Complete PT</h2>
+            <p className="mt-2 max-w-xl text-slate-600">
+              Both certificates in one enrolment — 32 units from beginner to
+              fully qualified Personal Trainer, with one interest-free payment
+              plan.
+            </p>
+          </div>
+          <Link
+            href="/courses/complete-pt"
+            className="shrink-0 rounded-full bg-brand px-6 py-3 font-bold text-white hover:bg-brand-light"
+          >
+            See the package →
+          </Link>
         </div>
 
         {/* FIT Elite cross-sell */}
@@ -91,9 +112,10 @@ export default function CoursesPage() {
               Want both certificates plus a specialty stream?
             </h2>
             <p className="mt-3 text-white/80">
-              {FIT_ELITE.name} bundles the Cert III and Cert IV with a 30-CEC
-              short course pack and your choice of an NDIS disability or ASCA
-              strength &amp; conditioning stream.
+              {FIT_ELITE.name} is Complete PT plus advanced skills — boxing,
+              suspension and kettlebell training (30 CPD) — and your choice of
+              an NDIS disability or ASCA strength &amp; conditioning
+              specialisation.
             </p>
             <Link
               href="/fit-elite"

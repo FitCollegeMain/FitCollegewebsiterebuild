@@ -161,8 +161,8 @@ export default function StudyOnlinePage() {
               FIT Elite™ online
             </h3>
             <p className="mt-2 text-sm text-white/80">
-              Add the 30-CEC short course pack (boxing, suspension, kettlebell)
-              and a specialty stream — ASCA-accredited Strength &amp;
+              Add the advanced skills pack (boxing, suspension and kettlebell —
+              30 CPD) and a specialisation — ASCA-accredited Strength &amp;
               Conditioning or the NDIS Disability Skill Set — to your online
               enrolment.
             </p>

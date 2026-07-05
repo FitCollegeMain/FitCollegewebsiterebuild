@@ -5,7 +5,7 @@ import { FIT_ELITE, INTAKES } from "@/data/courses";
 export const metadata: Metadata = {
   title: "FIT Elite™ — The Dual-Career Personal Trainer Program",
   description:
-    "Certificate III + IV in Fitness, a 30-CEC short course pack, and an NDIS disability or ASCA strength & conditioning stream. Earn in disability support from week one while you build your PT business.",
+    "Complete PT (Certificate III + IV in Fitness) plus a 30-CPD advanced skills pack and an NDIS disability or ASCA strength & conditioning specialisation. Earn in disability support from week one while you build your PT business.",
 };
 
 export default function FitElitePage() {

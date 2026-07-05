@@ -105,10 +105,10 @@ export default function HomePage() {
               {FIT_ELITE.name} — get paid while you build your client book
             </h2>
             <p className="mt-3 text-white/80">
-              Both fitness certificates, a 30-CEC short course pack, and an NDIS
-              disability or ASCA strength &amp; conditioning stream. Disability
-              support work pays from week one — so your income doesn&apos;t wait
-              for your PT business to grow.
+              Both fitness certificates, a 30-CPD advanced skills pack, and an
+              NDIS disability or ASCA strength &amp; conditioning stream.
+              Disability support work pays from week one — so your income
+              doesn&apos;t wait for your PT business to grow.
             </p>
             <Link
               href="/fit-elite"

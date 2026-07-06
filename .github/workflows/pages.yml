@@ -1,0 +1,33 @@
+# Deploys the FIT College rebuild demo to GitHub Pages.
+# index.html (review hub) is the Pages landing page; home.html is the site entry.
+# Keep the repo private — every page carries noindex,nofollow as the safety net.
+name: Deploy demo to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}   # run manually from any branch to preview that branch
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: fitcollege-rebuild
+      - id: deployment
+        uses: actions/deploy-pages@v4

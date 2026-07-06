@@ -48,7 +48,10 @@ needs an **implement / retire / redirect** decision — this document lists them
 | **Affiliate/partner pages** | Keep **only** the Staff referral form (`/staffleadform`) and **Affiliatedeal**; retire all other partner/affiliate pages |
 | **Blog** | **Keep** — link out to the HubSpot-hosted `blog.fitcollege.edu.au` (footer link added sitewide) |
 | **Retired campuses** | **Prahran** and **Newland-1812** → both retire |
-| **Legal/reference** | **Privacy, Terms, Student Handbook** built (`privacy.html`, `terms.html`, `student-handbook.html`) and linked in the footer on all 40 site pages |
+| **Legal/reference** | **Privacy, Terms, Student Handbook** built and footer-linked sitewide. **Verbatim legal copy pasted** from the live pages (6 July 2026); handbook page now links the **current v3.6 handbook + 6-policy library** from `/Study/PoliciesandProcedures-516/` |
+| **Insurance page** | **Retire** — `/BecomeaPersonalTrainer/FITCollegeInsurance-603/` → 301 to `faqs.html` |
+| **Affiliatedeal** | **Kept + migrated** — built `affiliate-deal.html` (excluded from sitemap; partner-link entry only) |
+| **GSC reconciliation** | **Closed per Stanley** — the index-probe audit is accepted as the final unindexed list; no GSC export will be run |
 
 > Built this round: 5 new pages + sitewide footer legal/blog links. Legal copy
 > is migrated structure only — **paste verbatim from the legal master** before
@@ -216,9 +219,8 @@ Nothing publishes with a visible `[CONFIRM]` chip. Grouped by source:
 - [x] Produce the **full old-URL → new-URL redirect spreadsheet** for Kook — **`redirect-map.csv`** (110 rows)
 - [x] Launch-day playbook — **`CUTOVER.md`** (go/no-go gates, redirect smoke test, GSC/GBP steps, RPL/USI consolidation detail, rollback)
 
-### 3. Get the definitive unindexed list from Google Search Console
-- [ ] Export **GSC → Pages → Not indexed** ("Crawled – currently not indexed", "Discovered – not indexed", "Duplicate", "Excluded by noindex").
-- [ ] Reconcile against Part 1 (this audit is sitemap + index-probe based; GSC is authoritative).
+### 3. Google Search Console — CLOSED per Stanley (July 2026)
+- [x] ~~Export GSC → Pages → Not indexed and reconcile~~ — **decision: dropped.** The index-probe audit (Part 1) is accepted as the final unindexed list. Mitigation: CUTOVER.md Phase 3 watches server logs for unmapped legacy URLs post-launch and adds redirect rows as they surface.
 - [x] Add a proper `sitemap.xml` — **built** (45 canonical URLs, this repo) and **declared in `robots.txt`** (also built; old file had no Sitemap line). Both deploy at cutover only — see **`CUTOVER.md`**.
 
 ### 4. Pre-production flags to remove (README "Demo-only")
@@ -230,10 +232,10 @@ Nothing publishes with a visible `[CONFIRM]` chip. Grouped by source:
 - [x] Course implement-vs-retire decided — **built** Cert III Travel + TAE upgrade; **retiring** Weight Management + fitness-professional (Part 1-H).
 - [x] Affiliate/partner strategy decided — keep Staff form + Affiliatedeal, retire the rest (Part 1-E).
 - [x] Blog decided — keep + footer link to HubSpot blog (Part 1-J).
-- [ ] **Paste verbatim legal copy** into `privacy.html` / `terms.html` from the legal master.
-- [ ] **Replace stale Student Handbook PDF** (V4.6 April 2019) with current version.
-- [ ] Migrate `/Affiliatedeal` lander content into the rebuild.
-- [ ] Insurance page (`FITCollegeInsurance-603`) — keep as info page? (still open)
+- [x] **Verbatim legal copy pasted** into `privacy.html` / `terms.html` from the live pages (6 July 2026, Stanley-approved source).
+- [x] **Student Handbook updated** — links current **v3.6** handbook + 6-policy library from `/Study/PoliciesandProcedures-516/`; stale 2019 PDF gets a 301.
+- [x] `/Affiliatedeal` **migrated** — `affiliate-deal.html` built (excluded from sitemap).
+- [x] Insurance page (`FITCollegeInsurance-603`) — **retire** → 301 to `faqs.html`.
 
 ### 6. Integrations & automation (README)
 - [ ] Eligibility-checker answers → HubSpot properties (see comments in `funding.html`).

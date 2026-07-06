@@ -70,7 +70,7 @@ old_url,new_url,redirect_type,category,action,notes
 /Contact/NovemberPromoCompletePT-1791/,/funding.html,301,D-campaign,RETIRE,Expired promo
 /Contact/NovemberPromoFITElite-1792/,/funding.html,301,D-campaign,RETIRE,Expired promo
 /contact/FebruaryPromoFITElite,/funding.html,301,D-campaign,RETIRE,Feb 2025 promo
-/Affiliatedeal,,,E-affiliate,KEEP,Decision: KEEP - migrate affiliate deal lander to rebuild
+/Affiliatedeal,/affiliate-deal.html,301,E-affiliate,MIGRATE,Decision: kept + migrated - page built (excluded from sitemap)
 /landing,/home.html,301,D-campaign,RETIRE,Generic lander
 /landing-thanks,/contact.html,301,F-utility,NOINDEX,Form thank-you
 /promo,/funding.html,301,D-campaign,RETIRE,Generic promo lander
@@ -101,9 +101,10 @@ old_url,new_url,redirect_type,category,action,notes
 /imagedetail.aspx,,,F-utility,NOINDEX,Already disallowed in robots.txt
 /Contact/TermsofUse-361/,/terms.html,301,G-legal,MIGRATE,Decision: built + footer-linked; verify verbatim vs legal master
 /Contact/PrivacyPolicy-360/,/privacy.html,301,G-legal,MIGRATE,Decision: built + footer-linked; verify verbatim vs legal master
-/Study/StudentHandbook-516/,/student-handbook.html,301,G-legal,MIGRATE,Decision: built + footer-linked; replace stale V4.6 Apr-2019 PDF
+/Study/StudentHandbook-516/,/student-handbook.html,301,G-legal,MIGRATE,Decision: built + footer-linked; current handbook is v3.6
+/Study/PoliciesandProcedures-516/,/student-handbook.html,301,G-legal,MIGRATE,Renamed successor of StudentHandbook-516; policy PDF library migrated
 /Study/AuditInformation-574/,,,G-legal,KEEP,RTO audit info
-/BecomeaPersonalTrainer/FITCollegeInsurance-603/,,,G-legal,REVIEW,Insurance scheme - keep as info page?
+/BecomeaPersonalTrainer/FITCollegeInsurance-603/,/faqs.html,301,G-legal,RETIRE,Decision: retire insurance page
 /courses/certificate-iv-in-weight-management,/courses.html,301,H-course-gap,RETIRE,Decision: retire - not rebuilt
 /courses/certificate-iii-in-travel,/course-cert-iii-travel.html,301,H-course-gap,MIGRATE,Decision: implement (SIT30222) - page built
 /courses/upgrade-tae40116-to-tae40122,/course-tae-upgrade.html,301,H-course-gap,MIGRATE,Decision: implement standalone - page built
@@ -111,4 +112,5 @@ old_url,new_url,redirect_type,category,action,notes
 /locations/melbourne-prahran-,/location-melbourne-south-melbourne.html,301,I-retired-campus,RETIRE,Decision: retire (Prahran closed)
 /Locations/Newland-1812/,/locations.html,301,I-retired-campus,RETIRE,Decision: retire
 https://blog.fitcollege.edu.au/,,,J-blog,KEEP,Decision: KEEP - link out to HubSpot-hosted blog (footer link added)
-/userfiles/,,,K-pdf,REVIEW,Course guides and policies as PDFs - review currency
+/userfiles/,,,K-pdf,KEEP,Carry current PDFs over unchanged (7 current policy PDFs linked from student-handbook.html)
+/userfiles/files/FIT-COLLEGE-STUDENT-HANDBOOK-V4.6 -April-2019.pdf,/student-handbook.html,301,K-pdf,RETIRE,Stale 2019 handbook still indexed - 301 to handbook page (current is v3.6)

@@ -17,13 +17,13 @@
 | # | Gate | Source |
 |---|---|---|
 | 0.1 | All 108 `[CONFIRM]` chips resolved (NAP, timetables, course details, CEC size, CRICOS) | README / audit §Part 2.1 |
-| 0.2 | Verbatim legal copy pasted into `privacy.html` + `terms.html` from legal master | audit §1-G |
-| 0.3 | Current Student Handbook PDF uploaded (live one is **V4.6, April 2019**) | `student-handbook.html` |
+| 0.2 | ~~Verbatim legal copy~~ **DONE 6 Jul 2026** — pasted verbatim from live PrivacyPolicy-360 / TermsofUse-361 | audit §1-G |
+| 0.3 | ~~Current handbook~~ **DONE 6 Jul 2026** — links current **v3.6** handbook + 6-policy library from PoliciesandProcedures-516; carry `/userfiles/` PDFs over unchanged | `student-handbook.html` |
 | 0.4 | Career Start figures re-verified against official QLD Government source | README |
 | 0.5 | `.img-slot` placeholders replaced with Damian's photography | README |
 | 0.6 | Eligibility checker mapped to HubSpot properties; SMS speed-to-lead tested end-to-end | `funding.html` comments |
 | 0.7 | No live paid campaigns pointing at pages being retired (check ad accounts vs audit §1-D) | marketing |
-| 0.8 | GSC "Pages → Not indexed" export reconciled against `redirect-map.csv` (adds any long-tail URLs this audit couldn't see) | audit §Part 2.3 |
+| 0.8 | ~~GSC reconciliation~~ **CLOSED per Stanley** — index-probe audit accepted as final; Phase 3 log-watching is the safety net for unmapped long-tail URLs | audit §Part 2.3 |
 | 0.9 | **Stanley's sign-off** | — |
 
 ## Phase 1 — T-minus 1 week (prep, zero user impact)
@@ -101,9 +101,9 @@ Cutover notes:
   `Location: /about.html#rpl` and the browser scrolls to the section.
 - **Content parity check before launch:** the old RPL page describes the
   evidence-portfolio process in more depth than the current `about.html`
-  summary. If GSC shows meaningful organic entrances to `RPL-478`
-  (check before launch), expand the `#rpl` section to match intent — a 301
-  onto thinner content is how consolidations leak rankings.
+  summary. Since GSC reconciliation was dropped (gate 0.8), assume the RPL
+  page has organic entrances and expand the `#rpl` section to match intent —
+  a 301 onto thinner content is how consolidations leak rankings.
 - The Student Handbook also covers RPL — `student-handbook.html` and
   `about.html#rpl` cross-link (already wired).
 - RPL enquiries route to the Career Advisor CTA (no separate RPL form in the
@@ -113,6 +113,8 @@ Cutover notes:
 
 ## Deliberately NOT redirected (decision record)
 
-- **KEEP live:** `/staffleadform` (+ `/Contact/StaffLeadForm-597/`) staff referral form (noindex) · `/Affiliatedeal` (migrate content into rebuild) · `/Study/AuditInformation-574/` · current `/userfiles/` PDFs · `blog.fitcollege.edu.au` (HubSpot — footer-linked, untouched by this cutover)
+- **KEEP live:** `/staffleadform` (+ `/Contact/StaffLeadForm-597/`) staff referral form (noindex) · `/Study/AuditInformation-574/` · current `/userfiles/` PDFs (carry over unchanged — 7 current policy PDFs are linked from `student-handbook.html`) · `blog.fitcollege.edu.au` (HubSpot — footer-linked, untouched by this cutover)
+- **Migrated:** `/Affiliatedeal` → `affiliate-deal.html` (built; excluded from `sitemap.xml` — partner-link entry only)
 - **410 Gone:** `/Contact/RequestanInfoPack(backup)-659/` · `/Study/Salesforce-627/` · `/Contact/Slideshow-363/`
-- **Open item:** `/BecomeaPersonalTrainer/FITCollegeInsurance-603/` — keep as info page or fold into about (decide before Phase 1 freeze; currently unredirected).
+- **Retired (decided 6 Jul 2026):** `/BecomeaPersonalTrainer/FITCollegeInsurance-603/` → 301 to `faqs.html` · stale 2019 handbook PDF → 301 to `student-handbook.html`
+- **All decisions closed — no open items remain in this runbook.**

@@ -1,0 +1,116 @@
+old_url,new_url,redirect_type,category,action,notes
+/,/home.html,301,A-core,MIGRATE,Homepage
+/Courses/Courses-482/,/courses.html,301,A-core,MIGRATE,Course hub
+/courses/certificate-iii-in-fitness,/course-cert-iii.html,301,A-core,MIGRATE,
+/courses/certificate-iv-in-fitness,/course-cert-iv.html,301,A-core,MIGRATE,
+/courses/elite-personal-trainer,/course-fit-elite.html,301,A-core,MIGRATE,
+/courses/diploma-of-sport-coaching,/course-diploma-sport.html,301,A-core,MIGRATE,
+/courses/strength-and-conditioning,/course-strength-conditioning.html,301,A-core,MIGRATE,
+/courses/international-fitness-student-pathway,/course-international.html,301,A-core,MIGRATE,Confirm CRICOS/international status
+/courses/trainer-and-assessor,/course-tae.html,301,A-core,MIGRATE,Two old URLs collapse to one
+/courses/tae40122-certificate-iv-in-training-and-assessment,/course-tae.html,301,B-duplicate,301,Collapse to single TAE page
+/courses/first-aid-provider,/course-first-aid.html,301,A-core,MIGRATE,Two old URLs collapse to one
+/courses/HLTAID011-provide-first-aid,/course-first-aid.html,301,B-duplicate,301,Collapse to single first-aid page
+/courses/HLTAID009-provide-cpr,/course-cpr.html,301,A-core,MIGRATE,
+/courses/disability-support,/course-disability-support.html,301,A-core,MIGRATE,Three old URLs collapse to one
+/Courses/DisabilityWorker-780/,/course-disability-support.html,301,B-duplicate,301,Collapse to disability page
+/nds-disability-course,/course-disability-support.html,301,B-duplicate,301,Collapse to disability page
+/Study/Funding-513/,/funding.html,301,A-core,MIGRATE,Called out in README
+/Study/AboutUs-446/,/about.html,301,A-core,MIGRATE,About consolidates About/RPL/USI
+/about-us,/about.html,301,B-duplicate,301,Clean duplicate of AboutUs-446
+/Study/AboutUs/USIUniqueStudentIdentifier-475/,/about.html#usi,301,B-duplicate,301,USI section anchor on about page
+/Study/AboutUs-446/USIUniqueStudentIdentifier-475/,/about.html#usi,301,B-duplicate,301,USI path variant
+/Study/AboutUs/RPL-478/,/about.html#rpl,301,B-duplicate,301,RPL section anchor on about page
+/Study/AboutUs-446/RPL-478/,/about.html#rpl,301,B-duplicate,301,RPL path variant
+/faqs,/faqs.html,301,A-core,MIGRATE,
+/FAQs-1837/,/faqs.html,301,B-duplicate,301,Legacy FAQ variant
+/Study/AboutUs-446/FAQs-474/,/faqs.html,301,B-duplicate,301,Legacy FAQ variant
+/Contact,/contact.html,301,A-core,MIGRATE,
+/Locations/LocationFinder-453/,/locations.html,301,A-core,MIGRATE,Locations hub
+/locations/brisbane-carseldine,/location-brisbane-carseldine.html,301,A-core,MIGRATE,
+/locations/brisbane-fortitude-valley,/location-brisbane-fortitude-valley.html,301,A-core,MIGRATE,
+/locations/cairns-city-centre,/location-cairns-city-centre.html,301,A-core,MIGRATE,
+/locations/nerang,/location-gold-coast-nerang.html,301,A-core,MIGRATE,Slug changes nerang -> gold-coast-nerang
+/locations/ipswich,/location-ipswich.html,301,A-core,MIGRATE,
+/locations/sunshine-coast-maroochydore,/location-sunshine-coast-maroochydore.html,301,A-core,MIGRATE,
+/locations/toowoomba,/location-toowoomba.html,301,A-core,MIGRATE,
+/locations/newcastle,/location-newcastle.html,301,A-core,MIGRATE,
+/locations/sydney-city-centre,/location-sydney-city-centre.html,301,A-core,MIGRATE,
+/locations/sydney-parramatta,/location-sydney-parramatta.html,301,A-core,MIGRATE,
+/locations/sydney-penrith,/location-sydney-penrith.html,301,A-core,MIGRATE,
+/locations/sydney-caringbah,/location-sydney-caringbah.html,301,A-core,MIGRATE,
+/locations/melbourne-south-melbourne,/location-melbourne-south-melbourne.html,301,A-core,MIGRATE,
+/locations/melbourne-wantirna,/location-melbourne-wantirna.html,301,A-core,MIGRATE,
+/locations/perth-joondalup,/location-perth-joondalup.html,301,A-core,MIGRATE,
+/locations/perth-bibra-lake,/location-perth-bibra-lake.html,301,A-core,MIGRATE,
+/locations/canberra-deakin,/location-canberra-deakin.html,301,A-core,MIGRATE,
+/locations/hobart-city-centre,/location-hobart-aquatic-centre.html,301,B-duplicate,301,Campus renamed/relocated - verify address
+/Locations/Hobart-CityCentre-548/,/location-hobart-aquatic-centre.html,301,B-duplicate,301,Legacy Hobart variant
+/Locations/Adelaide-Glenelg-82/,/location-adelaide-glenelg.html,301,B-duplicate,301,Legacy numeric variant
+/Locations/AdelaideGlenelg-1819/,/location-adelaide-glenelg.html,301,B-duplicate,301,Legacy numeric variant
+/Locations/Geelong-NorthGeelong-81/,/location-geelong.html,301,B-duplicate,301,Legacy numeric variant
+/Locations/Geelong-1813/,/location-geelong.html,301,B-duplicate,301,Legacy numeric variant
+/study-online/online-fitness-courses,/study-online.html,301,C-studyonline,MIGRATE,
+/StudyOnline/StudyOnline-448/,/study-online.html,301,C-studyonline,301,Legacy study online hub
+/StudyOnline/StudyOnlineRequirements-605/,/study-online.html,301,C-studyonline,301,
+/StudyOnline/TourOnlineLearningPlatform/,/study-online.html,301,C-studyonline,301,Fold platform tour content in
+/StudyOnline/CourseAssessmentProcess-607/,/study-online.html,301,C-studyonline,301,
+/StudyOnline/StudyOnlineLocations-608/,/study-online.html,301,C-studyonline,301,
+/StudyOnline/StudyOnlineCoursesOffered-609/,/study-online.html,301,C-studyonline,301,
+/mayintakesale,/funding.html,301,D-campaign,RETIRE,Expired seasonal promo
+/JanuaryPromo,/funding.html,301,D-campaign,RETIRE,Expired seasonal promo
+/Christmaspromo,/funding.html,301,D-campaign,RETIRE,Expired seasonal promo
+/MarchMadnessSale,/funding.html,301,D-campaign,RETIRE,Expired seasonal promo
+/SpringSale,/funding.html,301,D-campaign,RETIRE,Oct 2025 promo
+/CyberSale,/funding.html,301,D-campaign,RETIRE,Nov 2025 promo
+/FBOpromotion,/funding.html,301,D-campaign,RETIRE,Fat Burners Only promo
+/Contact/FBOPartnerPage-773/,/funding.html,301,D-campaign,RETIRE,FBO partner promo
+/givewayshortcourse,/course-short-courses.html,301,D-campaign,RETIRE,Short course giveaway
+/launch-sale-fit-elite,/course-fit-elite.html,301,D-campaign,RETIRE,FIT Elite launch promo
+/Contact/NovemberPromoCompletePT-1791/,/funding.html,301,D-campaign,RETIRE,Expired promo
+/Contact/NovemberPromoFITElite-1792/,/funding.html,301,D-campaign,RETIRE,Expired promo
+/contact/FebruaryPromoFITElite,/funding.html,301,D-campaign,RETIRE,Feb 2025 promo
+/Affiliatedeal,/affiliate-deal.html,301,E-affiliate,MIGRATE,Decision: kept + migrated - page built (excluded from sitemap)
+/landing,/home.html,301,D-campaign,RETIRE,Generic lander
+/landing-thanks,/contact.html,301,F-utility,NOINDEX,Form thank-you
+/promo,/funding.html,301,D-campaign,RETIRE,Generic promo lander
+/promo-thanks,/contact.html,301,F-utility,NOINDEX,Form thank-you
+/Expo,/home.html,301,D-campaign,RETIRE,Event page - confirm not live
+/contact/FLG-FIT-College-Open-Day,/locations.html,301,D-campaign,RETIRE,Open day event
+/Contact/RoarActiveOpenDay-1789/,/locations.html,301,D-campaign,RETIRE,Open day event
+/LinAs,/home.html,301,D-campaign,RETIRE,Unclear thin page - verify
+/Contact/WorldGymAffiliate-734/,/funding.html,301,E-affiliate,RETIRE,Decision: retire (only staffleadform + Affiliatedeal kept)
+/Contact/ClubLimeAffiliatePage-731/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/RoarAffiliatePage-729/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/SuncoastFitnessAffiliatePage-728/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/ZapPartnership-778/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/CrossfitRevelationAffiliatePage-784/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/TribeFitnessPartnerPage-774/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/LSKDOffer-765/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/contact/LTYB-FIT-College,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/contact/AffiliateFacilityDiscount-612/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/bondpathway,/courses.html,301,E-affiliate,RETIRE,Decision: retire - revisit if Bond pathway reactivated
+/thank-you/,/contact.html,301,F-utility,NOINDEX,Form confirmation
+/Study/EnrolNow-385/,/contact.html,301,F-utility,NOINDEX,Enrol form - map to enrol flow
+/Contact/RequestanInfoPack-514/,/contact.html,301,F-utility,NOINDEX,Info-pack form - secondary CTA sitewide
+/Contact/RequestanInfoPack(backup)-659/,/contact.html,410,F-utility,RETIRE,Duplicate backup form
+/Contact/StaffLeadForm-597/,,,F-utility,KEEP,Decision: KEEP staff referral form (also /staffleadform) - noindex
+/contact/AffiliateLeads-597/,,,F-utility,NOINDEX,Internal lead form
+/Study/Salesforce-627/,,410,F-utility,RETIRE,Internal integration page
+/Contact/Slideshow-363/,,410,F-utility,RETIRE,Legacy widget
+/imagedetail.aspx,,,F-utility,NOINDEX,Already disallowed in robots.txt
+/Contact/TermsofUse-361/,/terms.html,301,G-legal,MIGRATE,Decision: built + footer-linked; verify verbatim vs legal master
+/Contact/PrivacyPolicy-360/,/privacy.html,301,G-legal,MIGRATE,Decision: built + footer-linked; verify verbatim vs legal master
+/Study/StudentHandbook-516/,/student-handbook.html,301,G-legal,MIGRATE,Decision: built + footer-linked; current handbook is v3.6
+/Study/PoliciesandProcedures-516/,/student-handbook.html,301,G-legal,MIGRATE,Renamed successor of StudentHandbook-516; policy PDF library migrated
+/Study/AuditInformation-574/,,,G-legal,KEEP,RTO audit info
+/BecomeaPersonalTrainer/FITCollegeInsurance-603/,/faqs.html,301,G-legal,RETIRE,Decision: retire insurance page
+/courses/certificate-iv-in-weight-management,/courses.html,301,H-course-gap,RETIRE,Decision: retire - not rebuilt
+/courses/certificate-iii-in-travel,/course-cert-iii-travel.html,301,H-course-gap,MIGRATE,Decision: implement (SIT30222) - page built
+/courses/upgrade-tae40116-to-tae40122,/course-tae-upgrade.html,301,H-course-gap,MIGRATE,Decision: implement standalone - page built
+/courses/fitness-professional,/courses.html,301,H-course-gap,RETIRE,Decision: retire - 301 to courses hub
+/locations/melbourne-prahran-,/location-melbourne-south-melbourne.html,301,I-retired-campus,RETIRE,Decision: retire (Prahran closed)
+/Locations/Newland-1812/,/locations.html,301,I-retired-campus,RETIRE,Decision: retire
+https://blog.fitcollege.edu.au/,,,J-blog,KEEP,Decision: KEEP - link out to HubSpot-hosted blog (footer link added)
+/userfiles/,,,K-pdf,KEEP,Carry current PDFs over unchanged (7 current policy PDFs linked from student-handbook.html)
+/userfiles/files/FIT-COLLEGE-STUDENT-HANDBOOK-V4.6 -April-2019.pdf,/student-handbook.html,301,K-pdf,RETIRE,Stale 2019 handbook still indexed - 301 to handbook page (current is v3.6)

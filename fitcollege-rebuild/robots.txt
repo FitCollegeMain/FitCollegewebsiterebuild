@@ -1,0 +1,24 @@
+# FIT College — production robots.txt
+# [KOOK] Deploy at cutover ONLY. While the prototype is in demo, every page
+# carries <meta name="robots" content="noindex, nofollow"> and this file
+# must NOT be served on the live domain.
+#
+# Fixes from the old-site audit:
+#  - Old robots.txt declared NO sitemap — the Sitemap line below fixes that.
+#  - Legacy CMS admin paths kept disallowed for safety during transition.
+
+User-agent: *
+Disallow: /adm/
+Disallow: /Members/
+Disallow: /imagedetail.aspx
+Disallow: /cdn-cgi/
+
+# Retired form/utility endpoints (kept out of the index; see redirect-map.csv)
+Disallow: /thank-you
+Disallow: /landing-thanks
+Disallow: /promo-thanks
+
+User-agent: facebookexternalhit/1.1
+Crawl-delay: 10
+
+Sitemap: https://www.fitcollege.edu.au/sitemap.xml

@@ -1,6 +1,6 @@
 # FIT College — New Site Map
 
-**46 pages** (45 in `sitemap.xml` + 1 deliberately unlisted partner lander) replace ~95 declared legacy URLs plus a long tail of orphans. Old→new mapping lives in `redirect-map.csv` (115 rows); launch sequence in the Cutover Runbook.
+**45 pages** (all in `sitemap.xml`) replace ~95 declared legacy URLs plus a long tail of orphans. Old→new mapping lives in `redirect-map.csv` (115 rows); launch sequence in the Cutover Runbook.
 
 ---
 
@@ -54,14 +54,14 @@
 ### Legal & reference (priority 0.3 · yearly)
 | Page | URL | Status |
 |---|---|---|
-| Privacy Policy | `/privacy.html` | **Verbatim** live copy, migrated 6 Jul 2026 |
-| Terms of Use | `/terms.html` | **Verbatim** live copy, migrated 6 Jul 2026 |
-| Student Handbook & Policies | `/student-handbook.html` | Current **v3.6** handbook + 6-policy PDF library |
+| Privacy Policy | `/privacy.html` | Scaffold — verbatim copy pasted at build (preserved in git history) |
+| Terms of Use | `/terms.html` | Scaffold — verbatim copy pasted at build (preserved in git history) |
+| Student Handbook & Policies | `/student-handbook.html` | Scaffold — link current v3.6 handbook + policy library at build |
 
 ### Not in sitemap (deliberate)
 | Page | URL | Why |
 |---|---|---|
-| Affiliate Exclusive Offer | `/affiliate-deal.html` | Partner-gym entry links only — kept out of organic discovery |
+| Affiliate offer | `/Affiliatedeal` (legacy, kept live) | Content migrates into the rebuild at build time |
 | Staff referral form | `/staffleadform` (legacy, kept live) | Internal — noindex |
 | Blog | `blog.fitcollege.edu.au` | Separate HubSpot property — footer-linked |
 

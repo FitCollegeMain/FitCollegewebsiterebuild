@@ -17,8 +17,8 @@
 | # | Gate | Source |
 |---|---|---|
 | 0.1 | All 108 `[CONFIRM]` chips resolved (NAP, timetables, course details, CEC size, CRICOS) | README / audit §Part 2.1 |
-| 0.2 | ~~Verbatim legal copy~~ **DONE 6 Jul 2026** — pasted verbatim from live PrivacyPolicy-360 / TermsofUse-361 | audit §1-G |
-| 0.3 | ~~Current handbook~~ **DONE 6 Jul 2026** — links current **v3.6** handbook + 6-policy library from PoliciesandProcedures-516; carry `/userfiles/` PDFs over unchanged | `student-handbook.html` |
+| 0.2 | Paste verbatim legal copy into `privacy.html` + `terms.html` at build. A fully pasted verbatim version (captured 6 Jul 2026 from the live pages) exists in git history — commit `bc500c3` — reuse it rather than re-migrating | audit §1-G |
+| 0.3 | Link the current handbook at build: it is **v3.6** plus a 6-policy library, found at `/Study/PoliciesandProcedures-516/` (renamed successor of StudentHandbook-516). A built version of the page is in git history (`bc500c3`); carry `/userfiles/` PDFs over unchanged | `student-handbook.html` |
 | 0.4 | Career Start figures re-verified against official QLD Government source | README |
 | 0.5 | `.img-slot` placeholders replaced with Damian's photography | README |
 | 0.6 | Eligibility checker mapped to HubSpot properties; SMS speed-to-lead tested end-to-end | `funding.html` comments |
@@ -113,8 +113,7 @@ Cutover notes:
 
 ## Deliberately NOT redirected (decision record)
 
-- **KEEP live:** `/staffleadform` (+ `/Contact/StaffLeadForm-597/`) staff referral form (noindex) · `/Study/AuditInformation-574/` · current `/userfiles/` PDFs (carry over unchanged — 7 current policy PDFs are linked from `student-handbook.html`) · `blog.fitcollege.edu.au` (HubSpot — footer-linked, untouched by this cutover)
-- **Migrated:** `/Affiliatedeal` → `affiliate-deal.html` (built; excluded from `sitemap.xml` — partner-link entry only)
+- **KEEP live:** `/staffleadform` (+ `/Contact/StaffLeadForm-597/`) staff referral form (noindex) · `/Study/AuditInformation-574/` · current `/userfiles/` PDFs (carry over unchanged) · `blog.fitcollege.edu.au` (HubSpot — footer-linked, untouched by this cutover) · `/Affiliatedeal` (content migration into the rebuild happens at build time; a drafted lander page exists in git history, commit `bc500c3`)
 - **410 Gone:** `/Contact/RequestanInfoPack(backup)-659/` · `/Study/Salesforce-627/` · `/Contact/Slideshow-363/`
 - **Retired (decided 6 Jul 2026):** `/BecomeaPersonalTrainer/FITCollegeInsurance-603/` → 301 to `faqs.html` · stale 2019 handbook PDF → 301 to `student-handbook.html`
-- **All decisions closed — no open items remain in this runbook.**
+- **All strategy decisions are closed.** Two build-time content tasks remain (gates 0.2, 0.3) — the finished versions live in git history (`bc500c3`) and were reverted from the demo to keep it simple; restore them at build rather than redoing the work.

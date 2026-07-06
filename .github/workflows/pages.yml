@@ -1,12 +1,13 @@
-# Deploys the FIT College rebuild demo to GitHub Pages.
-# index.html (review hub) is the Pages landing page; home.html is the site entry.
-# Keep the repo private — every page carries noindex,nofollow as the safety net.
-name: Deploy demo to GitHub Pages
+# Deploys the STATIC REBUILD PROTOTYPE (fitcollege-rebuild/) to GitHub Pages.
+# MANUAL-ONLY by design: the live demo on Pages is the Next.js site deployed by
+# deploy-pages.yml from the claude/quirky-mendel-jc9321 branch (side-scrolling
+# banners + map homepage). Do NOT add a push trigger here — it would overwrite
+# that demo, which is what happened when PR #1 merged.
+# index.html (review hub) is this prototype's landing page if you do run it.
+name: Deploy static rebuild prototype (manual only)
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch: {}   # run manually from any branch to preview that branch
+  workflow_dispatch: {}   # run manually from the Actions tab when you explicitly want the prototype on Pages
 
 permissions:
   contents: read

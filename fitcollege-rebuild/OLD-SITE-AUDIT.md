@@ -39,6 +39,23 @@ needs an **implement / retire / redirect** decision — this document lists them
 
 ---
 
+## Decisions locked (Stanley, July 2026)
+
+| Question | Decision |
+|---|---|
+| **Courses to implement** | **Cert III in Travel (SIT30222)** and **TAE40116→TAE40122 upgrade** — both built (`course-cert-iii-travel.html`, `course-tae-upgrade.html`) and added to `courses.html` |
+| **Courses to retire** | **Cert IV in Weight Management** and **fitness-professional** → 301 to `courses.html` |
+| **Affiliate/partner pages** | Keep **only** the Staff referral form (`/staffleadform`) and **Affiliatedeal**; retire all other partner/affiliate pages |
+| **Blog** | **Keep** — link out to the HubSpot-hosted `blog.fitcollege.edu.au` (footer link added sitewide) |
+| **Retired campuses** | **Prahran** and **Newland-1812** → both retire |
+| **Legal/reference** | **Privacy, Terms, Student Handbook** built (`privacy.html`, `terms.html`, `student-handbook.html`) and linked in the footer on all 40 site pages |
+
+> Built this round: 5 new pages + sitewide footer legal/blog links. Legal copy
+> is migrated structure only — **paste verbatim from the legal master** before
+> publishing. Student Handbook still points at the stale **V4.6 (April 2019)** PDF.
+
+---
+
 ## Part 1 — Page audit (implement / retire / redirect)
 
 ### A. Core canonical pages — already covered by the rebuild → MIGRATE + 301 legacy
@@ -107,10 +124,11 @@ set to expire, and kept out of the sitemap.
 > `funding.html` already carries the working eligibility checker that replaces
 > the acquisition job these pages did piecemeal.
 
-### E. Affiliate / partner pages — business call → REVIEW
-Real partnerships. Decide as a group: (a) keep as a single CMS-driven
-"Partners" template with one page per active partner, or (b) retire lapsed
-partners. Do **not** auto-migrate all — many partners may be inactive.
+### E. Affiliate / partner pages → DECIDED: retire all except Staff form + Affiliatedeal
+**Decision:** keep only `/staffleadform` (staff referral form, noindex) and
+`/Affiliatedeal` (migrate to rebuild). Retire everything else below → 301 to
+`funding.html` (`bondpathway` → `courses.html`; revisit if the Bond pathway is
+reactivated).
 
 `/Contact/WorldGymAffiliate-734/` · `/Contact/ClubLimeAffiliatePage-731/` ·
 `/Contact/RoarAffiliatePage-729/` · `/Contact/SuncoastFitnessAffiliatePage-728/` ·
@@ -132,40 +150,40 @@ partners. Do **not** auto-migrate all — many partners may be inactive.
 | `/imagedetail.aspx` | already disallowed in robots.txt |
 
 ### G. Legal / compliance → KEEP (RTO-required)
-Keep and link from the rebuild footer; verify each is current.
+**Built + footer-linked this round:** `privacy.html`, `terms.html`,
+`student-handbook.html` (from `/Contact/PrivacyPolicy-360/`,
+`/Contact/TermsofUse-361/`, `/Study/StudentHandbook-516/`). Legal copy is
+migrated **structure only** — paste verbatim from the legal master before
+publishing. Student Handbook still links the stale **V4.6 (April 2019)** PDF —
+replace with the current version.
 
-`/Contact/TermsofUse-361/` · `/Contact/PrivacyPolicy-360/` ·
-`/Study/StudentHandbook-516/` · `/Study/AuditInformation-574/` ·
+Still open: `/Study/AuditInformation-574/` (keep, verify current) ·
 `/BecomeaPersonalTrainer/FITCollegeInsurance-603/` (insurance scheme — REVIEW: keep as info page?)
 
-### H. Courses with NO rebuild equivalent → IMPLEMENT? (build-vs-retire decision)
-These are real course pages the 40-page rebuild does **not** cover. Each needs a
-yes/no on whether the course is still offered.
-
-| Old URL | Question |
+### H. Courses with NO rebuild equivalent → DECIDED
+| Old URL | Decision |
 |---|---|
-| `/courses/certificate-iv-in-weight-management` | Still offered? If yes → build a course page; if no → 301 to `courses.html` |
-| `/courses/certificate-iii-in-travel` | Travel Training Australia brand — is this in scope for fitcollege.edu.au or a separate site? |
-| `/courses/upgrade-tae40116-to-tae40122` | TAE upgrade pathway — fold into `course-tae.html` or keep standalone? |
-| `/courses/fitness-professional` | Career/overview page — maps to `courses.html` or its own landing? |
+| `/courses/certificate-iii-in-travel` | **IMPLEMENT** — built as `course-cert-iii-travel.html` (SIT30222), added to `courses.html` |
+| `/courses/upgrade-tae40116-to-tae40122` | **IMPLEMENT** — built as `course-tae-upgrade.html` (standalone), added to `courses.html` |
+| `/courses/certificate-iv-in-weight-management` | **RETIRE** → 301 to `courses.html` |
+| `/courses/fitness-professional` | **RETIRE** → 301 to `courses.html` |
 | `/Study/EnrolNow-385/` course-adjacent | confirm enrol flow parity |
 
-### I. Retired campuses → 301 (rebuild dropped them)
-| Old URL | Note |
+### I. Retired campuses → DECIDED: both retire
+| Old URL | Decision |
 |---|---|
-| `/locations/melbourne-prahran-` | **Rebuild has no Prahran** (note the broken trailing `-` — likely already dead). Confirm closure → 301 to `location-melbourne-south-melbourne.html` or `locations.html` |
-| `/Locations/Newland-1812/` | "Newland" campus — unclear/possibly typo. Identify → map or retire |
+| `/locations/melbourne-prahran-` | **RETIRE** (Prahran closed) → 301 to `location-melbourne-south-melbourne.html` |
+| `/Locations/Newland-1812/` | **RETIRE** → 301 to `locations.html` |
 
 > Cross-check: rebuild **adds** first-class Geelong and Adelaide-Glenelg campus
 > pages that only existed as legacy numeric URLs before. Confirm both campuses
 > are actually operating before publishing.
 
-### J. Blog subdomain → REVIEW (separate migration track)
+### J. Blog subdomain → DECIDED: keep + link out
 `blog.fitcollege.edu.au` is a **separate subdomain** with its own posts
-(e.g. `/5-free-biohacks-to-upgrade-your-body-and-mind`) and is **out of scope of
-the 40-page rebuild**. Decide: migrate posts into the new site's content system,
-leave the blog as-is, or retire. Not covered by the rebuild today — flagging it
-so it isn't lost.
+(e.g. `/5-free-biohacks-to-upgrade-your-body-and-mind`). **Decision:** keep it —
+the blog is built on HubSpot; a footer **Blog** link to `blog.fitcollege.edu.au`
+was added sitewide. No migration into the 40-page rebuild.
 
 ### K. PDFs / `/userfiles/` → KEEP but review
 Many course guides and policies are indexed as standalone PDFs
@@ -208,10 +226,13 @@ Nothing publishes with a visible `[CONFIRM]` chip. Grouped by source:
 - [ ] Remove all visible `[CONFIRM]` chips once content is verified.
 
 ### 5. Rebuild coverage gaps (from this audit)
-- [ ] Decide implement-vs-retire for **Weight Management**, **Cert III Travel**, **TAE upgrade**, **fitness-professional** (Part 1-H).
-- [ ] Affiliate/partner strategy (Part 1-E) — one CMS "Partners" template vs retire lapsed.
-- [ ] Blog subdomain plan (Part 1-J) — migrate / keep / retire.
-- [ ] Insurance page (`FITCollegeInsurance-603`) — keep as info page?
+- [x] Course implement-vs-retire decided — **built** Cert III Travel + TAE upgrade; **retiring** Weight Management + fitness-professional (Part 1-H).
+- [x] Affiliate/partner strategy decided — keep Staff form + Affiliatedeal, retire the rest (Part 1-E).
+- [x] Blog decided — keep + footer link to HubSpot blog (Part 1-J).
+- [ ] **Paste verbatim legal copy** into `privacy.html` / `terms.html` from the legal master.
+- [ ] **Replace stale Student Handbook PDF** (V4.6 April 2019) with current version.
+- [ ] Migrate `/Affiliatedeal` lander content into the rebuild.
+- [ ] Insurance page (`FITCollegeInsurance-603`) — keep as info page? (still open)
 
 ### 6. Integrations & automation (README)
 - [ ] Eligibility-checker answers → HubSpot properties (see comments in `funding.html`).

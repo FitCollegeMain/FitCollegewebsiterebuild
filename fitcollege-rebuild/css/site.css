@@ -236,6 +236,9 @@ footer.site h4{color:#fff;font-size:.8rem;letter-spacing:.14em;text-transform:up
 footer.site a{color:#C9C9C9;text-decoration:none;display:block;padding:4px 0}
 footer.site a:hover{color:#fff}
 footer.site .legal{border-top:1px solid #2A2A2A;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.78rem}
+footer.site .legal a{display:inline;color:#C9C9C9;padding:0}
+footer.site .legal a:hover{color:#fff}
+footer.site .legal-links{color:#5A5A5A}
 @media (max-width:800px){footer.site .cols{grid-template-columns:1fr 1fr}}
 @media (max-width:500px){footer.site .cols{grid-template-columns:1fr}}
 

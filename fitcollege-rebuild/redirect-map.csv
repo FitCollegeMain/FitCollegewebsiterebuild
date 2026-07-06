@@ -70,7 +70,7 @@ old_url,new_url,redirect_type,category,action,notes
 /Contact/NovemberPromoCompletePT-1791/,/funding.html,301,D-campaign,RETIRE,Expired promo
 /Contact/NovemberPromoFITElite-1792/,/funding.html,301,D-campaign,RETIRE,Expired promo
 /contact/FebruaryPromoFITElite,/funding.html,301,D-campaign,RETIRE,Feb 2025 promo
-/Affiliatedeal,/funding.html,301,D-campaign,RETIRE,Generic affiliate deal lander
+/Affiliatedeal,,,E-affiliate,KEEP,Decision: KEEP - migrate affiliate deal lander to rebuild
 /landing,/home.html,301,D-campaign,RETIRE,Generic lander
 /landing-thanks,/contact.html,301,F-utility,NOINDEX,Form thank-you
 /promo,/funding.html,301,D-campaign,RETIRE,Generic promo lander
@@ -79,36 +79,36 @@ old_url,new_url,redirect_type,category,action,notes
 /contact/FLG-FIT-College-Open-Day,/locations.html,301,D-campaign,RETIRE,Open day event
 /Contact/RoarActiveOpenDay-1789/,/locations.html,301,D-campaign,RETIRE,Open day event
 /LinAs,/home.html,301,D-campaign,RETIRE,Unclear thin page - verify
-/Contact/WorldGymAffiliate-734/,,,E-affiliate,REVIEW,Active partner? Keep as Partners template or retire
-/Contact/ClubLimeAffiliatePage-731/,,,E-affiliate,REVIEW,Active partner?
-/Contact/RoarAffiliatePage-729/,,,E-affiliate,REVIEW,Active partner?
-/Contact/SuncoastFitnessAffiliatePage-728/,,,E-affiliate,REVIEW,Active partner?
-/Contact/ZapPartnership-778/,,,E-affiliate,REVIEW,Active partner?
-/Contact/CrossfitRevelationAffiliatePage-784/,,,E-affiliate,REVIEW,Active partner?
-/Contact/TribeFitnessPartnerPage-774/,,,E-affiliate,REVIEW,Active partner?
-/Contact/LSKDOffer-765/,,,E-affiliate,REVIEW,Active offer?
-/contact/LTYB-FIT-College,,,E-affiliate,REVIEW,Active partner?
-/contact/AffiliateFacilityDiscount-612/,,,E-affiliate,REVIEW,Active offer?
-/bondpathway,,,E-affiliate,REVIEW,Bond University pathway - likely keep
+/Contact/WorldGymAffiliate-734/,/funding.html,301,E-affiliate,RETIRE,Decision: retire (only staffleadform + Affiliatedeal kept)
+/Contact/ClubLimeAffiliatePage-731/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/RoarAffiliatePage-729/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/SuncoastFitnessAffiliatePage-728/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/ZapPartnership-778/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/CrossfitRevelationAffiliatePage-784/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/TribeFitnessPartnerPage-774/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/Contact/LSKDOffer-765/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/contact/LTYB-FIT-College,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/contact/AffiliateFacilityDiscount-612/,/funding.html,301,E-affiliate,RETIRE,Decision: retire
+/bondpathway,/courses.html,301,E-affiliate,RETIRE,Decision: retire - revisit if Bond pathway reactivated
 /thank-you/,/contact.html,301,F-utility,NOINDEX,Form confirmation
 /Study/EnrolNow-385/,/contact.html,301,F-utility,NOINDEX,Enrol form - map to enrol flow
 /Contact/RequestanInfoPack-514/,/contact.html,301,F-utility,NOINDEX,Info-pack form - secondary CTA sitewide
 /Contact/RequestanInfoPack(backup)-659/,/contact.html,410,F-utility,RETIRE,Duplicate backup form
-/Contact/StaffLeadForm-597/,,,F-utility,NOINDEX,Internal lead form
+/Contact/StaffLeadForm-597/,,,F-utility,KEEP,Decision: KEEP staff referral form (also /staffleadform) - noindex
 /contact/AffiliateLeads-597/,,,F-utility,NOINDEX,Internal lead form
 /Study/Salesforce-627/,,410,F-utility,RETIRE,Internal integration page
 /Contact/Slideshow-363/,,410,F-utility,RETIRE,Legacy widget
 /imagedetail.aspx,,,F-utility,NOINDEX,Already disallowed in robots.txt
-/Contact/TermsofUse-361/,,,G-legal,KEEP,Verify current - link from footer
-/Contact/PrivacyPolicy-360/,,,G-legal,KEEP,Verify current - link from footer
-/Study/StudentHandbook-516/,,,G-legal,KEEP,Verify current handbook version
+/Contact/TermsofUse-361/,/terms.html,301,G-legal,MIGRATE,Decision: built + footer-linked; verify verbatim vs legal master
+/Contact/PrivacyPolicy-360/,/privacy.html,301,G-legal,MIGRATE,Decision: built + footer-linked; verify verbatim vs legal master
+/Study/StudentHandbook-516/,/student-handbook.html,301,G-legal,MIGRATE,Decision: built + footer-linked; replace stale V4.6 Apr-2019 PDF
 /Study/AuditInformation-574/,,,G-legal,KEEP,RTO audit info
 /BecomeaPersonalTrainer/FITCollegeInsurance-603/,,,G-legal,REVIEW,Insurance scheme - keep as info page?
-/courses/certificate-iv-in-weight-management,,,H-course-gap,IMPLEMENT?,Still offered? Build page or 301 to courses.html
-/courses/certificate-iii-in-travel,,,H-course-gap,IMPLEMENT?,Travel Training Australia brand - in scope?
-/courses/upgrade-tae40116-to-tae40122,/course-tae.html,301,H-course-gap,IMPLEMENT?,Fold into TAE page or keep standalone
-/courses/fitness-professional,/courses.html,301,H-course-gap,IMPLEMENT?,Career/overview page
-/locations/melbourne-prahran-,/location-melbourne-south-melbourne.html,301,I-retired-campus,RETIRE,No rebuild page - broken URL - confirm closure
-/Locations/Newland-1812/,/locations.html,301,I-retired-campus,REVIEW,Newland campus unclear - identify or retire
-https://blog.fitcollege.edu.au/,,,J-blog,REVIEW,Separate subdomain - migrate/keep/retire posts
+/courses/certificate-iv-in-weight-management,/courses.html,301,H-course-gap,RETIRE,Decision: retire - not rebuilt
+/courses/certificate-iii-in-travel,/course-cert-iii-travel.html,301,H-course-gap,MIGRATE,Decision: implement (SIT30222) - page built
+/courses/upgrade-tae40116-to-tae40122,/course-tae-upgrade.html,301,H-course-gap,MIGRATE,Decision: implement standalone - page built
+/courses/fitness-professional,/courses.html,301,H-course-gap,RETIRE,Decision: retire - 301 to courses hub
+/locations/melbourne-prahran-,/location-melbourne-south-melbourne.html,301,I-retired-campus,RETIRE,Decision: retire (Prahran closed)
+/Locations/Newland-1812/,/locations.html,301,I-retired-campus,RETIRE,Decision: retire
+https://blog.fitcollege.edu.au/,,,J-blog,KEEP,Decision: KEEP - link out to HubSpot-hosted blog (footer link added)
 /userfiles/,,,K-pdf,REVIEW,Course guides and policies as PDFs - review currency

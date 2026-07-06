@@ -213,12 +213,13 @@ Nothing publishes with a visible `[CONFIRM]` chip. Grouped by source:
 - [ ] Retired campuses (Prahran, Newland) → nearest campus / `locations.html`
 - [ ] Campaign/promo pages (Part 1-D) → `funding.html` or 410
 - [ ] Stale PDFs (Part 1-K) → current version or 404
-- [ ] Produce the **full old-URL → new-URL redirect spreadsheet** for Kook to implement
+- [x] Produce the **full old-URL → new-URL redirect spreadsheet** for Kook — **`redirect-map.csv`** (110 rows)
+- [x] Launch-day playbook — **`CUTOVER.md`** (go/no-go gates, redirect smoke test, GSC/GBP steps, RPL/USI consolidation detail, rollback)
 
 ### 3. Get the definitive unindexed list from Google Search Console
 - [ ] Export **GSC → Pages → Not indexed** ("Crawled – currently not indexed", "Discovered – not indexed", "Duplicate", "Excluded by noindex").
 - [ ] Reconcile against Part 1 (this audit is sitemap + index-probe based; GSC is authoritative).
-- [ ] Add a proper `sitemap.xml` (current one mixes canonical + legacy URLs) and **declare it in `robots.txt`** (currently missing).
+- [x] Add a proper `sitemap.xml` — **built** (45 canonical URLs, this repo) and **declared in `robots.txt`** (also built; old file had no Sitemap line). Both deploy at cutover only — see **`CUTOVER.md`**.
 
 ### 4. Pre-production flags to remove (README "Demo-only")
 - [ ] Remove `<meta name="robots" content="noindex, nofollow">` from all 41 pages.

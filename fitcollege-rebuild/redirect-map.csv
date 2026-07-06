@@ -18,10 +18,10 @@ old_url,new_url,redirect_type,category,action,notes
 /Study/Funding-513/,/funding.html,301,A-core,MIGRATE,Called out in README
 /Study/AboutUs-446/,/about.html,301,A-core,MIGRATE,About consolidates About/RPL/USI
 /about-us,/about.html,301,B-duplicate,301,Clean duplicate of AboutUs-446
-/Study/AboutUs/USIUniqueStudentIdentifier-475/,/about.html,301,B-duplicate,301,USI section of about page
-/Study/AboutUs-446/USIUniqueStudentIdentifier-475/,/about.html,301,B-duplicate,301,USI path variant
-/Study/AboutUs/RPL-478/,/about.html,301,B-duplicate,301,RPL section of about page
-/Study/AboutUs-446/RPL-478/,/about.html,301,B-duplicate,301,RPL path variant
+/Study/AboutUs/USIUniqueStudentIdentifier-475/,/about.html#usi,301,B-duplicate,301,USI section anchor on about page
+/Study/AboutUs-446/USIUniqueStudentIdentifier-475/,/about.html#usi,301,B-duplicate,301,USI path variant
+/Study/AboutUs/RPL-478/,/about.html#rpl,301,B-duplicate,301,RPL section anchor on about page
+/Study/AboutUs-446/RPL-478/,/about.html#rpl,301,B-duplicate,301,RPL path variant
 /faqs,/faqs.html,301,A-core,MIGRATE,
 /FAQs-1837/,/faqs.html,301,B-duplicate,301,Legacy FAQ variant
 /Study/AboutUs-446/FAQs-474/,/faqs.html,301,B-duplicate,301,Legacy FAQ variant

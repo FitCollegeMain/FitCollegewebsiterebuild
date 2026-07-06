@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FIT College rebuild — production sitemap | generated July 2026
+     [KOOK] Deploy at cutover ONLY (site is noindex until launch).
+     Paths mirror the prototype filenames; if Kook maps pages to clean
+     URLs (e.g. /courses/certificate-iii-in-fitness), regenerate with the
+     final URL structure and keep the redirect-map.csv targets in sync. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.fitcollege.edu.au/</loc><lastmod>2026-07-06</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/courses.html</loc><lastmod>2026-07-06</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/funding.html</loc><lastmod>2026-07-06</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/locations.html</loc><lastmod>2026-07-06</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/study-online.html</loc><lastmod>2026-07-06</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-calendar.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-cert-iii-travel.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-cert-iii.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-cert-iv.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-cpr.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-diploma-sport.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-disability-support.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-first-aid.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-fit-elite.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-international.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-short-courses.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-strength-conditioning.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-tae-upgrade.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/course-tae.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-adelaide-glenelg.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-brisbane-carseldine.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-brisbane-fortitude-valley.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-cairns-city-centre.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-canberra-deakin.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-geelong.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-gold-coast-nerang.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-hobart-aquatic-centre.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-ipswich.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-melbourne-south-melbourne.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-melbourne-wantirna.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-newcastle.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-perth-bibra-lake.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-perth-joondalup.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-sunshine-coast-maroochydore.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-sydney-caringbah.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-sydney-city-centre.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-sydney-parramatta.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-sydney-penrith.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/location-toowoomba.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/about.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/contact.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/faqs.html</loc><lastmod>2026-07-06</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/privacy.html</loc><lastmod>2026-07-06</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/student-handbook.html</loc><lastmod>2026-07-06</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.fitcollege.edu.au/terms.html</loc><lastmod>2026-07-06</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>

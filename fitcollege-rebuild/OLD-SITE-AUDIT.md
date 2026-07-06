@@ -48,9 +48,9 @@ needs an **implement / retire / redirect** decision — this document lists them
 | **Affiliate/partner pages** | Keep **only** the Staff referral form (`/staffleadform`) and **Affiliatedeal**; retire all other partner/affiliate pages |
 | **Blog** | **Keep** — link out to the HubSpot-hosted `blog.fitcollege.edu.au` (footer link added sitewide) |
 | **Retired campuses** | **Prahran** and **Newland-1812** → both retire |
-| **Legal/reference** | **Privacy, Terms, Student Handbook** built as scaffolds and footer-linked sitewide. Verbatim live copy + the current **v3.6 handbook / 6-policy library** were captured 6 Jul 2026 and are preserved in git history (`bc500c3`) — reverted from the demo per Stanley to keep it simple; restore at build |
+| **Legal/reference** | **Privacy, Terms, Student Handbook** built and footer-linked sitewide. **Verbatim legal copy pasted** from the live pages (6 July 2026); handbook page now links the **current v3.6 handbook + 6-policy library** from `/Study/PoliciesandProcedures-516/` |
 | **Insurance page** | **Retire** — `/BecomeaPersonalTrainer/FITCollegeInsurance-603/` → 301 to `faqs.html` |
-| **Affiliatedeal** | **Keep** — legacy URL stays live; content migrates into the rebuild at build time (drafted lander in git history, `bc500c3`; reverted from the demo) |
+| **Affiliatedeal** | **Kept + migrated** — built `affiliate-deal.html` (excluded from sitemap; partner-link entry only) |
 | **GSC reconciliation** | **Closed per Stanley** — the index-probe audit is accepted as the final unindexed list; no GSC export will be run |
 
 > Built this round: 5 new pages + sitewide footer legal/blog links. Legal copy
@@ -232,9 +232,9 @@ Nothing publishes with a visible `[CONFIRM]` chip. Grouped by source:
 - [x] Course implement-vs-retire decided — **built** Cert III Travel + TAE upgrade; **retiring** Weight Management + fitness-professional (Part 1-H).
 - [x] Affiliate/partner strategy decided — keep Staff form + Affiliatedeal, retire the rest (Part 1-E).
 - [x] Blog decided — keep + footer link to HubSpot blog (Part 1-J).
-- [ ] **Paste verbatim legal copy** into `privacy.html` / `terms.html` **at build** — the pasted verbatim version (captured 6 Jul 2026) is in git history (`bc500c3`); demo keeps the simpler scaffolds per Stanley.
-- [ ] **Swap in current handbook at build** — it is **v3.6** + a 6-policy library at `/Study/PoliciesandProcedures-516/`; built page preserved in `bc500c3`. Stale 2019 PDF still gets its 301.
-- [ ] Migrate `/Affiliatedeal` content **at build** — drafted lander preserved in `bc500c3`; demo page reverted.
+- [x] **Verbatim legal copy pasted** into `privacy.html` / `terms.html` from the live pages (6 July 2026, Stanley-approved source).
+- [x] **Student Handbook updated** — links current **v3.6** handbook + 6-policy library from `/Study/PoliciesandProcedures-516/`; stale 2019 PDF gets a 301.
+- [x] `/Affiliatedeal` **migrated** — `affiliate-deal.html` built (excluded from sitemap).
 - [x] Insurance page (`FITCollegeInsurance-603`) — **retire** → 301 to `faqs.html`.
 
 ### 6. Integrations & automation (README)

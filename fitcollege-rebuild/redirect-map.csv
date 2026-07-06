@@ -70,7 +70,7 @@ old_url,new_url,redirect_type,category,action,notes
 /Contact/NovemberPromoCompletePT-1791/,/funding.html,301,D-campaign,RETIRE,Expired promo
 /Contact/NovemberPromoFITElite-1792/,/funding.html,301,D-campaign,RETIRE,Expired promo
 /contact/FebruaryPromoFITElite,/funding.html,301,D-campaign,RETIRE,Feb 2025 promo
-/Affiliatedeal,,,E-affiliate,KEEP,Decision: keep live; migrate content into rebuild at build time (demo page reverted for simplicity - draft in git history)
+/Affiliatedeal,/affiliate-deal.html,301,E-affiliate,MIGRATE,Decision: kept + migrated - page built (excluded from sitemap)
 /landing,/home.html,301,D-campaign,RETIRE,Generic lander
 /landing-thanks,/contact.html,301,F-utility,NOINDEX,Form thank-you
 /promo,/funding.html,301,D-campaign,RETIRE,Generic promo lander

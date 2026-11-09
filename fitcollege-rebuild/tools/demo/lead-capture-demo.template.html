@@ -126,7 +126,7 @@ main{padding-block:28px 48px}
 <main class="gut"><div class="wrap">
   <div class="intro">
     <h1>Fill it in like a lead would</h1>
-    <p>Screen 1 captures everything. Submit it to see screen 2: the matched advisor, the "within 1 business day" promise, and the option to book or call. Use the left panel to change where the lead came from.</p>
+    <p>One form for every enquiry: each submission gets the info pack and becomes a lead. Submit it to see screen 2, with the matched advisor, the "within 1 business day" promise, and the option to book or call. Use the left panel to change where the lead came from.</p>
   </div>
 
   <div class="bench">
@@ -137,11 +137,6 @@ main{padding-block:28px 48px}
         <label class="opt"><input type="radio" name="src" value="course-cert-iv.html"> <span>Cert IV in Fitness page<small>Preselects Cert IV</small></span></label>
         <label class="opt"><input type="radio" name="src" value="course-tae.html"> <span>TAE course page<small>Preselects TAE: routes to Shay</small></span></label>
         <label class="opt"><input type="radio" name="src" value="funding.html?from=checker-eligible"> <span>Funding checker result<small>Preselects Cert III, adds context</small></span></label>
-      </div>
-      <h2>Form</h2>
-      <div class="group" role="radiogroup" aria-label="Form">
-        <label class="opt"><input type="radio" name="type" value="advisor" checked> <span>Chat with a Career Advisor</span></label>
-        <label class="opt"><input type="radio" name="type" value="infopack"> <span>Request an info pack</span></label>
       </div>
       <h2>Quick scenarios</h2>
       <div class="chips" style="margin-bottom:16px">
@@ -156,10 +151,10 @@ main{padding-block:28px 48px}
     </aside>
 
     <section class="stage" aria-label="Lead capture form">
-      <h2 class="page" id="stage-title">Chat with a Career Advisor</h2>
-      <p class="lede" id="stage-lede">Tell us a little about you and your local Career Advisor will be in touch within 1 business day. Or book a time straight away.</p>
+      <h2 class="page">Get your info pack</h2>
+      <p class="lede">Tell us a little about you and we'll email the course guide straight away. Your local Career Advisor will be in touch within 1 business day.</p>
       <span class="example-note" id="example-note">Example details filled in. Edit anything.</span>
-      <div id="flow" data-lead-flow data-form-type="advisor"></div>
+      <div id="flow" data-lead-flow></div>
     </section>
 
     <aside class="panel" aria-label="What HubSpot receives" aria-live="polite">
@@ -184,7 +179,7 @@ window.FIT_NO_AUTO_MOUNT = true;
 (function(){
   var flow = document.getElementById('flow'), recv = document.getElementById('recv');
   var EXAMPLE = { firstname:'Jess', lastname:'Taylor', email:'jess.taylor@example.com', mobilephone:'412 345 678', zip:'4558' };
-  var HIDDEN = ['lead_source_page','lead_form_type','lead_context','assigned_advisor','lead_routing','utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid'];
+  var HIDDEN = ['lead_source_page','lead_context','assigned_advisor','lead_routing','utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid'];
   var WHY = {
     postcode: function(v,a){ return ['Rule 3 · postcode', v.zip + ' is in POSTCODE MASTER and belongs to ' + a.name + '.']; },
     course: function(v,a){ return ['Rule 1 · course', v.course_interest + ' is a non-fitness course, so it goes to ' + a.name + ' from anywhere.']; },
@@ -201,17 +196,12 @@ window.FIT_NO_AUTO_MOUNT = true;
   function fillExample(){ Object.keys(EXAMPLE).forEach(function(k){ setField(k, EXAMPLE[k]); }); }
 
   function mount(){
-    var src = val('src'), type = document.querySelector('input[name=type]:checked').value;
+    var src = val('src');
     var page = src.split('?')[0];
-    flow.setAttribute('data-form-type', type);
     flow.setAttribute('data-source-page', 'https://www.fitcollege.edu.au/' + page);
     /* Simulate ?from= context arriving with the visit */
     var q = src.indexOf('from=') > -1 ? src.split('from=')[1] : '';
     if (q) flow.setAttribute('data-context', q); else flow.removeAttribute('data-context');
-    document.getElementById('stage-title').textContent = type === 'infopack' ? 'Request an info pack' : 'Chat with a Career Advisor';
-    document.getElementById('stage-lede').textContent = type === 'infopack'
-      ? 'We’ll email the course guide straight away, and your Career Advisor will be in touch within 1 business day.'
-      : 'Tell us a little about you and your local Career Advisor will be in touch within 1 business day. Or book a time straight away.';
     document.getElementById('example-note').hidden = false;
     FITAdvisorRouter.mount(flow);
     fillExample();
@@ -229,7 +219,7 @@ window.FIT_NO_AUTO_MOUNT = true;
       '<div class="kv-scroll"><table class="kv"><tbody>' + rows + '</tbody></table></div>';
   });
 
-  Array.prototype.forEach.call(document.querySelectorAll('input[name=src], input[name=type]'), function(r){ r.addEventListener('change', mount); });
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=src]'), function(r){ r.addEventListener('change', mount); });
   document.getElementById('reset').addEventListener('click', mount);
   Array.prototype.forEach.call(document.querySelectorAll('[data-s]'), function(b){
     b.addEventListener('click', function(){

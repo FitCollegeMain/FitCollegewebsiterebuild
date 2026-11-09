@@ -18,7 +18,7 @@ Start at **index.html** (internal review hub) or **home.html** (the site).
 - `faqs.html`, `about.html` (consolidates About/RPL/USI), `contact.html`, `course-calendar.html`
 
 ## Rules baked in sitewide
-1. **CTA hierarchy:** "Chat with a Career Advisor" primary everywhere; info pack secondary.
+1. **CTA hierarchy:** "Chat with a Career Advisor" primary everywhere; info pack secondary. Both land on the one lead form (contact.html#book / #infopack).
 2. **Verifiable specifics only** — superlatives removed per the 2026 growth strategy.
 3. **No dollar pricing** except regulated Career Start co-contribution figures on funding.html.
 4. **Header renders once** (fixes duplicated nav block); no tracking pixels in <head>.
@@ -27,9 +27,9 @@ Start at **index.html** (internal review hub) or **home.html** (the site).
 7. Schema: Organization sitewide; Course + FAQPage on course pages; FAQPage on funding/faqs; LocalBusiness on campus pages.
 
 ## Lead capture: one form → advisor routing → book or call
-`<div data-lead-flow data-form-type="advisor|infopack">` renders the HubSpot
-form (all details on one screen, reCAPTCHA, course preselected from the page the
-lead came from) and, on submit, screen 2: the matched Career Advisor, "in touch
+`<div data-lead-flow>` renders the one HubSpot form (every enquiry gets the
+info pack and becomes a lead; all details on one screen, reCAPTCHA, course preselected from the page the
+lead came from) and, on submit, screen 2: info pack on its way, the matched Career Advisor, "in touch
 within 1 business day", and book-now / call-now options (js/advisor-router.js).
 Fitness courses route by postcode (POSTCODE MASTER vNOV26); non-fitness courses
 go to Shay Best (`data/course-routing.csv`). Until `FIT_HUBSPOT.portalId/formId`

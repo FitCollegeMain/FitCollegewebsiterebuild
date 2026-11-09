@@ -51,27 +51,27 @@
   </div>
 </section>
 <section>
-  <div class="wrap contact-split">
+  <div class="wrap contact-split" id="infopack">
     <div>
-      <h2>Book a conversation</h2>
-      <p style="margin:14px 0 24px;color:var(--ink-soft)">Tell us a little about you and your local Career Advisor will be in touch within 1 business day. Or book a time straight away.</p>
-      <!-- [KOOK] Lead capture: js/advisor-router.js renders the three steps
-           (area -> HubSpot form -> advisor's calendar) inside this div.
-           Spec: advisor-routing-deck.html -->
-      <div data-lead-flow data-form-type="advisor" id="book"></div>
+      <h2>Get your info pack</h2>
+      <p style="margin:14px 0 24px;color:var(--ink-soft)">Tell us a little about you and we'll email the course guide straight away. Your local Career Advisor will be in touch within 1 business day.</p>
+      <!-- [KOOK] Lead capture: ONE form for every enquiry. Every submission
+           gets the info pack and becomes a lead. js/advisor-router.js renders
+           the HubSpot form here, then screen 2 (advisor + book / call).
+           #infopack and #book both land here, so existing "Request an Info
+           Pack" and "Chat with a Career Advisor" buttons keep working.
+           National copy: no geo-personalised campus references (Southport
+           bug class of issue must not recur). Spec: advisor-routing-deck.html -->
+      <div data-lead-flow id="book"></div>
       <noscript><p>Call <a href="tel:1300887017">1300 887 017</a> to speak with a Career Advisor.</p></noscript>
-      <p class="small" style="margin-top:18px" data-hide-after-submit>Prefer the phone? <a href="tel:1300887017"><strong>1300 887 017</strong></a></p>
     </div>
-    <div id="infopack">
-      <h2>Request an info pack</h2>
-      <p style="margin:14px 0 24px;color:var(--ink-soft)">Want to read first, talk later? We'll send the course guide for whatever you're considering.</p>
-      <!-- [KOOK] Info pack form — secondary CTA sitewide per the CTA
-           hierarchy rebuild. National copy: no geo-personalised
-           campus references in the hero (Southport bug class of
-           issue must not recur). -->
-      <!-- [KOOK] Same component; lead_form_type=infopack tells HubSpot to
-           send the pack. Offers the matched advisor's calendar afterwards. -->
-      <div data-lead-flow data-form-type="infopack"></div>
+    <div class="next-steps">
+      <h2>What happens next</h2>
+      <ol>
+        <li><strong>Your info pack lands in your inbox</strong> within minutes, for the course you choose.</li>
+        <li><strong>Your local Career Advisor gets in touch</strong> within 1 business day to answer questions on course fit, study modes, payment plans and funding.</li>
+        <li><strong>Or skip the wait.</strong> Book a time in your advisor's calendar, or call <a href="tel:1300887017"><strong>1300 887 017</strong></a>.</li>
+      </ol>
     </div>
   </div>
 </section>

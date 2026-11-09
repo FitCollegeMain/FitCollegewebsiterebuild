@@ -2,17 +2,20 @@
    FIT COLLEGE: LEAD CAPTURE + CAREER ADVISOR ROUTING
    [KOOK] Vanilla JS, no dependencies. Load js/advisor-data.js first.
 
-   Drop <div data-lead-flow data-form-type="advisor|infopack"></div> on a
-   page and this script runs a two-screen flow inside it:
+   Drop <div data-lead-flow></div> on a page and this script runs a
+   two-screen flow inside it. There is ONE form: every submission gets
+   the info pack for its course and becomes a lead.
+
 
      SCREEN 1  The HubSpot form: every detail on one screen (name, email,
                mobile, course, where they live -> postcode or country,
                consent, reCAPTCHA). Context (source page, UTMs) goes in as
                hidden fields; the course is preselected from the page the
                lead came from.
-     SCREEN 2  On HubSpot's submission-success event: "Tess will be in
-               touch within 1 business day", with two options:
-               book a time now (Tess's HubSpot calendar) or call now.
+     SCREEN 2  On HubSpot's submission-success event: "Your info pack is
+               on its way" + "Tess will be in touch within 1 business
+               day", with two options: book a time now (Tess's HubSpot
+               calendar) or call now.
 
    Routing (who the advisor is) is worked out from the submitted values.
    HubSpot sets the contact owner with a workflow using the same rules
@@ -115,11 +118,10 @@
     try { if (r && new URL(r).host === location.host) return r; } catch (e) { /* ignore */ }
     return '';
   }
-  function context(type, root) {
+  function context(root) {
     var p = new URLSearchParams(location.search);
     var src = (root && root.getAttribute('data-source-page')) || sourcePage();
     var ctx = {
-      lead_form_type: type,
       lead_source_page: src || location.href,
       lead_context: (root && root.getAttribute('data-context')) || p.get('from') || ''
     };
@@ -230,7 +232,7 @@
      Mirrors the HubSpot form spec (deck slide 8) so the flow can be
      reviewed end to end. Not for production. */
   function mountStandIn(slot, state, onSuccess) {
-    var n = ++uid, type = state.type;
+    var n = ++uid;
     var courses = Object.keys(window.FIT_COURSE_ROUTING || {}).filter(function (k) { return k.charAt(0) !== '*'; });
     var hiddenCount = Object.keys(state.ctx).length + 2;
     slot.innerHTML =
@@ -241,7 +243,7 @@
         field('email', 'Email*', '<input id="sf-email-' + n + '" name="email" type="email" autocomplete="email">', true) +
         field('mobilephone', 'Mobile*', '<div class="phone-row"><select aria-label="Country code" name="cc"><option value="+61">AU +61</option><option value="+64">NZ +64</option><option value="+44">UK +44</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+63">PH +63</option><option value="+27">ZA +27</option><option value="+1">US/CA +1</option><option value="">Other</option></select>' +
           '<input id="sf-mobilephone-' + n + '" name="mobilephone" type="tel" autocomplete="tel-national"></div>', true) +
-        field('course_interest', (type === 'infopack' ? 'Which course guide?*' : 'Course you’re interested in*'),
+        field('course_interest', 'Course you’re interested in*',
           '<select id="sf-course_interest-' + n + '" name="course_interest">' + courses.map(function (c) {
             return '<option' + (c === (state.course || 'Not sure yet') ? ' selected' : '') + '>' + esc(c) + '</option>';
           }).join('') + '</select>', true) +
@@ -254,7 +256,7 @@
           '<span class="field__error" aria-live="polite"></span></div>' +
         '<p class="consent">By submitting, you agree FIT College may contact you about study options by phone, SMS and email. See our <a href="privacy.html">Privacy Policy</a>.</p>' +
         '<p class="hs-standin__captcha">Protected by reCAPTCHA (HubSpot form setting)</p>' +
-        '<button type="submit" class="btn btn--primary">' + (type === 'infopack' ? 'Send me the info pack' : 'Talk to a Career Advisor') + '</button>' +
+        '<button type="submit" class="btn btn--primary">Send me my info pack</button>' +
       '</form>';
 
     var f = slot.querySelector('form');
@@ -322,18 +324,19 @@
   function renderScreen2(root, state, v) {
     var m = route(v), a = m.advisor;
     var who = m.matched ? (a.firstName || a.name) : 'our team';
-    var info = { lead_form_type: state.type, lead_routing: m.routing, assigned_advisor: a.name };
+    var info = { lead_routing: m.routing, assigned_advisor: a.name };
     track('lead_submitted', info);
     /* Page-level hook: listen for 'fit:lead' on the container. */
     root.dispatchEvent(new CustomEvent('fit:lead', { bubbles: true, detail: {
       values: Object.assign({}, v, { assigned_advisor: a.name, lead_routing: m.routing }), advisor: a, routing: m.routing } }));
 
     var name = v.firstname ? ', ' + esc(v.firstname) : '';
-    var heading = state.type === 'infopack' ? 'Your info pack is on its way' + name : 'Thanks' + name + ', you’re all set';
+    var heading = 'Thanks' + name + ', your info pack is on its way';
+    var pack = (!v.course_interest || v.course_interest === 'Not sure yet') ? 'our course guide' : 'the ' + esc(v.course_interest) + ' info pack';
     var promise = m.matched
       ? '<strong>' + esc(a.name) + '</strong>, ' + (m.routing === 'course' ? 'who looks after ' + esc(v.course_interest) + ',' : 'your local Career Advisor,') + ' will be in touch <strong>' + RESPONSE_PROMISE + '</strong>.'
       : 'One of our Career Advisors will be in touch <strong>' + RESPONSE_PROMISE + '</strong>.';
-    if (state.type === 'infopack') promise = 'Check your inbox in the next few minutes. ' + promise;
+    promise = 'Check your inbox for ' + pack + '. ' + promise;
 
     root.innerHTML =
       '<div class="advisor-result" data-advisor="' + esc(m.id) + '" data-routing="' + esc(m.routing) + '">' +
@@ -389,8 +392,7 @@
      6. BOOT
      ====================================================================== */
   function mount(root) {
-    var type = root.getAttribute('data-form-type') || 'advisor';
-    renderScreen1(root, { type: type, course: presetCourse(root), ctx: context(type, root) });
+    renderScreen1(root, { course: presetCourse(root), ctx: context(root) });
   }
   function init() {
     if (window.FIT_NO_AUTO_MOUNT) return;

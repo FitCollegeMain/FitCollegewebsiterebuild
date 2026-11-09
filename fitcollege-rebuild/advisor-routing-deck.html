@@ -197,7 +197,7 @@
     </div>
     <div class="col new"><span class="tag">New</span>
       <div class="chain">
-        <div>One form, all details<small>Course preselected from the page they came from</small></div>
+        <div>One form, all details<small>Everyone gets the info pack; every submission is a lead</small></div>
         <div>"Tess will be in touch within 1 business day"<small>Named advisor, clear timeframe</small></div>
         <div>Don't want to wait? Book a time or call now<small>Tess's calendar, details prefilled</small></div>
         <div>Owner set to Tess in HubSpot, SMS names her</div>
@@ -237,20 +237,20 @@
         <div class="ml">Where do you live?*</div><div class="mf">Australia ▾</div>
         <div class="ml">Postcode*</div><div class="mf">4558</div>
         <div class="mcap">Contact by phone, SMS and email · reCAPTCHA</div>
-        <div class="mbtn">Talk to a Career Advisor</div>
+        <div class="mbtn">Send me my info pack</div>
       </div></div>
       <p class="cap"><b>Screen 1 · HubSpot form</b>Course preselected from the Cert IV page</p>
     </div>
     <div>
       <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
         <span class="tick">✓</span>
-        <div class="t" style="margin-top:8px">Thanks, Jess, you're all set</div>
-        <div style="color:var(--soft)"><b style="color:var(--ink)">Tess Szabath</b>, your local Career Advisor, will be in touch <b style="color:var(--ink)">within 1 business day</b>.</div>
+        <div class="t" style="margin-top:8px">Thanks, Jess, your info pack is on its way</div>
+        <div style="color:var(--soft)">Check your inbox for the Cert IV in Fitness info pack. <b style="color:var(--ink)">Tess Szabath</b>, your local Career Advisor, will be in touch <b style="color:var(--ink)">within 1 business day</b>.</div>
         <div style="font-weight:700;margin:12px 0 6px">Don't want to wait?</div>
         <div class="mbtn" style="text-align:left">📅 Book a time now<br><span style="font-weight:400;font-size:9.5px">Pick a time in Tess's calendar</span></div>
         <div class="mf" style="margin-top:6px;color:var(--ink)"><b>☎ Call us now</b><br><span style="font-size:9.5px;color:var(--soft)">1300 887 017 · ask for Tess</span></div>
       </div></div>
-      <p class="cap"><b>Screen 2 · Promise + options</b>Named advisor and a clear timeframe</p>
+      <p class="cap"><b>Screen 2 · Pack + promise + options</b>Info pack sent, named advisor, clear timeframe</p>
     </div>
     <div>
       <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
@@ -341,7 +341,7 @@
 <section class="slide">
   <div class="kicker">HubSpot · form build spec</div>
   <h2>One form, every detail on one screen</h2>
-  <p class="lede" style="margin-bottom:12px">Name: <strong>Website – Lead capture (advisor routing) 2026</strong>. Serves advisor and info-pack leads; <code>lead_form_type</code> tells them apart.</p>
+  <p class="lede" style="margin-bottom:12px">Name: <strong>Website – Lead capture (advisor routing) 2026</strong>. One form for every enquiry: each submission triggers the info pack and creates the lead.</p>
   <div class="body cols3">
     <div class="card">
       <h3>Visible fields</h3>
@@ -359,7 +359,7 @@
       <h3>Hidden fields</h3>
       <ul class="clean">
         <li><code>lead_source_page</code>: page they came from <span class="flag flag--red">new</span></li>
-        <li><code>lead_form_type</code> · <code>lead_context</code> <span class="flag flag--red">new</span></li>
+        <li><code>lead_context</code>: e.g. checker-eligible <span class="flag flag--red">new</span></li>
         <li><code>assigned_advisor</code> · <code>lead_routing</code> <span class="flag flag--red">new</span>: set by workflow (and by our code on legacy embeds)</li>
         <li>UTMs, gclid, fbclid</li>
         <li><strong>Promotion form's hidden fields</strong> <span class="flag">to copy</span></li>
@@ -389,7 +389,7 @@
       <ol class="steps">
         <li><strong>Set contact owner, only if blank.</strong> Branches in rule order; values are paste-ready in <code>data/hubspot-workflow-lists.txt</code>. Also sets <code>assigned_advisor</code> + <code>lead_routing</code>. <span class="flag">Kook: check HubSpot's limit on "is any of" values (Ryan has 1,057)</span></li>
         <li><strong>SMS speed-to-lead</strong> names the advisor and repeats "within 1 business day". Skip it if they've already booked.</li>
-        <li><strong>Info pack</strong>: when <code>lead_form_type</code> = infopack, email the guide for <code>course_interest</code>.</li>
+        <li><strong>Info pack to everyone</strong>: email the guide for <code>course_interest</code> (general guide for "Not sure yet").</li>
         <li><strong>Task</strong> for the owner: due in 1 business day, so the promise is kept.</li>
       </ol>
     </div>
@@ -411,7 +411,7 @@
 <section class="slide">
   <div class="kicker">For Kook · assets</div>
   <h2>Everything needed to build it</h2>
-  <p class="lede" style="margin-bottom:12px">All in the repo under <code>fitcollege-rebuild/</code>. On any page, the whole flow is one tag: <code>&lt;div data-lead-flow data-form-type="advisor"&gt;&lt;/div&gt;</code></p>
+  <p class="lede" style="margin-bottom:12px">All in the repo under <code>fitcollege-rebuild/</code>. On any page, the whole flow is one tag: <code>&lt;div data-lead-flow&gt;&lt;/div&gt;</code></p>
   <div class="body">
     <table class="tbl tight">
       <thead><tr><th style="width:300px">File</th><th>What it is</th><th style="width:360px">Kook action</th></tr></thead>
@@ -419,7 +419,7 @@
         <tr><td><code>js/advisor-router.js</code></td><td>HubSpot embed (new + legacy editors), course preselect, routing, screen 2, tracking.</td><td>Ship sitewide. Set portal + form ID in <code>FIT_HUBSPOT</code>. Verify the <code>[KOOK]</code> HubSpot calls.</td></tr>
         <tr><td><code>js/advisor-data.js</code></td><td>Generated: advisors, postcodes, course routing (16 KB). No staff mobiles.</td><td>Ship as-is. Never hand-edit.</td></tr>
         <tr><td><code>css/site.css</code> (lead capture blocks)</td><td>Form, screen 2 option cards and calendar styles.</td><td>Port into the CMS stylesheet.</td></tr>
-        <tr><td><code>contact.html</code></td><td>Reference placement for both flows.</td><td>Place the two <code>data-lead-flow</code> divs.</td></tr>
+        <tr><td><code>contact.html</code></td><td>Reference placement; <code>#infopack</code> and <code>#book</code> both land on the one form.</td><td>Place one <code>data-lead-flow</code> div; keep both anchors.</td></tr>
         <tr><td><code>data/postcode-master.csv</code> · <code>advisors.csv</code> · <code>course-routing.csv</code></td><td>The three source files.</td><td>Add HubSpot owner IDs to <code>advisors.csv</code>.</td></tr>
         <tr><td><code>data/hubspot-workflow-lists.txt</code> · <code>hubspot-postcode-owner.csv</code></td><td>Paste-ready owner workflow branches; postcode → advisor table.</td><td>Build the owner workflow (slide 9).</td></tr>
         <tr><td><code>data/postcode-sheet-gaps.csv</code></td><td>Postcodes missing from / wrong in the sheet.</td><td>For the sheet owner, not Kook.</td></tr>

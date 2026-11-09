@@ -358,3 +358,8 @@ ul.check li::after{content:"✓";position:absolute;left:3.5px;top:8px;font-size:
 .next-option--book{background:var(--energy-red);border-color:var(--energy-red);color:#fff}
 .next-option--book span:last-child{color:#FBDADA}
 .advisor-cal-wrap{margin-top:16px}
+.next-steps ol{list-style:none;counter-reset:ns;margin-top:20px;display:grid;gap:18px}
+.next-steps li{counter-increment:ns;position:relative;padding-left:46px;color:var(--ink-soft)}
+.next-steps li > strong{display:block;color:var(--core-black)}
+#infopack,#book{scroll-margin-top:90px}
+.next-steps li::before{content:counter(ns);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--core-black);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}

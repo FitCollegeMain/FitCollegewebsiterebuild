@@ -26,16 +26,21 @@ Start at **index.html** (internal review hub) or **home.html** (the site).
 6. **Valid OG tags** on every page (fixes the malformed FIT Elite share image).
 7. Schema: Organization sitewide; Course + FAQPage on course pages; FAQPage on funding/faqs; LocalBusiness on campus pages.
 
-## Lead capture: postcode + course → Career Advisor routing
-`<div data-lead-flow data-form-type="advisor|infopack">` renders a three-step
-flow (js/advisor-router.js): area + course → HubSpot form (reCAPTCHA, hidden
-fields) → the matched advisor's HubSpot booking calendar. Fitness courses route
-by postcode (POSTCODE MASTER vNOV26); non-fitness courses go to Shay Best
-(`data/course-routing.csv`). Until `FIT_HUBSPOT.portalId/formId` are set, a
-stand-in form mirrors the HubSpot spec. Handover: `advisor-routing-deck.html`
-/ `FIT-College-Advisor-Routing.pdf`. After any sheet or course change run
-`python3 tools/build_advisor_routing.py "POSTCODE MASTER.xlsx"`; never
-hand-edit `js/advisor-data.js`.
+## Lead capture: one form → advisor routing → book or call
+`<div data-lead-flow data-form-type="advisor|infopack">` renders the HubSpot
+form (all details on one screen, reCAPTCHA, course preselected from the page the
+lead came from) and, on submit, screen 2: the matched Career Advisor, "in touch
+within 1 business day", and book-now / call-now options (js/advisor-router.js).
+Fitness courses route by postcode (POSTCODE MASTER vNOV26); non-fitness courses
+go to Shay Best (`data/course-routing.csv`). Until `FIT_HUBSPOT.portalId/formId`
+are set, a stand-in mirrors the HubSpot form spec.
+
+- Handover: `advisor-routing-deck.html` / `FIT-College-Advisor-Routing.pdf`
+- Working demo: `lead-capture-demo.html` (self-contained; rebuild with
+  `python3 tools/build_demo.py tools/demo/lead-capture-demo.template.html`)
+- HubSpot owner workflow values: `data/hubspot-workflow-lists.txt`
+- After any sheet or course change: `python3 tools/build_advisor_routing.py "POSTCODE MASTER.xlsx"`,
+  then rebuild the demo. Never hand-edit `js/advisor-data.js`.
 
 ## Before anything publishes
 - Everything marked **[CONFIRM]** needs verification: campus NAP details

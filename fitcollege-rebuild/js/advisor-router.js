@@ -2,38 +2,58 @@
    FIT COLLEGE: LEAD CAPTURE + CAREER ADVISOR ROUTING
    [KOOK] Vanilla JS, no dependencies. Load js/advisor-data.js first.
 
-   Drop <div data-lead-flow data-form-type="advisor|infopack"></div> on any
-   page and this script renders a three-step flow inside it:
+   Drop <div data-lead-flow data-form-type="advisor|infopack"></div> on a
+   page and this script runs a two-screen flow inside it:
 
-     STEP 1 (our code)     Course + postcode (or "I live outside Australia").
-                           Postcode checked against POSTCODE MASTER; advisor
-                           shown immediately.
-     STEP 2 (HubSpot)      The HubSpot form (name, email, mobile, consent,
-                           reCAPTCHA). Step 1 answers go in as hidden fields.
-     STEP 3 (our code)     On HubSpot's submission-success event, the matched
-                           advisor's HubSpot booking calendar replaces the form.
+     SCREEN 1  The HubSpot form: every detail on one screen (name, email,
+               mobile, course, where they live -> postcode or country,
+               consent, reCAPTCHA). Context (source page, UTMs) goes in as
+               hidden fields; the course is preselected from the page the
+               lead came from.
+     SCREEN 2  On HubSpot's submission-success event: "Tess will be in
+               touch within 1 business day", with two options:
+               book a time now (Tess's HubSpot calendar) or call now.
 
+   Routing (who the advisor is) is worked out from the submitted values.
+   HubSpot sets the contact owner with a workflow using the same rules
+   (data/hubspot-workflow-lists.txt).
    Full spec: advisor-routing-deck.html
    ========================================================================== */
 (function () {
   'use strict';
 
   /* ---------- HubSpot config ----------
-     [KOOK] Fill in portalId + formId (one form serves both advisor and
-     info-pack flows; lead_form_type tells them apart). editor = 'new' for
-     forms built in HubSpot's current form editor, 'legacy' for the old one.
-     While portalId is blank the prototype shows a STAND-IN form that
-     behaves like HubSpot's, so the flow can be reviewed end to end. */
-  var HS = Object.assign({ region: 'ap1', portalId: '', formId: '', editor: 'new' }, window.FIT_HUBSPOT || {});
+     [KOOK] Set portalId + formId. editor: 'new' (current HubSpot form
+     editor) or 'legacy'. While portalId is blank the prototype shows a
+     STAND-IN that mirrors the HubSpot form spec field for field. */
+  var HS = Object.assign({ region: 'ap1', portalId: '', formId: '', editor: 'new', bookingMode: 'embed' }, window.FIT_HUBSPOT || {});
+  /* bookingMode: 'embed' shows the advisor's calendar in the page;
+     'link' opens their HubSpot booking page in a new tab instead. */
 
-  var PHONE = '1300 887 017';
-  var COUNTRIES = ['New Zealand', 'United Kingdom', 'Ireland', 'India', 'Philippines', 'South Africa', 'Fiji',
-    'Papua New Guinea', 'Nepal', 'Brazil', 'Colombia', 'Japan', 'South Korea', 'United States', 'Canada',
-    'Singapore', 'Malaysia', 'Indonesia', 'Vietnam', 'Thailand', 'China', 'Hong Kong', 'Germany', 'France',
-    'Italy', 'Spain', 'Netherlands', 'Chile', 'Argentina', 'Other'];
+  var PHONE = '1300 887 017', PHONE_TEL = '1300887017';
+  var RESPONSE_PROMISE = 'within 1 business day';
+
+  /* Page slug -> course label (must match data/course-routing.csv).
+     Used to preselect the course from the page the lead came from. */
+  var COURSE_BY_PAGE = {
+    'course-fit-elite': 'FIT Elite™ Dual-Career PT Program',
+    'course-cert-iii': 'Cert III in Fitness',
+    'course-cert-iv': 'Cert IV in Fitness',
+    'course-diploma-sport': 'Diploma of Sport (Coaching)',
+    'course-strength-conditioning': 'Strength & Conditioning',
+    'course-short-courses': 'CEC Short Courses',
+    'course-disability-support': 'Disability Support Skill Set',
+    'course-tae': 'Cert IV in Training & Assessment',
+    'course-tae-upgrade': 'TAE Upgrade (TAE40116 to TAE40122)',
+    'course-first-aid': 'First Aid / CPR',
+    'course-cpr': 'First Aid / CPR',
+    'course-cert-iii-travel': 'Cert III in Travel',
+    'course-international': 'International Student Pathways',
+    'funding': 'Cert III in Fitness'
+  };
 
   /* ======================================================================
-     1. ROUTING
+     1. ROUTING (same rules as the HubSpot owner workflow)
      ====================================================================== */
   var index = null;
   function buildIndex() {
@@ -43,61 +63,79 @@
       groups[id].split(' ').forEach(function (pc) { index[pc] = id; });
     });
   }
-
-  /* "4558", " 4558 ", "800" (NT without the leading 0) -> "4558"/"0800" */
   function normalisePostcode(raw) {
     var digits = String(raw || '').replace(/\D/g, '');
     if (digits.length === 3) digits = '0' + digits;
     return /^\d{4}$/.test(digits) ? digits : null;
   }
-
-  var STATE_BY_PREFIX = { '0': 'NT', '2': 'NSW', '3': 'VIC', '4': 'QLD', '5': 'SA', '6': 'WA', '7': 'TAS' };
-
   function courseRoute(course) {
     var r = window.FIT_COURSE_ROUTING || {};
-    if (!course) return 'postcode';
+    if (!course || course === 'Not sure yet') return 'postcode';
     return Object.prototype.hasOwnProperty.call(r, course) ? r[course] : (r['*unlisted*'] || 'postcode');
   }
+  function isOverseas(v) {
+    var w = String(v.where_do_you_live || '').toLowerCase();
+    if (w) return w.indexOf('outside') > -1;
+    return !!v.country && !/^australia$/i.test(v.country);
+  }
 
-  /* Decide who gets the lead.
-     Returns { id, advisor, routing, postcode, state, matched }
-     routing: 'postcode' | 'course' | 'overseas' | 'unmatched' */
-  function route(opts) {
+  /* Rules, first match wins:
+       1 non-fitness course            -> course owner (Shay Best)
+       2 lives outside Australia       -> *overseas* owner
+       3 postcode in POSTCODE MASTER   -> that advisor
+       4 anything else                 -> team fallback (lead_routing=unmatched) */
+  function route(v) {
     if (!index) buildIndex();
-    var all = window.FIT_ADVISORS || {};
-    var res = { postcode: null, state: '', country: 'Australia' };
-
-    if (opts.overseas) {
-      var oid = (window.FIT_COURSE_ROUTING || {})['*overseas*'] || '_fallback';
-      res.country = opts.country || '';
-      /* A non-fitness course still goes to its course owner from overseas */
-      var cr = courseRoute(opts.course);
-      if (cr !== 'postcode') oid = cr;
-      return finish(res, oid, cr !== 'postcode' ? 'course' : 'overseas');
-    }
-
-    res.postcode = normalisePostcode(opts.postcode);
-    var sheetId = res.postcode && index[res.postcode];
-    res.state = (res.postcode && STATE_BY_PREFIX[res.postcode.charAt(0)]) || '';
-    if (res.postcode && /^(02\d\d|260\d|261[0-8]|29[01]\d|2920)$/.test(res.postcode)) res.state = 'ACT';
-
-    var c = courseRoute(opts.course);
-    if (c !== 'postcode') return finish(res, c, 'course');
-    if (sheetId) return finish(res, sheetId, 'postcode');
-    return finish(res, '_fallback', 'unmatched');
-
-    function finish(r, id, how) {
-      r.id = all[id] ? id : '_fallback';
-      r.advisor = all[r.id] || { name: 'FIT College Career Advisor', firstName: '', meetingUrl: '' };
-      r.routing = how;
-      r.matched = r.id !== '_fallback';
-      r.inSheet = !!sheetId;
-      return r;
-    }
+    var all = window.FIT_ADVISORS || {}, id, how;
+    var pc = normalisePostcode(v.zip);
+    var c = courseRoute(v.course_interest);
+    if (c !== 'postcode') { id = c; how = 'course'; }
+    else if (isOverseas(v)) { id = (window.FIT_COURSE_ROUTING || {})['*overseas*'] || '_fallback'; how = 'overseas'; }
+    else if (pc && index[pc]) { id = index[pc]; how = 'postcode'; }
+    else { id = '_fallback'; how = 'unmatched'; }
+    if (!all[id]) id = '_fallback';
+    return {
+      id: id, routing: how, postcode: pc,
+      advisor: all[id] || { name: 'FIT College Career Advisor', firstName: '', meetingUrl: '' },
+      matched: id !== '_fallback'
+    };
   }
 
   /* ======================================================================
-     2. SMALL HELPERS
+     2. CONTEXT: where the lead came from
+     ====================================================================== */
+  function pageSlug(url) {
+    try { return new URL(url, location.href).pathname.split('/').pop().replace(/\.html?$/, ''); } catch (e) { return ''; }
+  }
+  /* The page on OUR site they clicked through from (document.referrer when
+     same-site). HubSpot already records original source + first page seen
+     via its tracking cookie; this adds the page they converted from. */
+  function sourcePage() {
+    var r = document.referrer || '';
+    try { if (r && new URL(r).host === location.host) return r; } catch (e) { /* ignore */ }
+    return '';
+  }
+  function context(type, root) {
+    var p = new URLSearchParams(location.search);
+    var src = (root && root.getAttribute('data-source-page')) || sourcePage();
+    var ctx = {
+      lead_form_type: type,
+      lead_source_page: src || location.href,
+      lead_context: (root && root.getAttribute('data-context')) || p.get('from') || ''
+    };
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'].forEach(function (k) {
+      if (p.get(k)) ctx[k] = p.get(k);
+    });
+    return ctx;
+  }
+  function presetCourse(root) {
+    var p = new URLSearchParams(location.search);
+    return root.getAttribute('data-course') || p.get('course') ||
+      COURSE_BY_PAGE[pageSlug(root.getAttribute('data-source-page') || sourcePage())] || '';
+  }
+
+  /* ======================================================================
+     3. HELPERS
      ====================================================================== */
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -105,194 +143,71 @@
     });
   }
   function track(event, data) {
-    /* [KOOK] GA4 via GTM dataLayer. Mark lead_submitted and
-       advisor_meeting_booked as conversions. */
+    /* [KOOK] GTM dataLayer -> GA4. Conversions: lead_submitted,
+       advisor_meeting_booked, advisor_call_clicked. */
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push(Object.assign({ event: event }, data || {}));
-  }
-  function utmParams() {
-    var p = new URLSearchParams(location.search), out = {};
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'].forEach(function (k) {
-      if (p.get(k)) out[k] = p.get(k);
-    });
-    return out;
   }
   var uid = 0;
 
   /* ======================================================================
-     3. STEP 1: course + postcode
+     4. SCREEN 1: the HubSpot form
      ====================================================================== */
-  function renderStep1(root, state) {
-    var n = ++uid, type = state.type;
-    var courses = Object.keys(window.FIT_COURSE_ROUTING || {}).filter(function (k) { return k.charAt(0) !== '*'; });
-    var opts = courses.map(function (c) {
-      return '<option' + (c === state.course ? ' selected' : '') + '>' + esc(c) + '</option>';
-    }).join('');
-
-    root.innerHTML =
-      '<form class="lead-form lead-step1" novalidate>' +
-        '<p class="lead-stepper" aria-hidden="true"><b>1</b> Your area <span>2</span> Your details <span>3</span> ' + (type === 'infopack' ? 'Done' : 'Book') + '</p>' +
-        '<div class="field field--full"><label for="lf-course-' + n + '">' + (type === 'infopack' ? 'Which course guide?' : 'What are you interested in?') + '</label>' +
-          '<select id="lf-course-' + n + '" name="course">' + opts + '</select></div>' +
-        '<div class="field field--full" data-au>' +
-          '<label for="lf-pc-' + n + '">Your postcode <span class="hint">so we can match you with your local Career Advisor</span></label>' +
-          '<input id="lf-pc-' + n + '" name="postcode" inputmode="numeric" autocomplete="postal-code" maxlength="4" value="' + esc(state.postcode || '') + '">' +
-          '<span class="field__error" aria-live="polite"></span>' +
-          '<span class="pc-match" aria-live="polite"></span>' +
-          '<button type="button" class="linkish" data-toggle-overseas>I live outside Australia</button>' +
-        '</div>' +
-        '<div class="field field--full" data-os hidden>' +
-          '<label for="lf-country-' + n + '">Country you live in</label>' +
-          '<input id="lf-country-' + n + '" name="country" list="lf-countries-' + n + '" autocomplete="country-name" value="' + esc(state.country || '') + '">' +
-          '<datalist id="lf-countries-' + n + '">' + COUNTRIES.map(function (c) { return '<option value="' + esc(c) + '">'; }).join('') + '</datalist>' +
-          '<span class="field__error" aria-live="polite"></span>' +
-          '<button type="button" class="linkish" data-toggle-overseas>I have an Australian postcode</button>' +
-        '</div>' +
-        '<button type="submit" class="btn btn--primary">Continue</button>' +
-      '</form>';
-
-    var form = root.querySelector('form');
-    var au = form.querySelector('[data-au]'), os = form.querySelector('[data-os]');
-    var pc = form.elements.postcode, country = form.elements.country, course = form.elements.course;
-    var matchEl = form.querySelector('.pc-match');
-
-    function setOverseas(on) {
-      state.overseas = on; au.hidden = on; os.hidden = !on;
-      (on ? country : pc).focus();
-    }
-    Array.prototype.forEach.call(form.querySelectorAll('[data-toggle-overseas]'), function (b) {
-      b.addEventListener('click', function () { setOverseas(!state.overseas); });
-    });
-    if (state.overseas) { au.hidden = true; os.hidden = false; }
-
-    function preview() {
-      clearErr(pc);
-      var v = pc.value.trim();
-      if (normalisePostcode(v) === null || v.replace(/\D/g, '').length < 3) { matchEl.textContent = ''; matchEl.className = 'pc-match'; return; }
-      var r = route({ postcode: v, course: course.value });
-      if (r.routing === 'course') {
-        matchEl.className = 'pc-match pc-match--ok';
-        matchEl.innerHTML = esc(r.postcode) + (r.state ? ' · ' + r.state : '') + ' · <strong>' + esc(r.advisor.name) + '</strong> looks after ' + esc(course.value);
-      } else if (r.inSheet) {
-        matchEl.className = 'pc-match pc-match--ok';
-        matchEl.innerHTML = esc(r.postcode) + ' · ' + esc(r.state) + ' · Your local Career Advisor is <strong>' + esc(r.advisor.name) + '</strong>';
-      } else {
-        matchEl.className = 'pc-match pc-match--warn';
-        matchEl.textContent = 'We couldn’t match ' + r.postcode + ' to an area. Please check it, or continue and our advisor team will look after you.';
-      }
-    }
-    pc.addEventListener('input', preview);
-    course.addEventListener('change', preview);
-    country.addEventListener('input', function () { clearErr(country); });
-    if (state.postcode) preview();
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      state.course = course.value;
-      if (state.overseas) {
-        if (!country.value.trim()) return showErr(country, 'Please tell us which country you live in');
-        state.country = country.value.trim(); state.postcode = '';
-      } else {
-        if (!normalisePostcode(pc.value)) return showErr(pc, 'Please enter your 4-digit postcode');
-        state.postcode = pc.value.trim(); state.country = 'Australia';
-      }
-      state.match = route({ postcode: state.postcode, course: state.course, overseas: state.overseas, country: state.country });
-      track('lead_step1_complete', { lead_form_type: type, lead_routing: state.match.routing, assigned_advisor: state.match.advisor.name });
-      renderStep2(root, state);
-    });
-  }
-
-  function showErr(input, msg) {
-    var out = input.closest('.field').querySelector('.field__error');
-    input.setAttribute('aria-invalid', 'true'); out.textContent = msg; input.focus();
-  }
-  function clearErr(input) {
-    var out = input.closest('.field').querySelector('.field__error');
-    input.setAttribute('aria-invalid', 'false'); if (out) out.textContent = '';
-  }
-
-  /* ======================================================================
-     4. STEP 2: HubSpot form with hidden fields
-     ====================================================================== */
-  /* Hidden fields written into the HubSpot form. Names are HubSpot
-     contact property INTERNAL names. [KOOK] add the promotion form's
-     hidden fields here once confirmed (see deck: HubSpot form spec). */
-  function hiddenFields(state) {
-    var m = state.match, params = new URLSearchParams(location.search);
-    return Object.assign({
-      zip: m.postcode || '',
-      state: m.state || '',
-      country: m.country || '',
-      course_interest: state.course === 'Not sure yet' ? '' : state.course,
-      assigned_advisor: m.advisor.name,
-      lead_routing: m.routing,
-      lead_form_type: state.type,
-      lead_context: params.get('from') || ''
-    }, utmParams());
-  }
-
-  function renderStep2(root, state) {
-    var m = state.match, a = m.advisor;
-    var banner = m.matched
-      ? 'Your Career Advisor: <strong>' + esc(a.name) + '</strong>'
-      : 'You’ll be looked after by our <strong>Career Advisor team</strong>';
-    var where = m.postcode ? esc(m.postcode) + (m.state ? ' ' + m.state : '') : esc(m.country);
-
-    root.innerHTML =
-      '<div class="lead-step2">' +
-        '<p class="lead-stepper" aria-hidden="true"><span>1</span> Your area <b>2</b> Your details <span>3</span> ' + (state.type === 'infopack' ? 'Done' : 'Book') + '</p>' +
-        '<div class="advisor-banner"><span>' + banner + '</span><span class="advisor-banner__meta">' + where + ' · ' + esc(state.course) +
-          ' · <button type="button" class="linkish" data-back>Change</button></span></div>' +
-        '<div class="hs-form-slot" tabindex="-1"></div>' +
-      '</div>';
-    root.querySelector('[data-back]').addEventListener('click', function () { renderStep1(root, state); });
-
-    var slot = root.querySelector('.hs-form-slot');
-    var hidden = hiddenFields(state);
-    var onSuccess = function (values) { onSubmitted(root, state, values || {}); };
-
-    if (HS.portalId && HS.formId) mountHubSpot(slot, hidden, onSuccess);
-    else mountStandIn(slot, state, hidden, onSuccess);
-    slot.focus();
+  function renderScreen1(root, state) {
+    root.innerHTML = '<div class="hs-form-slot"></div>';
+    var slot = root.firstChild;
+    var preset = Object.assign({}, state.ctx);
+    if (state.course) preset.course_interest = state.course;
+    var done = function (values) { renderScreen2(root, state, Object.assign({}, state.ctx, values || {})); };
+    if (HS.portalId && HS.formId) mountHubSpot(slot, preset, done);
+    else mountStandIn(slot, state, done);
   }
 
   /* ---------- 4a. Real HubSpot embed ----------
-     [KOOK] VERIFY against HubSpot's current developer docs before go-live:
-     these method/event names are written from HubSpot's documented APIs but
-     could not be checked from the prototype environment. */
-  function mountHubSpot(slot, hidden, onSuccess) {
+     [KOOK] VERIFY method and event names against HubSpot's current
+     developer docs (they could not be checked from the prototype
+     environment). Both editors are covered. */
+  function mountHubSpot(slot, preset, onSuccess) {
     if (HS.editor === 'legacy') {
-      /* Legacy forms: hbspt.forms.create with callbacks */
       loadScript('https://js-' + HS.region + '.hsforms.net/forms/embed/v2.js', function () {
+        if (!slot.id) slot.id = 'hs-slot-' + (++uid);
         window.hbspt.forms.create({
-          region: HS.region, portalId: HS.portalId, formId: HS.formId, target: '#' + ensureId(slot),
+          region: HS.region, portalId: HS.portalId, formId: HS.formId, target: '#' + slot.id,
           onFormReady: function (form) {
             var el = form.jquery ? form[0] : form;
-            Object.keys(hidden).forEach(function (k) {
-              var input = el.querySelector('input[name="' + k + '"]');
-              if (input) { input.value = hidden[k]; input.dispatchEvent(new Event('change', { bubbles: true })); }
+            Object.keys(preset).forEach(function (k) {
+              var input = el.querySelector('[name="' + k + '"]');
+              if (input && !input.value) { input.value = preset[k]; input.dispatchEvent(new Event('change', { bubbles: true })); }
+            });
+          },
+          /* Legacy forms render in the page, so routing can also be written
+             into hidden fields before submit (backs up the HubSpot workflow). */
+          onBeforeFormSubmit: function (form, data) {
+            var el = form.jquery ? form[0] : form, v = {};
+            (data || []).forEach(function (f) { v[f.name] = f.value; });
+            var m = route(v);
+            [['assigned_advisor', m.advisor.name], ['lead_routing', m.routing]].forEach(function (pair) {
+              var input = el.querySelector('[name="' + pair[0] + '"]');
+              if (input) input.value = pair[1];
             });
           },
           onFormSubmitted: function (form, data) {
-            var v = {};
-            ((data && data.submissionValues) ? Object.keys(data.submissionValues).map(function (k) { return { name: k, value: data.submissionValues[k] }; }) : [])
-              .forEach(function (f) { v[f.name] = f.value; });
+            var v = {}, sv = (data && data.submissionValues) || {};
+            Object.keys(sv).forEach(function (k) { v[k] = sv[k]; });
             onSuccess(v);
           }
         });
       });
       return;
     }
-    /* New form editor: iframe-free embed + global events + HubSpotFormsV4 */
     slot.innerHTML = '<div class="hs-form-frame" data-region="' + HS.region + '" data-form-id="' + HS.formId + '" data-portal-id="' + HS.portalId + '"></div>';
+    function formFrom(e) { return window.HubSpotFormsV4 && window.HubSpotFormsV4.getFormFromEvent(e); }
     function onReady(e) {
-      var form = window.HubSpotFormsV4 && window.HubSpotFormsV4.getFormFromEvent(e);
-      if (!form || e.detail && e.detail.formId && e.detail.formId !== HS.formId) return;
-      Object.keys(hidden).forEach(function (k) { form.setFieldValue('0-1/' + k, hidden[k]); }); /* 0-1 = contact object */
+      var form = formFrom(e); if (!form) return;
+      Object.keys(preset).forEach(function (k) { form.setFieldValue('0-1/' + k, preset[k]); }); /* 0-1 = contact */
     }
     function onSubmit(e) {
-      var form = window.HubSpotFormsV4 && window.HubSpotFormsV4.getFormFromEvent(e);
-      if (!form) return;
+      var form = formFrom(e); if (!form) return;
       window.removeEventListener('hs-form-event:on-ready', onReady);
       window.removeEventListener('hs-form-event:on-submission:success', onSubmit);
       Promise.resolve(form.getFormFieldValues()).then(function (fields) {
@@ -303,53 +218,94 @@
     }
     window.addEventListener('hs-form-event:on-ready', onReady);
     window.addEventListener('hs-form-event:on-submission:success', onSubmit);
-    loadScript('https://js-' + HS.region + '.hsforms.net/forms/embed/' + HS.portalId + '.js', function () {}, true);
+    loadScript('https://js-' + HS.region + '.hsforms.net/forms/embed/' + HS.portalId + '.js', function () {});
   }
-  function ensureId(el) { if (!el.id) el.id = 'hs-slot-' + (++uid); return el.id; }
-  function loadScript(src, cb, always) {
-    var existing = document.querySelector('script[src="' + src + '"]');
-    if (existing && !always) { if (window.hbspt || window.HubSpotFormsV4) cb(); else existing.addEventListener('load', cb); return; }
-    var s = document.createElement('script'); s.src = src; s.defer = true; s.onload = cb; document.head.appendChild(s);
+  function loadScript(src, cb) {
+    var s = document.querySelector('script[src="' + src + '"]');
+    if (s) { if (window.hbspt || window.HubSpotFormsV4) cb(); else s.addEventListener('load', cb); return; }
+    s = document.createElement('script'); s.src = src; s.defer = true; s.onload = cb; document.head.appendChild(s);
   }
 
   /* ---------- 4b. Prototype stand-in (only while portalId is blank) ----------
-     Mirrors the HubSpot form spec field for field, so the flow can be
-     reviewed without HubSpot access. Not for production. */
-  function mountStandIn(slot, state, hidden, onSuccess) {
-    var n = ++uid;
+     Mirrors the HubSpot form spec (deck slide 8) so the flow can be
+     reviewed end to end. Not for production. */
+  function mountStandIn(slot, state, onSuccess) {
+    var n = ++uid, type = state.type;
+    var courses = Object.keys(window.FIT_COURSE_ROUTING || {}).filter(function (k) { return k.charAt(0) !== '*'; });
+    var hiddenCount = Object.keys(state.ctx).length + 2;
     slot.innerHTML =
       '<form class="lead-form hs-standin" novalidate>' +
-        '<p class="hs-standin__tag">Prototype stand-in for the HubSpot form · ' + Object.keys(hidden).length + ' hidden fields attached</p>' +
-        '<div class="field"><label for="s-f-' + n + '">First name*</label><input id="s-f-' + n + '" name="firstname" autocomplete="given-name"><span class="field__error"></span></div>' +
-        '<div class="field"><label for="s-l-' + n + '">Last name*</label><input id="s-l-' + n + '" name="lastname" autocomplete="family-name"><span class="field__error"></span></div>' +
-        '<div class="field field--full"><label for="s-e-' + n + '">Email*</label><input id="s-e-' + n + '" name="email" type="email" autocomplete="email"><span class="field__error"></span></div>' +
-        '<div class="field field--full"><label for="s-m-' + n + '">Mobile*</label><div class="phone-row">' +
-          '<select aria-label="Country code" name="cc"><option value="+61"' + (state.overseas ? '' : ' selected') + '>AU +61</option><option value="+64">NZ +64</option><option value="+44">UK +44</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+63">PH +63</option><option value="+27">ZA +27</option><option value="+1">US/CA +1</option><option value=""' + (state.overseas ? ' selected' : '') + '>Other</option></select>' +
-          '<input id="s-m-' + n + '" name="mobilephone" type="tel" autocomplete="tel-national"></div><span class="field__error"></span></div>' +
+        '<p class="hs-standin__tag">Prototype stand-in for the HubSpot form · ' + hiddenCount + ' hidden fields</p>' +
+        field('firstname', 'First name*', '<input id="sf-firstname-' + n + '" name="firstname" autocomplete="given-name">') +
+        field('lastname', 'Last name*', '<input id="sf-lastname-' + n + '" name="lastname" autocomplete="family-name">') +
+        field('email', 'Email*', '<input id="sf-email-' + n + '" name="email" type="email" autocomplete="email">', true) +
+        field('mobilephone', 'Mobile*', '<div class="phone-row"><select aria-label="Country code" name="cc"><option value="+61">AU +61</option><option value="+64">NZ +64</option><option value="+44">UK +44</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+63">PH +63</option><option value="+27">ZA +27</option><option value="+1">US/CA +1</option><option value="">Other</option></select>' +
+          '<input id="sf-mobilephone-' + n + '" name="mobilephone" type="tel" autocomplete="tel-national"></div>', true) +
+        field('course_interest', (type === 'infopack' ? 'Which course guide?*' : 'Course you’re interested in*'),
+          '<select id="sf-course_interest-' + n + '" name="course_interest">' + courses.map(function (c) {
+            return '<option' + (c === (state.course || 'Not sure yet') ? ' selected' : '') + '>' + esc(c) + '</option>';
+          }).join('') + '</select>', true) +
+        field('where_do_you_live', 'Where do you live?*', '<select id="sf-where_do_you_live-' + n + '" name="where_do_you_live"><option>Australia</option><option>Outside Australia</option></select>') +
+        '<div class="field" data-dep="au">' +
+          '<label for="sf-zip-' + n + '">Postcode*</label><input id="sf-zip-' + n + '" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="4" placeholder="e.g. 4558">' +
+          '<span class="field__error" aria-live="polite"></span></div>' +
+        '<div class="field" data-dep="os" hidden>' +
+          '<label for="sf-country-' + n + '">Country*</label><input id="sf-country-' + n + '" name="country" autocomplete="country-name">' +
+          '<span class="field__error" aria-live="polite"></span></div>' +
         '<p class="consent">By submitting, you agree FIT College may contact you about study options by phone, SMS and email. See our <a href="privacy.html">Privacy Policy</a>.</p>' +
         '<p class="hs-standin__captcha">Protected by reCAPTCHA (HubSpot form setting)</p>' +
-        '<button type="submit" class="btn btn--primary">' + (state.type === 'infopack' ? 'Send me the info pack' : (state.match.matched ? 'Next: pick a time with ' + esc(state.match.advisor.firstName || state.match.advisor.name) : 'Next: pick a time')) + '</button>' +
+        '<button type="submit" class="btn btn--primary">' + (type === 'infopack' ? 'Send me the info pack' : 'Talk to a Career Advisor') + '</button>' +
       '</form>';
+
     var f = slot.querySelector('form');
+    var where = f.elements.where_do_you_live;
+    /* HubSpot equivalent: conditional logic on "Where do you live?" */
+    where.addEventListener('change', function () {
+      var os = where.value === 'Outside Australia';
+      f.querySelector('[data-dep="au"]').hidden = os;
+      f.querySelector('[data-dep="os"]').hidden = !os;
+    });
     f.addEventListener('input', function (e) { if (e.target.getAttribute('aria-invalid') === 'true') clearErr(e.target); });
     f.addEventListener('submit', function (e) {
       e.preventDefault();
-      var v = {}, bad = null;
-      ['firstname', 'lastname', 'email', 'mobilephone'].forEach(function (k) { v[k] = f.elements[k].value.trim(); });
-      if (!v.firstname) bad = bad || [f.elements.firstname, 'Please add your first name'];
-      if (!v.lastname) bad = bad || [f.elements.lastname, 'Please add your last name'];
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) bad = bad || [f.elements.email, 'Please check your email address'];
-      if (v.mobilephone.replace(/\D/g, '').length < 8) bad = bad || [f.elements.mobilephone, 'Please check your mobile number'];
-      if (bad) return showErr(bad[0], bad[1]);
+      var v = {}, err = [];
+      ['firstname', 'lastname', 'email', 'mobilephone', 'course_interest', 'where_do_you_live', 'zip', 'country'].forEach(function (k) {
+        v[k] = f.elements[k].value.trim();
+      });
+      var os = v.where_do_you_live === 'Outside Australia';
+      if (!v.firstname) err.push(['firstname', 'Please add your first name']);
+      if (!v.lastname) err.push(['lastname', 'Please add your last name']);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) err.push(['email', 'Please check your email address']);
+      if (v.mobilephone.replace(/\D/g, '').length < 8) err.push(['mobilephone', 'Please check your mobile number']);
+      if (!os && !/^\d{4}$/.test(v.zip)) err.push(['zip', 'Please enter your 4-digit postcode']);
+      if (os && !v.country) err.push(['country', 'Please tell us which country you live in']);
+      err.forEach(function (x) { showErr(f.elements[x[0]], x[1]); });
+      if (err.length) { f.elements[err[0][0]].focus(); return; }
+      if (os) v.zip = ''; else v.country = 'Australia';
       v.mobilephone = f.elements.cc.value + ' ' + v.mobilephone;
-      if (window.console) console.log('[stand-in] HubSpot submission', Object.assign({}, v, hidden));
+      var m = route(v);
+      var payload = Object.assign({}, v, state.ctx, { assigned_advisor: m.advisor.name, lead_routing: m.routing });
+      if (window.console) console.log('[stand-in] HubSpot submission ' + JSON.stringify(payload));
       var btn = f.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Sending…';
       setTimeout(function () { onSuccess(v); }, 400);
     });
+
+    function field(name, label, control, full) {
+      return '<div class="field' + (full ? ' field--full' : '') + '"><label for="sf-' + name + '-' + n + '">' + label + '</label>' + control +
+        '<span class="field__error" aria-live="polite"></span></div>';
+    }
+  }
+  function showErr(input, msg) {
+    var out = input.closest('.field').querySelector('.field__error');
+    input.setAttribute('aria-invalid', 'true'); if (out) out.textContent = msg;
+  }
+  function clearErr(input) {
+    var out = input.closest('.field').querySelector('.field__error');
+    input.setAttribute('aria-invalid', 'false'); if (out) out.textContent = '';
   }
 
   /* ======================================================================
-     5. STEP 3: advisor's booking calendar
+     5. SCREEN 2: in touch within 1 business day + book / call options
      ====================================================================== */
   function meetingSrc(url, v) {
     var sep = url.indexOf('?') === -1 ? '?' : '&';
@@ -359,40 +315,71 @@
       (v.email ? '&email=' + encodeURIComponent(v.email) : '');
   }
 
-  function onSubmitted(root, state, v) {
-    var m = state.match, a = m.advisor, who = m.matched ? (a.firstName || a.name) : 'one of our Career Advisors';
-    track('lead_submitted', { lead_form_type: state.type, lead_routing: m.routing, assigned_advisor: a.name });
-    var first = v.firstname ? ', ' + esc(v.firstname) : '';
-    var heading, intro;
-    if (state.type === 'infopack') {
-      heading = 'Your info pack is on its way' + first;
-      intro = 'Check your inbox in the next few minutes. Want to talk it through? ' +
-        (m.matched ? '<strong>' + esc(a.name) + '</strong> can walk you through it. Grab a time below.' : 'Grab a time with one of our Career Advisors below.');
-    } else {
-      heading = m.matched ? 'You’re with ' + esc(a.name) : 'Thanks' + first + ', let’s find you a time';
-      intro = 'Pick a time that suits and ' + esc(who) + ' will call you then. Your details are already filled in.';
-    }
-    var cal = a.meetingUrl
-      ? '<iframe class="advisor-cal" title="Book a time with ' + esc(a.name) + '" src="' + esc(meetingSrc(a.meetingUrl, v)) + '" loading="lazy"></iframe>'
-      : '<div class="img-slot img-slot--light advisor-cal--slot" role="img" aria-label="Placeholder: booking calendar">HUBSPOT BOOKING CALENDAR<br><small>' +
-          esc(a.name) + ' · [CONFIRM] meeting URL in data/advisors.csv</small></div>';
-
-    root.innerHTML =
-      '<div class="advisor-result" data-advisor="' + esc(m.id) + '">' +
-        '<p class="lead-stepper" aria-hidden="true"><span>1</span> Your area <span>2</span> Your details <b>3</b> ' + (state.type === 'infopack' ? 'Done' : 'Book') + '</p>' +
-        '<span class="advisor-result__tick" aria-hidden="true">✓</span>' +
-        '<h3 tabindex="-1">' + heading + '</h3>' +
-        '<p class="advisor-result__intro">' + intro + '</p>' + cal +
-        '<p class="small advisor-result__alt">No times showing, or rather talk now? Call <a href="tel:1300887017"><strong>' + PHONE + '</strong></a>' +
-          (m.matched ? ' and ask for ' + esc(who) : '') + '.</p>' +
-      '</div>';
-    root.querySelector('h3').focus();
-    var after = root.parentNode && root.parentNode.querySelector('[data-hide-after-submit]');
-    if (after) after.hidden = true;
+  function bookingPageUrl(url, v) {
+    return meetingSrc(url, v).replace('?embed=true&', '?').replace('?embed=true', '');
   }
 
-  /* HubSpot's meetings embed posts a message to the page when a booking
-     completes. [KOOK] confirm the payload key in the live embed. */
+  function renderScreen2(root, state, v) {
+    var m = route(v), a = m.advisor;
+    var who = m.matched ? (a.firstName || a.name) : 'our team';
+    var info = { lead_form_type: state.type, lead_routing: m.routing, assigned_advisor: a.name };
+    track('lead_submitted', info);
+    /* Page-level hook: listen for 'fit:lead' on the container. */
+    root.dispatchEvent(new CustomEvent('fit:lead', { bubbles: true, detail: {
+      values: Object.assign({}, v, { assigned_advisor: a.name, lead_routing: m.routing }), advisor: a, routing: m.routing } }));
+
+    var name = v.firstname ? ', ' + esc(v.firstname) : '';
+    var heading = state.type === 'infopack' ? 'Your info pack is on its way' + name : 'Thanks' + name + ', you’re all set';
+    var promise = m.matched
+      ? '<strong>' + esc(a.name) + '</strong>, ' + (m.routing === 'course' ? 'who looks after ' + esc(v.course_interest) + ',' : 'your local Career Advisor,') + ' will be in touch <strong>' + RESPONSE_PROMISE + '</strong>.'
+      : 'One of our Career Advisors will be in touch <strong>' + RESPONSE_PROMISE + '</strong>.';
+    if (state.type === 'infopack') promise = 'Check your inbox in the next few minutes. ' + promise;
+
+    root.innerHTML =
+      '<div class="advisor-result" data-advisor="' + esc(m.id) + '" data-routing="' + esc(m.routing) + '">' +
+        '<span class="advisor-result__tick" aria-hidden="true">✓</span>' +
+        '<h3 tabindex="-1">' + heading + '</h3>' +
+        '<p class="advisor-result__intro">' + promise + '</p>' +
+        '<p class="advisor-result__or">Don’t want to wait?</p>' +
+        '<div class="next-options">' +
+          (a.meetingUrl
+            ? (HS.bookingMode === 'link'
+              ? '<a class="next-option next-option--book" href="' + esc(bookingPageUrl(a.meetingUrl, v)) + '" target="_blank" rel="noopener" data-book-link>'
+              : '<button type="button" class="next-option next-option--book" data-book aria-expanded="false">') +
+                '<span class="next-option__icon" aria-hidden="true">📅</span><strong>Book a time now</strong>' +
+                '<span>Pick a time in ' + (m.matched ? esc(who) + '’s' : 'our') + ' calendar</span>' +
+              (HS.bookingMode === 'link' ? '</a>' : '</button>')
+            : '') +
+          '<a class="next-option next-option--call" href="tel:' + PHONE_TEL + '" data-call>' +
+            '<span class="next-option__icon" aria-hidden="true">☎</span><strong>Call us now</strong>' +
+            '<span>' + PHONE + (m.matched ? ' · ask for ' + esc(who) : '') + '</span></a>' +
+        '</div>' +
+        '<div class="advisor-cal-wrap" hidden></div>' +
+      '</div>';
+
+    var h = root.querySelector('h3'); h.focus();
+    var after = root.parentNode && root.parentNode.querySelector('[data-hide-after-submit]');
+    if (after) after.hidden = true;
+
+    var book = root.querySelector('[data-book]');
+    if (book) book.addEventListener('click', function () {
+      var wrap = root.querySelector('.advisor-cal-wrap');
+      if (!wrap.firstChild) {
+        wrap.innerHTML = '<iframe class="advisor-cal" title="Book a time with ' + esc(a.name) + '" src="' + esc(meetingSrc(a.meetingUrl, v)) + '"></iframe>' +
+          '<p class="small advisor-result__alt">No times showing? Call <a href="tel:' + PHONE_TEL + '"><strong>' + PHONE + '</strong></a>.</p>';
+        track('advisor_book_opened', info);
+      }
+      wrap.hidden = !wrap.hidden;
+      book.setAttribute('aria-expanded', wrap.hidden ? 'false' : 'true');
+      if (!wrap.hidden) wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    var bl = root.querySelector('[data-book-link]');
+    if (bl) bl.addEventListener('click', function () { track('advisor_book_opened', info); });
+    root.querySelector('[data-call]').addEventListener('click', function () { track('advisor_call_clicked', info); });
+  }
+
+  /* HubSpot's meetings embed posts a message when a booking completes.
+     [KOOK] confirm the payload key in the live embed. */
   window.addEventListener('message', function (e) {
     if (!/hubspot\.com$/.test((e.origin || '').replace(/:\d+$/, ''))) return;
     if (e.data && e.data.meetingBookSucceeded) track('advisor_meeting_booked', {});
@@ -401,21 +388,17 @@
   /* ======================================================================
      6. BOOT
      ====================================================================== */
+  function mount(root) {
+    var type = root.getAttribute('data-form-type') || 'advisor';
+    renderScreen1(root, { type: type, course: presetCourse(root), ctx: context(type, root) });
+  }
   function init() {
-    var params = new URLSearchParams(location.search);
-    Array.prototype.forEach.call(document.querySelectorAll('[data-lead-flow]'), function (root) {
-      var state = {
-        type: root.getAttribute('data-form-type') || 'advisor',
-        /* Course pages can preselect: contact.html?course=Cert%20IV%20in%20Fitness */
-        course: root.getAttribute('data-course') || params.get('course') || 'Not sure yet',
-        postcode: '', country: '', overseas: false
-      };
-      renderStep1(root, state);
-    });
+    if (window.FIT_NO_AUTO_MOUNT) return;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-lead-flow]'), mount);
   }
 
-  /* Console testing: FITAdvisorRouter.route({postcode:'4558', course:'Cert IV in Fitness'}) */
-  window.FITAdvisorRouter = { route: route, normalisePostcode: normalisePostcode };
+  /* Console testing: FITAdvisorRouter.route({zip:'4558', course_interest:'Cert IV in Fitness'}) */
+  window.FITAdvisorRouter = { route: route, normalisePostcode: normalisePostcode, mount: mount };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

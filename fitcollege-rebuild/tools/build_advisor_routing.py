@@ -27,6 +27,7 @@ ADV_CSV = ROOT / "data" / "advisors.csv"
 COURSE_CSV = ROOT / "data" / "course-routing.csv"
 OUT_JS = ROOT / "js" / "advisor-data.js"
 OUT_HS = ROOT / "data" / "hubspot-postcode-owner.csv"
+OUT_WF = ROOT / "data" / "hubspot-workflow-lists.txt"
 
 
 def refresh_from_xlsx(path):
@@ -131,6 +132,25 @@ def main():
         for pc, aid in sorted(mapping.items()):
             a = adv_by_id[aid]
             w.writerow([pc, states[pc], a["display_name"], a["email"], a["hubspot_owner_id"]])
+
+    # Paste-ready values for the HubSpot "set contact owner" workflow.
+    shay_courses = [c for c, r in course_routing.items() if r != "postcode" and not c.startswith("*")]
+    lines = [
+        "HUBSPOT OWNER WORKFLOW: paste-ready branch values (generated " + stamp + ")",
+        "Enrol when: form submission on the lead capture form AND Contact owner is unknown.",
+        "Branches are checked top to bottom; first match wins (same rules as the website).",
+        "",
+        "BRANCH 1  Course interest is any of  ->  " + adv_by_id[course_routing["*unlisted*"]]["display_name"],
+        "  " + "; ".join(shay_courses),
+        "  (Plus any new course on the site that is not routed by postcode.)",
+        "",
+        "BRANCH 2  Where do you live = Outside Australia  ->  " + adv_by_id.get(course_routing["*overseas*"], {}).get("display_name", "team fallback"),
+        "",
+    ]
+    for k, (aid, pcs) in enumerate(sorted(grouped.items(), key=lambda x: -len(x[1])), start=3):
+        lines += [f"BRANCH {k}  Postal code is any of ({len(pcs)} values)  ->  {adv_by_id[aid]['display_name']}", "  " + ", ".join(pcs), ""]
+    lines += ["NONE MATCHED  ->  round-robin across Career Advisors (lead_routing = unmatched)"]
+    OUT_WF.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     print(f"OK: {len(mapping)} postcodes -> {OUT_JS.relative_to(ROOT)}, {OUT_HS.relative_to(ROOT)}")
     for aid, c in counts.most_common():

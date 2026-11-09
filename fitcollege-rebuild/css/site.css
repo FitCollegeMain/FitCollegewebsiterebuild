@@ -345,3 +345,16 @@ ul.check li::after{content:"✓";position:absolute;left:3.5px;top:8px;font-size:
 .hs-standin__captcha{grid-column:1/-1;font-size:.75rem;color:var(--ink-faint);margin:0}
 .phone-row{display:grid;grid-template-columns:120px 1fr;gap:8px}
 .lead-form [hidden],.lead-form .field[hidden]{display:none}
+
+/* Screen 2: book or call */
+.advisor-result__or{font-weight:700;margin:6px 0 10px}
+.next-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:520px){.next-options{grid-template-columns:1fr}}
+.next-option{display:flex;flex-direction:column;gap:2px;text-align:left;font:inherit;cursor:pointer;text-decoration:none;color:var(--core-black);border:2px solid var(--line);border-radius:var(--radius);padding:14px 16px;background:#fff}
+.next-option:hover,.next-option:focus-visible,.next-option[aria-expanded="true"]{border-color:var(--energy-red)}
+.next-option strong{font-size:1rem}
+.next-option span:last-child{font-size:.82rem;color:var(--ink-soft)}
+.next-option__icon{font-size:1.2rem;line-height:1}
+.next-option--book{background:var(--energy-red);border-color:var(--energy-red);color:#fff}
+.next-option--book span:last-child{color:#FBDADA}
+.advisor-cal-wrap{margin-top:16px}

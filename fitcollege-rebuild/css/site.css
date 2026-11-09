@@ -299,3 +299,31 @@ ul.check li::after{content:"✓";position:absolute;left:3.5px;top:8px;font-size:
 /* Contact split */
 .contact-split{display:grid;grid-template-columns:1fr 1fr;gap:40px}
 @media (max-width:800px){.contact-split{grid-template-columns:1fr}}
+
+/* ==========================================================================
+   Lead capture + advisor routing (js/advisor-router.js)
+   [KOOK] One form component, two uses: data-form-type="advisor" | "infopack"
+   ========================================================================== */
+.lead-form{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
+.lead-form .field{display:flex;flex-direction:column;gap:6px}
+.lead-form .field--full{grid-column:1/-1}
+.lead-form label{font-size:.88rem;font-weight:600}
+.lead-form .hint{font-size:.78rem;color:var(--ink-faint);font-weight:400}
+.lead-form input,.lead-form select{font:inherit;font-size:1rem;padding:12px 14px;border:1.5px solid #CFCFCF;border-radius:var(--radius);background:#fff;color:var(--core-black);width:100%}
+.lead-form input:focus,.lead-form select:focus{outline:3px solid rgba(33,66,141,.25);border-color:var(--academy-blue)}
+.lead-form input[aria-invalid="true"]{border-color:var(--energy-red)}
+.lead-form .field__error{font-size:.8rem;color:var(--energy-red);min-height:0}
+.lead-form .field__error:empty{display:none}
+.lead-form .consent{grid-column:1/-1;font-size:.78rem;color:var(--ink-soft);margin:0}
+.lead-form button{grid-column:1/-1;justify-self:start;cursor:pointer;font:inherit}
+.lead-form .btn--primary{border:0}
+.lead-form button[disabled]{opacity:.7;cursor:progress}
+@media (max-width:560px){.lead-form{grid-template-columns:1fr}}
+
+.advisor-result{border:2px solid var(--energy-red);border-radius:var(--radius);padding:28px;background:#fff}
+.advisor-result h3{font-size:1.35rem;margin:10px 0 8px;outline:none}
+.advisor-result__tick{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--energy-red);color:#fff;font-weight:800}
+.advisor-result__intro{color:var(--ink-soft);margin-bottom:18px}
+.advisor-result__alt{margin-top:14px}
+.advisor-cal{width:100%;height:700px;border:0;border-radius:var(--radius);background:var(--mist)}
+.advisor-cal--slot{min-height:320px;text-align:center}

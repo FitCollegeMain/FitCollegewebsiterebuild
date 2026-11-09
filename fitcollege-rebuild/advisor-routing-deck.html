@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advisor Routing Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#181818; --red:#CE2829; --red-t:#FBEAEA; --blue:#21428D; --blue-t:#E9EDF6;
+    --green:#1B7F4B; --green-t:#E6F3EC; --amber:#A86A00; --amber-t:#FDF3E1;
+    --ink:#181818; --soft:#4A4A4A; --faint:#8A8A8A; --line:#E3E3E3; --mist:#F6F6F4; --paper:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#2B2B2B}
+  body{font-family:'Poppins',Arial,sans-serif;color:var(--ink);line-height:1.5;overflow:hidden}
+  a{color:var(--red)}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82em;background:var(--mist);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+
+  /* ---------- Deck frame: fixed 1280x720 slides, scaled to the window ---------- */
+  .deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .slide{position:absolute;width:1280px;height:720px;background:var(--paper);padding:56px 72px 60px;
+         overflow:hidden;display:none;flex-direction:column;transform-origin:center center}
+  .slide.active{display:flex}
+  .slide .foot{position:absolute;left:72px;right:72px;bottom:22px;display:flex;justify-content:space-between;font-size:11px;color:var(--faint);letter-spacing:.04em}
+  .slide .foot b{color:var(--ink);font-weight:800;letter-spacing:.08em}
+  .slide .foot b span{color:var(--red)}
+  .nav{position:fixed;top:12px;right:14px;opacity:.55;transition:opacity .2s;display:flex;gap:8px;align-items:center;z-index:5;color:#ddd;font-size:13px}
+  .nav button{font:inherit;background:#444;color:#fff;border:0;border-radius:6px;padding:8px 14px;cursor:pointer}
+  .nav:hover{opacity:1}
+  .nav button:hover{background:var(--red)}
+
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+  h1{font-size:58px;line-height:1.05;font-weight:800;letter-spacing:-.01em}
+  h2{font-size:36px;line-height:1.12;font-weight:800;letter-spacing:-.01em;margin-bottom:8px}
+  h3{font-size:17px;font-weight:700;margin-bottom:4px}
+  .lede{font-size:17px;color:var(--soft);max-width:900px;margin-bottom:26px}
+  .body{flex:1;min-height:0}
+
+  /* Dark slides */
+  .slide.dark{background:var(--black);color:#fff}
+  .slide.dark .lede{color:#CFCFCF}
+  .slide.dark .kicker{color:#FF6B6B}
+  .slide.dark .foot b{color:#fff}
+  .angle{position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(to right bottom,transparent 0 50%,var(--red) 50% 100%)}
+
+  /* Title */
+  .title-wrap{margin-top:auto;margin-bottom:auto;max-width:980px}
+  .title-wrap h1 em{font-style:normal;color:var(--red)}
+  .title-wrap p{font-size:20px;color:#CFCFCF;margin-top:22px;max-width:780px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+  .chips span{border:1px solid #444;border-radius:20px;padding:6px 14px;font-size:13px;color:#DADADA}
+
+  /* Before / after */
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+  .ba .col{border-radius:12px;padding:26px 28px}
+  .ba .old{background:var(--mist)}
+  .ba .new{background:var(--red-t);border:2px solid var(--red)}
+  .ba .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:16px}
+  .old .tag{background:#E2E2E2;color:var(--soft)} .new .tag{background:var(--red);color:#fff}
+  .chain{display:flex;flex-direction:column;gap:10px}
+  .chain div{background:#fff;border-radius:8px;padding:12px 16px;font-size:15px;border:1px solid var(--line);position:relative}
+  .chain div small{display:block;color:var(--faint);font-size:12.5px}
+  .old .chain div:last-child{border-style:dashed;color:var(--faint)}
+  .ba .so{margin-top:16px;font-size:15px;font-weight:600}
+
+  /* Flow */
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:10px}
+  .step{position:relative;background:var(--mist);border-radius:12px;padding:22px 18px 18px}
+  .step:not(:last-child)::after{content:"→";position:absolute;right:-16px;top:30px;font-weight:800;color:var(--faint);font-size:18px}
+  .step .dot{width:46px;height:46px;border-radius:50%;background:var(--black);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:14px}
+  .step.hot{background:var(--red-t)} .step.hot .dot{background:var(--red)}
+  .step p{font-size:13.5px;color:var(--soft)}
+  .who{display:inline-block;margin-top:12px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:2px 8px}
+  .who--site{background:var(--blue-t);color:var(--blue)} .who--hs{background:var(--amber-t);color:var(--amber)} .who--lead{background:var(--green-t);color:var(--green)}
+
+  /* Phones */
+  .screens{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;align-items:start}
+  .phone{border:7px solid var(--black);border-radius:24px;background:#fff;overflow:hidden;width:250px;margin:0 auto}
+  .phone .bar{background:var(--black);color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;padding:7px 12px}
+  .phone .bar b{color:var(--red)}
+  .phone .pb{padding:12px;height:384px;font-size:11px;line-height:1.4}
+  .phone .t{font-weight:800;font-size:14.5px;line-height:1.2;margin-bottom:6px}
+  .mf{border:1.5px solid #CFCFCF;border-radius:5px;padding:5px 8px;margin:2px 0 7px}
+  .mf.hl{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,66,141,.18)}
+  .ml{font-weight:600;font-size:10.5px}
+  .mbtn{background:var(--red);color:#fff;font-weight:700;border-radius:5px;padding:8px;text-align:center;margin-top:4px}
+  .tick{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;align-items:center;justify-content:center;font-size:12px}
+  .cal{border:1px solid var(--line);border-radius:6px;margin-top:10px;padding:8px}
+  .cal .days{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:6px 0}
+  .cal .days span{background:var(--mist);border-radius:3px;text-align:center;padding:4px 0;font-size:9.5px}
+  .cal .days span.on{background:var(--blue);color:#fff}
+  .cal .slots span{display:block;border:1px solid var(--blue);color:var(--blue);border-radius:3px;text-align:center;padding:4px;margin-top:4px;font-size:10px;font-weight:600}
+  .cap{font-size:13.5px;color:var(--soft);margin-top:12px;text-align:center}
+  .cap b{color:var(--ink);display:block}
+
+  /* Logic */
+  .logic{display:grid;grid-template-columns:1fr 40px 1fr 40px 1.1fr;gap:10px;align-items:center}
+  .box{border:2px solid var(--black);border-radius:10px;padding:18px 20px;background:#fff}
+  .box p{font-size:14px;color:var(--soft)}
+  .box.q{border-style:dashed}
+  .box.ok{border-color:var(--green);background:var(--green-t)}
+  .box.fb{border-color:var(--amber);background:var(--amber-t)}
+  .arrow{font-weight:800;color:var(--faint);text-align:center;font-size:22px}
+  .branches{display:grid;gap:12px}
+  .tester{display:flex;gap:14px;align-items:center;background:var(--mist);border-radius:10px;padding:18px 22px;margin-top:34px;font-size:16px}
+  .tester input{font:inherit;font-size:18px;padding:9px 12px;border:1.5px solid #CFCFCF;border-radius:6px;width:120px}
+  .tester output{font-weight:600}
+  .tester .lbl{font-weight:700}
+
+  /* Tables */
+  .tbl{width:100%;border-collapse:collapse;font-size:14px}
+  .tbl th,.tbl td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  .tbl th{background:var(--mist);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  .tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .tbl.tight td{padding:6px 10px;font-size:13px}
+  .bar-cell{display:flex;align-items:center;gap:8px}
+  .bar-cell i{display:block;height:8px;border-radius:4px;background:var(--red)}
+  .flag{display:inline-block;font-size:10.5px;font-weight:700;border-radius:3px;padding:1px 7px;background:var(--amber-t);color:var(--amber);white-space:nowrap}
+  .flag--red{background:var(--red-t);color:var(--red)}
+  .flag--ok{background:var(--green-t);color:var(--green)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+  .card{border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+  ul.clean{list-style:none}
+  ul.clean li{padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+  ul.clean li:last-child{border-bottom:0}
+  ol.steps{padding-left:22px;font-size:14.5px}
+  ol.steps li{margin-bottom:9px}
+  ul.big-list li{font-size:17px;padding:14px 0}
+
+  /* ---------- Print / PDF: one slide per page ---------- */
+  @page{size:1280px 720px;margin:0}
+  @media print{
+    html,body{background:#fff;overflow:visible}
+    .deck{position:static;display:block}
+    .slide{position:relative;display:flex !important;transform:none !important;page-break-after:always;break-after:page}
+    .nav,.tester{display:none !important}
+  }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 1 · Title -->
+<section class="slide dark">
+  <div class="title-wrap">
+    <div class="kicker">Lead capture · handover for Kook</div>
+    <h1>Every enquiry, <em>straight to their Career Advisor</em></h1>
+    <p>Postcode-based routing that shows each lead their own advisor's booking calendar the moment they submit, so they leave the page with a call booked.</p>
+    <div class="chips"><span>2,664 postcodes</span><span>10 advisors</span><span>Source: POSTCODE MASTER vNOV26</span><span>Working prototype: contact.html</span></div>
+  </div>
+  <div class="angle"></div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>November 2026 · Internal</span></div>
+</section>
+
+<!-- 2 · Before / after -->
+<section class="slide">
+  <div class="kicker">The change</div>
+  <h2>From "we'll call you" to "you're booked"</h2>
+  <p class="lede">Today a lead fills in a form and waits. Every minute between enquiry and conversation costs conversions.</p>
+  <div class="body ba">
+    <div class="col old"><span class="tag">Today</span>
+      <div class="chain">
+        <div>Fills in a generic form</div>
+        <div>Generic thank-you page<small>No name, no next step</small></div>
+        <div>Lead sits in a shared pool<small>Someone works out who owns it</small></div>
+        <div>Waits for a call they may miss</div>
+      </div>
+    </div>
+    <div class="col new"><span class="tag">New</span>
+      <div class="chain">
+        <div>Fills in the form, including postcode</div>
+        <div>"You're with Tess, your local advisor"<small>Matched instantly in the browser</small></div>
+        <div>Tess's calendar, details prefilled<small>One tap to book</small></div>
+        <div>Call booked in Tess's diary, owner set in HubSpot</div>
+      </div>
+      <p class="so">The lead picks the time, so the call actually connects.</p>
+    </div>
+  </div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 2</span></div>
+</section>
+
+<!-- 3 · Flow -->
+<section class="slide">
+  <div class="kicker">How it works</div>
+  <h2>Five steps, one continuous flow</h2>
+  <p class="lede">No page reloads, no generic thank-you page. Red steps are new.</p>
+  <div class="body flow">
+    <div class="step"><div class="dot">1</div><h3>Lead clicks a CTA</h3><p>"Chat with a Career Advisor" anywhere on the site, or a funding-checker result (passes <code>?from=checker-eligible</code>).</p><span class="who who--lead">Lead</span></div>
+    <div class="step"><div class="dot">2</div><h3>Fills in the form</h3><p>Name, mobile, email, <strong>postcode</strong>, course interest. Validated inline: AU mobile, 4-digit postcode.</p><span class="who who--site">Website</span></div>
+    <div class="step hot"><div class="dot">3</div><h3>Postcode lookup</h3><p>Instant, in the browser, no server call. Unknown postcode goes to the team fallback.</p><span class="who who--site">Website</span></div>
+    <div class="step"><div class="dot">4</div><h3>Sent to HubSpot</h3><p>Submission carries <code>assigned_advisor</code> + contact owner. SMS speed-to-lead fires, naming the advisor.</p><span class="who who--hs">HubSpot</span></div>
+    <div class="step hot"><div class="dot">5</div><h3>Advisor's calendar</h3><p>Form becomes "You're with Tess Szabath" + Tess's HubSpot calendar, prefilled. Booking lands in Tess's diary.</p><span class="who who--lead">Lead books</span></div>
+  </div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 3</span></div>
+</section>
+
+<!-- 4 · Screens -->
+<section class="slide">
+  <div class="kicker">What the lead sees</div>
+  <h2>Capture → matched → booked</h2>
+  <div class="body screens" style="margin-top:14px">
+    <div>
+      <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
+        <div class="t">Chat with a Career Advisor</div>
+        <div class="ml">First name</div><div class="mf">Jess</div>
+        <div class="ml">Mobile</div><div class="mf">0412 345 678</div>
+        <div class="ml">Email</div><div class="mf">jess@example.com</div>
+        <div class="ml">Postcode <span style="color:var(--faint);font-weight:400">matches you with your local advisor</span></div><div class="mf hl">4558</div>
+        <div class="ml">Interested in</div><div class="mf">Cert IV in Fitness</div>
+        <div class="mbtn">Find my Career Advisor</div>
+      </div></div>
+      <p class="cap"><b>A · Capture</b>Postcode explained in plain words</p>
+    </div>
+    <div>
+      <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
+        <span class="tick">✓</span>
+        <div class="t" style="margin-top:8px">You're with Tess Szabath, your local Career Advisor</div>
+        <div style="color:var(--soft)">Pick a time that suits and Tess will call you then. Your details are already filled in.</div>
+        <div class="cal"><b style="font-size:10.5px">Tess Szabath · 15 min call</b>
+          <div class="days"><span>Mon</span><span class="on">Tue</span><span>Wed</span><span>Thu</span><span>Fri</span></div>
+          <div class="slots"><span>9:30am</span><span>11:00am</span><span>2:15pm</span></div></div>
+        <div style="margin-top:10px;color:var(--soft)">Rather talk now? Call <b style="color:var(--red)">1300 887 017</b> and ask for Tess.</div>
+      </div></div>
+      <p class="cap"><b>B · Matched</b>Their own advisor's calendar, prefilled</p>
+    </div>
+    <div>
+      <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
+        <span class="tick">✓</span>
+        <div class="t" style="margin-top:8px">Thanks Jess, let's find you a time</div>
+        <div style="color:var(--soft)">Pick a time below and one of our Career Advisors will call you.</div>
+        <div class="cal"><b style="font-size:10.5px">FIT College Career Advisors · 15 min</b>
+          <div class="days"><span>Mon</span><span>Tue</span><span class="on">Wed</span><span>Thu</span><span>Fri</span></div>
+          <div class="slots"><span>10:00am</span><span>1:30pm</span></div></div>
+        <div style="margin-top:10px;color:var(--soft)">Rather talk now? Call <b style="color:var(--red)">1300 887 017</b>.</div>
+      </div></div>
+      <p class="cap"><b>C · Fallback</b>Postcode not in the sheet: never a dead end</p>
+    </div>
+  </div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 4</span></div>
+</section>
+
+<!-- 5 · Rule -->
+<section class="slide">
+  <div class="kicker">The routing rule</div>
+  <h2>One lookup table. No geography maths.</h2>
+  <p class="lede">The postcode sheet is the single source of truth. The website and HubSpot both read from it.</p>
+  <div class="body">
+    <div class="logic">
+      <div class="box q"><h3>Postcode typed</h3><p>Strip spaces and non-digits. 3 digits get a leading 0 (NT: "800" → "0800").</p></div>
+      <div class="arrow">→</div>
+      <div class="box q"><h3>In the table?</h3><p>Exact match against the 2,664 postcodes in POSTCODE MASTER vNOV26.</p></div>
+      <div class="arrow">→</div>
+      <div class="branches">
+        <div class="box ok"><h3>Yes → that advisor</h3><p>Their name, calendar and HubSpot owner</p></div>
+        <div class="box fb"><h3>No → team fallback</h3><p>Round-robin team calendar + 1300 887 017</p></div>
+      </div>
+    </div>
+    <div class="tester">
+      <span class="lbl">Try it live:</span><input id="pc" inputmode="numeric" maxlength="4" placeholder="4558" aria-label="Postcode">
+      <output id="pc-out" aria-live="polite">Type any postcode to run the real lookup</output>
+    </div>
+  </div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 5</span></div>
+</section>
+
+<!-- 6 · Coverage -->
+<section class="slide">
+  <div class="kicker">Who covers what</div>
+  <h2>Territories from the postcode sheet</h2>
+  <p class="lede" style="margin-bottom:14px">Postcode count isn't lead volume: regional areas have many postcodes but fewer people.</p>
+  <div class="body">
+    <table class="tbl tight">
+      <thead><tr><th>Advisor</th><th>States</th><th style="width:250px">Postcodes</th><th>Booking link (meetings-ap1.hubspot.com/…)</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Ryan Crilly</td><td>VIC 445 · SA 343 · WA 269</td><td><div class="bar-cell"><i style="width:180px"></i>1,057</div></td><td>ryan-crilly</td><td><span class="flag flag--ok">Ready</span></td></tr>
+        <tr><td>Sam Russell</td><td>NSW 377 · NT 36</td><td><div class="bar-cell"><i style="width:70px"></i>413</div></td><td>sam-russell2</td><td><span class="flag flag--ok">Ready</span></td></tr>
+        <tr><td>Tess Szabath</td><td>QLD 293</td><td><div class="bar-cell"><i style="width:50px"></i>293</div></td><td>tess-szabath</td><td><span class="flag flag--ok">Ready</span></td></tr>
+        <tr><td>Dean Eggins</td><td>VIC 259</td><td><div class="bar-cell"><i style="width:44px"></i>259</div></td><td>dean-eggins</td><td><span class="flag flag--ok">Ready</span></td></tr>
+        <tr><td>Thomas Jordan</td><td>TAS 115 · QLD 99</td><td><div class="bar-cell"><i style="width:36px"></i>214</div></td><td>thomas-jordan2</td><td><span class="flag flag--ok">Ready</span></td></tr>
+        <tr><td>Paul Mountain</td><td>NSW 141</td><td><div class="bar-cell"><i style="width:24px"></i>141</div></td><td>paul-mountain</td><td><span class="flag flag--ok">Ready</span></td></tr>
+        <tr><td>Nicky Wood</td><td>WA 118</td><td><div class="bar-cell"><i style="width:20px"></i>118</div></td><td>nicky-wood</td><td><span class="flag">Name check</span></td></tr>
+        <tr><td>Matthew Johnson</td><td>NSW 90</td><td><div class="bar-cell"><i style="width:15px"></i>90</div></td><td>matthew-johnson</td><td><span class="flag flag--ok">Ready</span></td></tr>
+        <tr><td>Marcus Krause</td><td>QLD 48 · ACT 30 · NSW 1</td><td><div class="bar-cell"><i style="width:13px"></i>79</div></td><td>marcus-krause</td><td><span class="flag flag--ok">Ready</span></td></tr>
+        <tr><td>Shay Best</td><td>none</td><td><div class="bar-cell">0</div></td><td>shay-best</td><td><span class="flag flag--red">No postcodes</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 6</span></div>
+</section>
+
+<!-- 7 · Assets -->
+<section class="slide">
+  <div class="kicker">For Kook · assets</div>
+  <h2>Everything needed to build it</h2>
+  <p class="lede" style="margin-bottom:14px">All in the repo under <code>fitcollege-rebuild/</code>. Only the two JS files and the CSS block ship to the live site.</p>
+  <div class="body">
+    <table class="tbl tight">
+      <thead><tr><th style="width:290px">File</th><th>What it is</th><th style="width:360px">Kook action</th></tr></thead>
+      <tbody>
+        <tr><td><code>js/advisor-router.js</code></td><td>Validation, lookup, HubSpot submit, calendar swap. Vanilla JS, no dependencies.</td><td>Add sitewide. Replace demo <code>submitToHubSpot()</code> with the Forms API call (marked <code>[KOOK]</code>).</td></tr>
+        <tr><td><code>js/advisor-data.js</code></td><td>Generated lookup: advisors + postcodes (15 KB). No staff mobiles.</td><td>Ship as-is. Never hand-edit.</td></tr>
+        <tr><td><code>css/site.css</code> (lead capture block)</td><td>Form + result panel styles.</td><td>Port into the CMS stylesheet.</td></tr>
+        <tr><td><code>contact.html</code> <code>#book</code> / <code>#infopack</code></td><td>Reference markup for both form types.</td><td>Rebuild with the same field names + <code>data-advisor-form</code>.</td></tr>
+        <tr><td><code>funding.html</code></td><td>Checker results link to <code>contact.html?from=checker-…</code></td><td>Carry the <code>from</code> parameter through.</td></tr>
+        <tr><td><code>data/postcode-master.csv</code></td><td>The postcode sheet. Source of truth.</td><td>Reference.</td></tr>
+        <tr><td><code>data/advisors.csv</code></td><td>Names, emails, meeting URLs, owner IDs.</td><td>Add the 10 HubSpot owner IDs.</td></tr>
+        <tr><td><code>data/hubspot-postcode-owner.csv</code></td><td>Postcode → advisor email / owner.</td><td>Route non-website leads in HubSpot.</td></tr>
+        <tr><td><code>tools/build_advisor_routing.py</code></td><td>Regenerates the data; stops on clashes.</td><td>Run on every sheet update.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 7</span></div>
+</section>
+
+<!-- 8 · HubSpot -->
+<section class="slide">
+  <div class="kicker">For Kook · HubSpot</div>
+  <h2>Fields and automation</h2>
+  <div class="body grid2" style="margin-top:14px">
+    <div class="card">
+      <h3>Form fields (internal names)</h3>
+      <ul class="clean">
+        <li><code>firstname</code> <code>lastname</code> <code>email</code> <code>mobilephone</code> <span class="flag flag--ok">standard</span></li>
+        <li><code>zip</code>: normalised 4-digit postcode <span class="flag flag--ok">standard</span></li>
+        <li><code>course_interest</code> <span class="flag">confirm exists</span></li>
+        <li><code>assigned_advisor</code>: advisor name <span class="flag flag--red">new property</span></li>
+        <li><code>lead_form_type</code>: advisor / infopack <span class="flag flag--red">new property</span></li>
+        <li><code>lead_context</code>: e.g. checker-eligible <span class="flag flag--red">new property</span></li>
+        <li><code>hubspot_owner_id</code>: sets Contact owner <span class="flag">confirm form allows</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Automation</h3>
+      <ol class="steps">
+        <li><strong>Contact owner</strong> via hidden <code>hubspot_owner_id</code>. Backup: a workflow on <code>assigned_advisor</code> (10 branches, not 2,664).</li>
+        <li><strong>SMS speed-to-lead</strong> names the advisor. If the lead has already booked, send a booking confirmation, not "we'll call you shortly".</li>
+        <li><strong>Non-website leads</strong> (Meta lead ads, imports) are routed from <code>hubspot-postcode-owner.csv</code>, so routing matches everywhere.</li>
+        <li><strong>Fallback:</strong> create a round-robin team meeting link.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 8</span></div>
+</section>
+
+<!-- 9 · Edge cases + maintenance -->
+<section class="slide">
+  <div class="kicker">Edge cases &amp; upkeep</div>
+  <h2>No dead ends, no code edits</h2>
+  <div class="body grid2" style="margin-top:14px">
+    <div>
+      <table class="tbl tight">
+        <thead><tr><th>Situation</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td>Postcode not in sheet / overseas / typo</td><td>Team calendar + 1300 number; tagged for gap reporting</td></tr>
+          <tr><td>NT typed as "800"</td><td>Padded to 0800 → Sam Russell</td></tr>
+          <tr><td>Border postcodes (11 rows)</td><td>Owner as per sheet, no action</td></tr>
+          <tr><td>HubSpot submit fails</td><td>Calendar still shows; booking creates the contact</td></tr>
+          <tr><td>JavaScript blocked</td><td>Form posts natively to HubSpot (today's behaviour)</td></tr>
+          <tr><td>Submits twice</td><td>De-duped on email; latest postcode wins</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>When territories change</h3>
+      <ol class="steps" style="margin-top:8px">
+        <li>Update POSTCODE MASTER (same columns: POSTCODE, STATE, OWNER).</li>
+        <li>New advisor? Add a row to <code>data/advisors.csv</code>.</li>
+        <li>Run <code>python3 tools/build_advisor_routing.py "POSTCODE MASTER.xlsx"</code>. It prints counts and stops on any clash.</li>
+        <li>Deploy the regenerated <code>js/advisor-data.js</code>.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 9</span></div>
+</section>
+
+<!-- 10 · Acceptance -->
+<section class="slide">
+  <div class="kicker">Acceptance</div>
+  <h2>How we'll know it works</h2>
+  <div class="body grid2" style="margin-top:14px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start">
+      <table class="tbl tight">
+        <thead><tr><th>Postcode</th><th>Expect</th></tr></thead>
+        <tbody>
+          <tr><td>4558</td><td>Tess Szabath</td></tr><tr><td>4000</td><td>Thomas Jordan</td></tr>
+          <tr><td>4215</td><td>Marcus Krause</td></tr><tr><td>2600</td><td>Marcus Krause</td></tr>
+          <tr><td>2000</td><td>Paul Mountain</td></tr><tr><td>2150</td><td>Matthew Johnson</td></tr><tr><td>2300</td><td>Sam Russell</td></tr>
+        </tbody>
+      </table>
+      <table class="tbl tight">
+        <thead><tr><th>Postcode</th><th>Expect</th></tr></thead>
+        <tbody>
+          <tr><td>800</td><td>Sam Russell</td></tr><tr><td>3000</td><td>Dean Eggins</td></tr>
+          <tr><td>5045</td><td>Ryan Crilly</td></tr><tr><td>6027</td><td>Nicky Wood</td></tr>
+          <tr><td>7000</td><td>Thomas Jordan</td></tr><tr><td>9999</td><td>Fallback</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Before go-live</h3>
+      <ul class="clean">
+        <li>☐ All 10 booking links open and embed on the live domain</li>
+        <li>☐ Name + email arrive prefilled in the booking form</li>
+        <li>☐ Test lead in HubSpot has <code>assigned_advisor</code>, <code>zip</code>, <code>lead_context</code></li>
+        <li>☐ Contact owner = matched advisor</li>
+        <li>☐ SMS arrives &lt; 5 min and names the advisor</li>
+        <li>☐ Booking appears in the advisor's own calendar</li>
+        <li>☐ Fallback round-robin link live</li>
+        <li>☐ Stanley sign-off</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 10</span></div>
+</section>
+
+<!-- 11 · Open items -->
+<section class="slide dark">
+  <div class="kicker">Before build starts</div>
+  <h2 style="color:#fff">Open items</h2>
+  <div class="body" style="margin-top:18px">
+    <ul class="clean big-list" style="max-width:1000px">
+      <li style="border-color:#333"><span class="flag flag--red">Decide</span>&nbsp; <strong>Shay Best owns no postcodes</strong> in vNOV26, so Shay will never be matched. Intentional, or missing from the sheet?</li>
+      <li style="border-color:#333"><span class="flag">Confirm</span>&nbsp; <strong>"NICOLA WILLIAMS"</strong> in the sheet is Nicky Wood (nicola.wood@, WA). Built on that assumption.</li>
+      <li style="border-color:#333"><span class="flag">Create</span>&nbsp; <strong>Round-robin team meeting link</strong> in HubSpot for the fallback.</li>
+      <li style="border-color:#333"><span class="flag">Supply</span>&nbsp; <strong>HubSpot owner IDs</strong> for the 10 advisors, so Contact owner sets automatically.</li>
+      <li style="border-color:#333"><span class="flag flag--ok">Decided</span>&nbsp; <strong>Staff mobiles aren't published.</strong> The routing file is public; 1300 887 017 is the phone fallback.</li>
+    </ul>
+  </div>
+  <div class="angle"></div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 11</span></div>
+</section>
+
+</div>
+<div class="nav"><button id="prev" aria-label="Previous slide">←</button><span id="count">1 / 11</span><button id="next" aria-label="Next slide">→</button></div>
+
+<script src="js/advisor-data.js"></script>
+<script src="js/advisor-router.js"></script>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')), cur=0;
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  if(start>=1 && start<=slides.length) cur=start-1;
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    slides.forEach(function(el){ el.style.transform='scale('+s+')'; });
+  }
+  function show(i){
+    cur=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach(function(el,n){ el.classList.toggle('active', n===cur); });
+    document.getElementById('count').textContent=(cur+1)+' / '+slides.length;
+    history.replaceState(null,'','#'+(cur+1));
+  }
+  document.getElementById('prev').onclick=function(){show(cur-1)};
+  document.getElementById('next').onclick=function(){show(cur+1)};
+  document.addEventListener('keydown',function(e){
+    if(e.target.tagName==='INPUT') return;
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();show(cur+1);}
+    if(['ArrowLeft','PageUp'].indexOf(e.key)>-1){e.preventDefault();show(cur-1);}
+    if(e.key==='Home') show(0); if(e.key==='End') show(slides.length-1);
+  });
+  window.addEventListener('resize',fit); fit(); show(cur);
+
+  var i=document.getElementById('pc'), o=document.getElementById('pc-out');
+  i.addEventListener('input',function(){
+    var v=i.value.trim();
+    if(!v){o.textContent='Type any postcode to run the real lookup';return;}
+    var m=FITAdvisorRouter.findAdvisor(v);
+    if(!m.postcode){o.textContent='Not a valid postcode yet…';return;}
+    o.innerHTML = m.matched
+      ? m.postcode+' → <strong>'+m.advisor.name+'</strong> · <a href="'+m.advisor.meetingUrl+'" target="_blank" rel="noopener">open booking link</a>'
+      : m.postcode+' → <strong>team fallback</strong> (not in the sheet)';
+  });
+})();
+</script>
+</body>
+</html>

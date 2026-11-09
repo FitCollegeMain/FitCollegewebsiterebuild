@@ -55,12 +55,36 @@
     <div>
       <h2>Book a conversation</h2>
       <p style="margin:14px 0 24px;color:var(--ink-soft)">Pick a time that suits, or request an instant callback.</p>
-      <!-- [KOOK] HubSpot meeting embed / instant-callback widget here.
-           Enquiry fires the FITCollege SMS speed-to-lead automation
-           (registered SMSGlobal sender ID) — sub-five-minute contact
-           is the target. -->
-      <div class="img-slot img-slot--light" role="img" aria-label="Placeholder: HubSpot meeting booking embed">HUBSPOT MEETING EMBED — Kook</div>
-      <p class="small" style="margin-top:18px">Prefer the phone? <a href="tel:1300887017"><strong>1300 887 017</strong></a></p>
+      <!-- [KOOK] Lead capture with postcode -> advisor routing.
+           On submit: lookup (js/advisor-router.js) -> HubSpot Forms API
+           with assigned_advisor attached -> form is replaced by THAT
+           advisor's HubSpot booking calendar, prefilled. Submission also
+           fires the FITCollege SMS speed-to-lead automation (registered
+           SMSGlobal sender ID). Spec: advisor-routing-handover.html -->
+      <form class="lead-form" data-advisor-form data-form-type="advisor" id="book" novalidate>
+        <div class="field"><label for="a-first">First name</label><input id="a-first" name="firstname" autocomplete="given-name" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="a-last">Last name</label><input id="a-last" name="lastname" autocomplete="family-name" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="a-mobile">Mobile</label><input id="a-mobile" name="mobilephone" type="tel" inputmode="tel" autocomplete="tel" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="a-email">Email</label><input id="a-email" name="email" type="email" autocomplete="email" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="a-zip">Postcode <span class="hint">matches you with your local advisor</span></label><input id="a-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="4" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="a-course">Interested in</label>
+          <select id="a-course" name="course_interest">
+            <option value="">Not sure yet</option>
+            <option>FIT Elite™ Dual-Career PT Program</option>
+            <option>Cert III in Fitness</option>
+            <option>Cert IV in Fitness</option>
+            <option>Diploma of Sport (Coaching)</option>
+            <option>Strength &amp; Conditioning</option>
+            <option>Disability Support Skill Set</option>
+            <option>Cert IV in Training &amp; Assessment</option>
+            <option>First Aid / CPR</option>
+            <option>CEC Short Courses</option>
+            <option>Cert III in Travel</option>
+          </select></div>
+        <p class="consent">By submitting you agree to FIT College contacting you about study options. See our <a href="privacy.html">Privacy Policy</a>.</p>
+        <button type="submit" class="btn btn--primary">Find my Career Advisor</button>
+      </form>
+      <p class="small" style="margin-top:18px" data-hide-after-submit>Prefer the phone? <a href="tel:1300887017"><strong>1300 887 017</strong></a></p>
     </div>
     <div id="infopack">
       <h2>Request an info pack</h2>
@@ -69,7 +93,28 @@
            hierarchy rebuild. National copy: no geo-personalised
            campus references in the hero (Southport bug class of
            issue must not recur). -->
-      <div class="img-slot img-slot--light" role="img" aria-label="Placeholder: info pack form">INFO PACK FORM — Kook</div>
+      <!-- [KOOK] Same component, data-form-type="infopack". After the pack
+           request, offers the matched advisor's calendar as a soft next step. -->
+      <form class="lead-form" data-advisor-form data-form-type="infopack" novalidate>
+        <div class="field"><label for="i-first">First name</label><input id="i-first" name="firstname" autocomplete="given-name" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="i-last">Last name</label><input id="i-last" name="lastname" autocomplete="family-name" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="i-mobile">Mobile</label><input id="i-mobile" name="mobilephone" type="tel" inputmode="tel" autocomplete="tel" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="i-email">Email</label><input id="i-email" name="email" type="email" autocomplete="email" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="i-zip">Postcode</label><input id="i-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="4" required><span class="field__error" aria-live="polite"></span></div>
+        <div class="field"><label for="i-course">Course guide</label>
+          <select id="i-course" name="course_interest">
+            <option value="">All fitness courses</option>
+            <option>FIT Elite™ Dual-Career PT Program</option>
+            <option>Cert III in Fitness</option>
+            <option>Cert IV in Fitness</option>
+            <option>Diploma of Sport (Coaching)</option>
+            <option>Disability Support Skill Set</option>
+            <option>Cert IV in Training &amp; Assessment</option>
+            <option>Cert III in Travel</option>
+          </select></div>
+        <p class="consent">By submitting you agree to FIT College contacting you about study options. See our <a href="privacy.html">Privacy Policy</a>.</p>
+        <button type="submit" class="btn btn--ghost-dark">Send me the info pack</button>
+      </form>
     </div>
   </div>
 </section>
@@ -123,5 +168,7 @@
   </div>
 </footer>
 <script src="js/site.js"></script>
+<script src="js/advisor-data.js"></script>
+<script src="js/advisor-router.js"></script>
 </body>
 </html>

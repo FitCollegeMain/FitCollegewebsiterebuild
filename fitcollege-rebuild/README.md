@@ -26,6 +26,14 @@ Start at **index.html** (internal review hub) or **home.html** (the site).
 6. **Valid OG tags** on every page (fixes the malformed FIT Elite share image).
 7. Schema: Organization sitewide; Course + FAQPage on course pages; FAQPage on funding/faqs; LocalBusiness on campus pages.
 
+## Lead capture: postcode → Career Advisor routing
+Forms on `contact.html` match the lead's postcode to their Career Advisor
+(POSTCODE MASTER vNOV26) and show that advisor's HubSpot booking calendar
+straight after submit. Handover for Kook: `advisor-routing-deck.html` /
+`FIT-College-Advisor-Routing.pdf`. When the postcode sheet changes, run
+`python3 tools/build_advisor_routing.py "POSTCODE MASTER.xlsx"` and never
+hand-edit `js/advisor-data.js`.
+
 ## Before anything publishes
 - Everything marked **[CONFIRM]** needs verification: campus NAP details
   (feed from the GBP audit workbook NAP Master tab), course durations,

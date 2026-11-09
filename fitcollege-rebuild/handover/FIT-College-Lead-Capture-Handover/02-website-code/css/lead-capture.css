@@ -1,0 +1,54 @@
+/* ==========================================================================
+   LEAD CAPTURE + ADVISOR ROUTING  (js/advisor-router.js)
+   [KOOK] One form for every enquiry. Uses the design tokens above
+   (--energy-red, --core-black, --academy-blue, --line, --mist, --radius,
+   --ink-soft, --ink-faint). The .hs-standin rules are prototype-only.
+   ========================================================================== */
+
+/* Screen 1: form (HubSpot embed or prototype stand-in) */
+.lead-form{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
+.lead-form .field{display:flex;flex-direction:column;gap:6px}
+.lead-form .field--full{grid-column:1/-1}
+.lead-form [hidden]{display:none}
+.lead-form label{font-size:.88rem;font-weight:600}
+.lead-form input,.lead-form select{font:inherit;font-size:1rem;padding:12px 14px;border:1.5px solid #CFCFCF;border-radius:var(--radius);background:#fff;color:var(--core-black);width:100%}
+.lead-form input:focus,.lead-form select:focus{outline:3px solid rgba(33,66,141,.25);border-color:var(--academy-blue)}
+.lead-form input[aria-invalid="true"]{border-color:var(--energy-red)}
+.lead-form .field__error{font-size:.8rem;color:var(--energy-red)}
+.lead-form .field__error:empty{display:none}
+.lead-form .consent{grid-column:1/-1;font-size:.78rem;color:var(--ink-soft);margin:0}
+.lead-form button{grid-column:1/-1;justify-self:start;cursor:pointer;font:inherit}
+.lead-form .btn--primary{border:0}
+.lead-form button[disabled]{opacity:.7;cursor:progress}
+.phone-row{display:grid;grid-template-columns:120px 1fr;gap:8px}
+@media (max-width:560px){.lead-form{grid-template-columns:1fr}}
+.hs-standin{border:2px dashed #C9C9C9;border-radius:var(--radius);padding:18px}
+.hs-standin__tag{grid-column:1/-1;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7A4D00;background:#FDF3E1;border-radius:4px;padding:4px 8px;margin:0;justify-self:start}
+.hs-standin__captcha{grid-column:1/-1;font-size:.75rem;color:var(--ink-faint);margin:0}
+
+/* Screen 2: info pack sent + advisor + book or call */
+.advisor-result{border:2px solid var(--energy-red);border-radius:var(--radius);padding:28px;background:#fff}
+.advisor-result h3{font-size:1.35rem;margin:10px 0 8px;outline:none}
+.advisor-result__tick{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--energy-red);color:#fff;font-weight:800}
+.advisor-result__intro{color:var(--ink-soft);margin-bottom:18px}
+.advisor-result__or{font-weight:700;margin:6px 0 10px}
+.advisor-result__alt{margin-top:14px}
+.next-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:520px){.next-options{grid-template-columns:1fr}}
+.next-option{display:flex;flex-direction:column;gap:2px;text-align:left;font:inherit;cursor:pointer;text-decoration:none;color:var(--core-black);border:2px solid var(--line);border-radius:var(--radius);padding:14px 16px;background:#fff}
+.next-option:hover,.next-option:focus-visible,.next-option[aria-expanded="true"]{border-color:var(--energy-red)}
+.next-option strong{font-size:1rem}
+.next-option span:last-child{font-size:.82rem;color:var(--ink-soft)}
+.next-option__icon{font-size:1.2rem;line-height:1}
+.next-option--book{background:var(--energy-red);border-color:var(--energy-red);color:#fff}
+.next-option--book span:last-child{color:#FBDADA}
+.advisor-cal-wrap{margin-top:16px}
+.advisor-cal{width:100%;height:700px;border:0;border-radius:var(--radius);background:var(--mist)}
+
+/* Contact page: "What happens next" panel + anchor offset under the sticky header */
+.next-steps ol{list-style:none;counter-reset:ns;margin-top:20px;display:grid;gap:18px}
+.next-steps li{counter-increment:ns;position:relative;padding-left:46px;color:var(--ink-soft)}
+.next-steps li > strong{display:block;color:var(--core-black)}
+.next-steps li::before{content:counter(ns);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--core-black);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+#infopack,#book{scroll-margin-top:90px}
+/* END LEAD CAPTURE */

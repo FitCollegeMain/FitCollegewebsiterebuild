@@ -1,0 +1,24 @@
+order,field (internal name),label shown,type,visible/hidden,required,rules / options
+1,firstname,First name,single-line text,visible,yes,
+2,lastname,Last name,single-line text,visible,yes,
+3,email,Email,email,visible,yes,
+4,mobilephone,Mobile,phone,visible,yes,"Turn ON the country code dropdown, default Australia (+61)"
+5,course_interest,Course you're interested in,dropdown,visible,yes,"Options exactly as course-dropdown-options.txt (13 options, default 'Not sure yet')"
+6,where_do_you_live,Where do you live?,dropdown,visible,yes,Australia (default) / Outside Australia
+7,zip,Postcode,single-line text,visible if Australia,yes,4 characters. Placeholder: e.g. 4558
+8,country,Country,single-line text,visible if Outside Australia,yes,
+9,(consent text),"By submitting, you agree FIT College may contact you about study options by phone, SMS and email. See our Privacy Policy.",rich text / legal consent,visible,,[PENDING compliance check] Link Privacy Policy
+10,lead_source_page,,hidden,hidden,,Set by website
+11,lead_context,,hidden,hidden,,Set by website
+12,assigned_advisor,,hidden,hidden,,Set by owner workflow (website sets it on legacy embeds)
+13,lead_routing,,hidden,hidden,,Set by owner workflow (website sets it on legacy embeds)
+14,utm_source / utm_medium / utm_campaign / utm_term / utm_content,,hidden,hidden,,Set by website from the URL (skip any HubSpot already captures)
+15,gclid / fbclid,,hidden,hidden,,Set by website from the URL
+16,[PENDING] promotion form hidden fields,,hidden,hidden,,Copy from the latest promotion capture form in HubSpot
+,,,,,,
+SETTING,CAPTCHA (reCAPTCHA),ON,,,,
+SETTING,Submit button text,Send me my info pack,,,,
+SETTING,After submit,Inline thank-you message (never a redirect: the website replaces it with screen 2),,,,
+SETTING,Pre-populate fields with known values,OFF for hidden fields,,,,
+SETTING,Form name,Website - Lead capture (advisor routing) 2026,,,,
+SETTING,Region / editor,ap1 / note which editor was used (new or legacy),,,,

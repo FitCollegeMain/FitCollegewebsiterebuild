@@ -1,0 +1,16 @@
+Paste these as the course_interest dropdown options, in this order.
+Labels AND internal values must match exactly: the website routes on them.
+
+Not sure yet
+FIT Elite™ Dual-Career PT Program
+Cert III in Fitness
+Cert IV in Fitness
+Diploma of Sport (Coaching)
+Strength & Conditioning
+CEC Short Courses
+Disability Support Skill Set
+Cert IV in Training & Assessment
+TAE Upgrade (TAE40116 to TAE40122)
+First Aid / CPR
+Cert III in Travel
+International Student Pathways

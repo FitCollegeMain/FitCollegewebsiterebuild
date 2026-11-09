@@ -5,6 +5,7 @@ Build the postcode -> Career Advisor routing data for the lead capture flow.
 SOURCE OF TRUTH
   data/postcode-master.csv   postcode,state,owner   (exported from POSTCODE MASTER xlsx)
   data/advisors.csv          one row per advisor: email, HubSpot meeting URL, owner ID
+  data/course-routing.csv    which courses route by postcode vs to a named advisor
 
 OUTPUTS (never hand-edit these, re-run this script)
   js/advisor-data.js               loaded by the website (works from file:// and any CMS)
@@ -23,6 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PC_CSV = ROOT / "data" / "postcode-master.csv"
 ADV_CSV = ROOT / "data" / "advisors.csv"
+COURSE_CSV = ROOT / "data" / "course-routing.csv"
 OUT_JS = ROOT / "js" / "advisor-data.js"
 OUT_HS = ROOT / "data" / "hubspot-postcode-owner.csv"
 
@@ -68,6 +70,18 @@ def main():
         mapping[pc] = aid
         states[pc] = row["state"].strip()
 
+    # Course routing: "postcode" or an advisor_id. *unlisted* and *overseas* are defaults.
+    adv_ids = {a["advisor_id"] for a in advisors}
+    course_routing = {}
+    for n, row in enumerate(csv.DictReader(open(COURSE_CSV, newline="", encoding="utf-8")), start=2):
+        label, route = row["course_label"].strip(), row["route_to"].strip()
+        if route != "postcode" and route not in adv_ids:
+            errors.append(f"course-routing.csv line {n}: route_to '{route}' is not 'postcode' or an advisor_id")
+        course_routing[label] = route
+    for key in ("*unlisted*", "*overseas*"):
+        if key not in course_routing:
+            errors.append(f"course-routing.csv is missing the {key} row")
+
     if errors:
         print("BUILD FAILED:\n  " + "\n  ".join(errors))
         sys.exit(1)
@@ -76,8 +90,8 @@ def main():
     for a in advisors:
         if a["advisor_id"] == "_fallback":
             continue
-        if not counts.get(a["advisor_id"]):
-            warnings.append(f"{a['display_name']} owns no postcodes")
+        if not counts.get(a["advisor_id"]) and a["advisor_id"] not in course_routing.values():
+            warnings.append(f"{a['display_name']} owns no postcodes and no courses, so is never matched")
         if not a["meeting_url"].strip():
             warnings.append(f"{a['display_name']} has no meeting_url yet")
 
@@ -105,6 +119,8 @@ def main():
         "window.FIT_POSTCODES_BY_ADVISOR = {\n"
         + ",\n".join(f' "{aid}": "{" ".join(pcs)}"' for aid, pcs in grouped.items())
         + "\n};\n"
+        "/* Course routing: 'postcode' or an advisor id. Order = order shown in the form. */\n"
+        "window.FIT_COURSE_ROUTING = " + json.dumps(course_routing, indent=1, ensure_ascii=False) + ";\n"
     )
     OUT_JS.write_text(js, encoding="utf-8")
 

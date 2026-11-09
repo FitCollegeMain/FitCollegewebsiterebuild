@@ -1,0 +1,42 @@
+postcode,state,localities,issue,suggested_action
+2055,NSW,North Sydney,Real residential postcode missing from POSTCODE MASTER,Add: North Sydney CBD
+2309,NSW,Dangar,Real residential postcode missing from POSTCODE MASTER,Check
+3399,VIC,"Jung, Longerenong",Real residential postcode missing from POSTCODE MASTER,Check
+3989,VIC,St Helier,Real residential postcode missing from POSTCODE MASTER,Check
+4271,QLD,Eagle Heights,Real residential postcode missing from POSTCODE MASTER,Add: Tamborine Mountain
+4345,QLD,Gatton College,Real residential postcode missing from POSTCODE MASTER,Check (Gatton campus)
+4471,QLD,"Claverton, Nardoo Siding",Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+4475,QLD,Cheepie,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+4513,QLD,"Corymbia, Greenstone, Lilywood, Wagtail Grove, Waraba",Real residential postcode missing from POSTCODE MASTER,Add: new Moreton Bay suburbs
+4801,QLD,Hayman Island,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+4857,QLD,Silkwood East,Real residential postcode missing from POSTCODE MASTER,Add: Silkwood East
+6435,WA,Agnew,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6711,WA,Thevenard Island,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6723,WA,Goldsworthy,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6731,WA,Cockatoo Island,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6733,WA,Koolan Island,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6761,WA,Shay Gap,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6803,WA,Northbridge,Real residential postcode missing from POSTCODE MASTER,Add: Northbridge WA
+6832,WA,Perth East St Georges Tce,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6849,WA,Perth Bc,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6865,WA,Northbridge,Real residential postcode missing from POSTCODE MASTER,Add: Northbridge WA
+6900,WA,Leederville,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6902,WA,Leederville,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6903,WA,Leederville,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6905,WA,"Northlands, Northlands Po",Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6907,WA,Nedlands,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6909,WA,Nedlands,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6918,WA,Innaloo,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6923,WA,Hillarys,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6931,WA,Maylands,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6954,WA,Booragoon,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6957,WA,Palmyra,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6980,WA,Cannington,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6987,WA,Cannington,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+6991,WA,Kelmscott,Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+7001,TAS,"Hobart, Tasman Island",Real residential postcode missing from POSTCODE MASTER,Check (Hobart PO boxes)
+7151,TAS,"Casey, Davis, Heard Island, Macquarie, Macquarie Island",Real residential postcode missing from POSTCODE MASTER,"Low priority (PO box, mine site, island or no residents)"
+9999,VIC,North Pole,Real residential postcode missing from POSTCODE MASTER,Ignore (Santa's postcode)
+0808,NT,,In POSTCODE MASTER but not a known postcode,Check for typo
+5195,SA,,In POSTCODE MASTER but not a known postcode,Check for typo
+5960,SA,,In POSTCODE MASTER but not a known postcode,Check for typo

@@ -36,11 +36,12 @@ go to Shay Best (`data/course-routing.csv`). Until `FIT_HUBSPOT.portalId/formId`
 are set, a stand-in mirrors the HubSpot form spec.
 
 - Handover: `advisor-routing-deck.html` / `FIT-College-Advisor-Routing.pdf`
-- Working demo: `lead-capture-demo.html` (self-contained; rebuild with
+- Working demo (earlier single-form version; not in Kook's pack): `lead-capture-demo.html` (self-contained; rebuild with
   `python3 tools/build_demo.py tools/demo/lead-capture-demo.template.html`)
 - HubSpot owner workflow values: `data/hubspot-workflow-lists.txt`
 - Handover packs (rebuild both with `python3 tools/build_handover.py` after any change):
-  - Kook, website only, ends at form submission: `handover/FIT-College-Lead-Capture-Handover.zip`
+  - Kook, website only, documentation + data (no code), ends at form submission: `handover/FIT-College-Lead-Capture-Handover.zip`.
+    Sources: `handover-src/SPEC.md`, `handover-src/cta-inventory.csv`, deck/PDF, `data/`.
   - FIT College in-house, HubSpot form/properties/workflows: `handover/FIT-College-HubSpot-InHouse.zip`
 - After any sheet or course change: `python3 tools/build_advisor_routing.py "POSTCODE MASTER.xlsx"`,
   then rebuild the demo. Never hand-edit `js/advisor-data.js`.

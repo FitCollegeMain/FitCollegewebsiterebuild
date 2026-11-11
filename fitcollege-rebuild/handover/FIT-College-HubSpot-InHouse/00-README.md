@@ -4,22 +4,20 @@
 
 ## Build order
 
-1. **Create the properties** in `new-contact-properties.csv`.
-2. **Build the form** to `form-spec.csv`. Then send Kook:
-   - the portal ID and form ID
-   - which form editor was used (new or legacy)
-   - any extra hidden fields the website must fill
-3. **Paste the course dropdown options** from `course-dropdown-options.txt`. Labels and values must match exactly, because the website routes on them.
-4. **Build the workflows** in `workflows.md`: owner, info pack, SMS and call task.
+1. **Fix the two live forms** (`hubspot-form-fixes.md`). Both are copies of the August 2024 FIT Elite promo form. Tell Kook if any field names change.
+2. **Build the workflows** in `workflows.md`: owner, information pack, SMS and call task.
    - Owner branch values: `owner-workflow-branch-values.txt`
    - Postcode lookup: `postcode-owner-lookup.csv`
-5. **Fix the postcode sheet gaps** in `postcode-sheet-gaps.csv`, then re-run `tools/build_advisor_routing.py` and give Kook the new `js/advisor-data.js`.
+   - Tip: if the website already filled `assigned_advisor` (see the fixes list), the owner workflow can branch on that instead of the long postcode lists.
+3. **Fix the postcode sheet gaps** (`postcode-sheet-gaps.csv`), then send Kook a new `advisor-lookup.json`. Run `tools/build_handover.py` to regenerate it.
 
 ## Still to do
 
-- [ ] Copy the latest promotion capture form's hidden fields and settings into the new form
-- [ ] Info pack guide for each course, plus the "Not sure yet" pack
-- [ ] Owner for overseas fitness leads
+- [ ] Fix both live forms (`hubspot-form-fixes.md`)
+- [ ] Info pack guide for each course, plus the "Not sure yet" guide
+- [ ] Info pack PDF links per course, if "Download" should be a real download (Kook adds a button)
+- [ ] Owner for international (non-citizen / non-PR) leads
+- [ ] Confirm Diploma of Sport, Strength & Conditioning and CEC route by postcode
 - [ ] Round-robin team booking link
 - [ ] Compliance check on the consent wording (phone, SMS and email)
 - [ ] Confirm "NICOLA WILLIAMS" in the sheet is Nicky Wood

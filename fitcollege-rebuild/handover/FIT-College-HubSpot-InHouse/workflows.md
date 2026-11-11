@@ -1,13 +1,13 @@
 # HubSpot workflows
 
-All four trigger on a submission of **Website - Lead capture (advisor routing) 2026**.
+All four trigger on a submission of either website form: **Careers Consult** or **Information Pack**.
 
 ## 1. Set contact owner (only if blank)
 
 - **Enrol:** form submitted AND Contact owner is unknown. Never overwrite an existing owner: a returning lead stays with the advisor they already know.
 - **Branches, top to bottom, first match wins.** These are the same rules the website uses on screen 2:
-  1. `course_interest` is any of the non-fitness courses → **Shay Best**
-  2. `where_do_you_live` = Outside Australia → **FIT College Career Advisor** [PENDING decision]
+  1. `course_enquiry` is any of the non-fitness courses → **Shay Best**
+  2. Australian citizen or permanent resident = No → **FIT College Career Advisor** [PENDING decision]
   3. to 11. `zip` is any of [list] → that advisor (one branch per advisor)
   - None matched → round-robin across Career Advisors
 - In every branch, also set `assigned_advisor` and `lead_routing` (postcode / course / overseas / unmatched).
@@ -16,7 +16,7 @@ All four trigger on a submission of **Website - Lead capture (advisor routing) 2
 
 ## 2. Send the info pack (everyone)
 
-- Email the guide for `course_interest`, one branch per course.
+- Email the guide for `course_enquiry`, one branch per course.
 - For "Not sure yet", send the general course guide.
 - [PENDING] Which guides exist for each course.
 

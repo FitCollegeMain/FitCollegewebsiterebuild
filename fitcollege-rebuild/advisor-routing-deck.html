@@ -84,7 +84,7 @@
   .phone .bar b{color:var(--red)}
   .phone .pb{padding:12px;height:384px;font-size:11px;line-height:1.4}
   .phone .t{font-weight:800;font-size:14.5px;line-height:1.2;margin-bottom:6px}
-  .mf{border:1.5px solid #CFCFCF;border-radius:5px;padding:5px 8px;margin:2px 0 7px}
+  .mf{border:1.5px solid #CFCFCF;border-radius:5px;padding:4px 8px;margin:2px 0 5px}
   .mf.hl{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,66,141,.18)}
   .ml{font-weight:600;font-size:10.5px}
   .mbtn{background:var(--red);color:#fff;font-weight:700;border-radius:5px;padding:8px;text-align:center;margin-top:4px}
@@ -173,36 +173,35 @@
 <section class="slide dark">
   <div class="title-wrap">
     <div class="kicker">Lead capture · handover for Kook</div>
-    <h1>Every enquiry, <em>straight to the right Career Advisor</em></h1>
-    <p>One screen to capture everything, then a second screen that names their advisor, promises contact within 1 business day, and offers to book a time or call now.</p>
-    <div class="chips"><span>2,664 postcodes</span><span>10 advisors</span><span>HubSpot form + reCAPTCHA</span><span>Source: POSTCODE MASTER vNOV26</span><span>Prototype: contact.html</span></div>
+    <h1>Two buttons, <em>one Career Advisor for every lead</em></h1>
+    <p>"Book a Careers Consult" and "Download an Information Pack" each open their own HubSpot form. After either one, the visitor sees their Career Advisor instantly, with options to book a time or call.</p>
+    <div class="chips"><span>2 HubSpot forms</span><span>283 buttons on 46 pages</span><span>2,664 postcodes · 10 advisors</span><span>Spec: SPEC.md</span></div>
   </div>
   <div class="angle"></div>
-  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>November 2026 · Internal · v3</span></div>
+  <div class="foot"><b>FIT <span>COLLEGE</span></b><span>November 2026 · Internal · v4</span></div>
 </section>
 
-<!-- 2 · Before / after -->
+<!-- 2 · The two buttons -->
 <section class="slide">
   <div class="kicker">The change</div>
-  <h2>From "someone will call" to "Tess will call, or book now"</h2>
-  <p class="lede">Today a lead fills in a form and waits, not knowing who or when. Every minute between enquiry and conversation costs conversions.</p>
+  <h2>Two buttons replace the old CTAs sitewide</h2>
+  <p class="lede">Each opens its own HubSpot form. What happens after submit is the same for both, apart from the wording.</p>
   <div class="body ba">
-    <div class="col old"><span class="tag">Today</span>
+    <div class="col new"><span class="tag">Primary</span>
+      <h3 style="font-size:24px;margin-bottom:10px">Book a Careers Consult</h3>
       <div class="chain">
-        <div>Fills in a generic form</div>
-        <div>Generic thank-you page<small>No name, no timeframe, no next step</small></div>
-        <div>Lead sits in a shared pool<small>Someone works out who owns it</small></div>
-        <div>Waits for a call they may miss</div>
+        <div>Replaces "Chat with a Career Advisor"<small>Header button, page CTAs, footer links, funding checker results</small></div>
+        <div>Opens the Careers Consult form<small>HubSpot form 2e5b35fb-…</small></div>
+        <div>Then: "Tess will call you within 1 business day"<small>Or lock in a time now / call Tess now</small></div>
       </div>
     </div>
-    <div class="col new"><span class="tag">New</span>
+    <div class="col old" style="background:var(--blue-t);border:2px solid var(--blue)"><span class="tag" style="background:var(--blue);color:#fff">Secondary</span>
+      <h3 style="font-size:24px;margin-bottom:10px">Download an Information Pack</h3>
       <div class="chain">
-        <div>One form, all details<small>Everyone gets the info pack; every submission is a lead</small></div>
-        <div>"Tess will be in touch within 1 business day"<small>Named advisor, clear timeframe</small></div>
-        <div>Don't want to wait? Book a time or call now<small>Tess's calendar, details prefilled</small></div>
-        <div>Lead lands in HubSpot with course, postcode and source page</div>
+        <div style="color:var(--ink)">Replaces "Request an Info Pack"<small>Course and campus pages, homepage</small></div>
+        <div style="color:var(--ink)">Opens the Information Pack form<small>HubSpot form cd7c4efe-…</small></div>
+        <div style="color:var(--ink);border-style:solid">Then: "Your information pack is on its way"<small>Plus Tess's details, book a time or call</small></div>
       </div>
-      <p class="so">Everyone gets a promise; the keen ones book on the spot.</p>
     </div>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 2</span></div>
@@ -211,13 +210,13 @@
 <!-- 3 · Flow -->
 <section class="slide">
   <div class="kicker">How it works</div>
-  <h2>Two screens for the lead</h2>
-  <p class="lede">HubSpot takes about 6 minutes to assign an owner, so the advisor lookup lives in the website code: screen 2 names the advisor the instant the form is submitted.</p>
+  <h2>From button to Career Advisor in two screens</h2>
+  <p class="lede">HubSpot takes about 6 minutes to assign an owner, so the advisor lookup lives in the website: screen 2 names the advisor the instant the form is submitted.</p>
   <div class="body flow">
-    <div class="step"><div class="dot">1</div><h3>Lead clicks a CTA</h3><p>From any page. The page they came from is recorded (<code>lead_source_page</code>) and its course preselected.</p><span class="who who--lead">Lead</span></div>
-    <div class="step hot"><div class="dot">2</div><h3>Screen 1: one form</h3><p>Name, email, mobile, course, where they live (postcode or country), consent. reCAPTCHA on.</p><span class="who who--hs">HubSpot form</span></div>
-    <div class="step hot"><div class="dot">3</div><h3>Routing</h3><p>On HubSpot's success event, our code applies the routing rules to the submitted values.</p><span class="who who--site">Website</span></div>
-    <div class="step hot"><div class="dot">4</div><h3>Screen 2: promise + options</h3><p>Tess's name, phone and email, "in touch within 1 business day", plus Book a time now or Call Tess now.</p><span class="who who--site">Website</span></div>
+    <div class="step"><div class="dot">1</div><h3>Visitor taps a button</h3><p>Book a Careers Consult, or Download an Information Pack, on any page. The page they came from sets the course.</p><span class="who who--lead">Visitor</span></div>
+    <div class="step hot"><div class="dot">2</div><h3>Screen 1: HubSpot form</h3><p>The form for that button. The website preselects the course and fills the hidden UTM and source fields.</p><span class="who who--hs">HubSpot form</span></div>
+    <div class="step hot"><div class="dot">3</div><h3>Match the advisor</h3><p>On submit, the website applies the routing rules to the submitted course, citizen/PR answer and postcode.</p><span class="who who--site">Website</span></div>
+    <div class="step hot"><div class="dot">4</div><h3>Screen 2: what's next</h3><p>Advisor's name, phone and email, "within 1 business day", plus Book a time now and Call now.</p><span class="who who--site">Website</span></div>
     <div class="step"><div class="dot">5</div><h3>Into HubSpot</h3><p>The lead is in HubSpot. From here FIT College handles everything in-house.</p><span class="who who--hs">HubSpot</span></div>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 3</span></div>
@@ -225,43 +224,47 @@
 
 <!-- 4 · Screens -->
 <section class="slide">
-  <div class="kicker">What the lead sees</div>
-  <h2>Capture → promise → book or call</h2>
+  <div class="kicker">What the visitor sees</div>
+  <h2>Two forms, one "what's next" panel</h2>
   <div class="body screens" style="margin-top:14px">
     <div>
       <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
-        <div class="mrow" style="grid-template-columns:1fr 1fr"><div><div class="ml">First name*</div><div class="mf">Jess</div></div><div><div class="ml">Last name*</div><div class="mf">Taylor</div></div></div>
-        <div class="ml">Email*</div><div class="mf">jess@example.com</div>
-        <div class="ml">Mobile*</div><div class="mrow"><div class="mf">AU +61 ▾</div><div class="mf">412 345 678</div></div>
-        <div class="ml">Course you're interested in*</div><div class="mf hl">Cert IV in Fitness ▾</div>
-        <div class="ml">Where do you live?*</div><div class="mf">Australia ▾</div>
-        <div class="ml">Postcode*</div><div class="mf">4558</div>
-        <div class="mcap">Contact by phone, SMS and email · reCAPTCHA</div>
-        <div class="mbtn">Send me my info pack</div>
+        <div class="t">Book a Careers Consult</div>
+        <div class="ml">Course you're interested in</div><div class="mf hl">Cert IV in Fitness ▾</div>
+        <div class="mstand" style="padding:6px">
+          <div class="mrow" style="grid-template-columns:1fr 1fr"><div><div class="ml">First Name*</div><div class="mf">Jess</div></div><div><div class="ml">Last Name*</div><div class="mf">Taylor</div></div></div>
+          <div class="ml">Email*</div><div class="mf">jess@example.com</div>
+          <div class="ml">Phone Number*</div><div class="mf">0412 345 678</div>
+          <div class="ml">Post Code*</div><div class="mf">4558</div>
+          <div class="ml">Citizen or permanent resident?*</div><div class="mf">Yes ▾</div>
+          <div class="mbtn">Book my Careers Consult</div>
+        </div>
       </div></div>
-      <p class="cap"><b>Screen 1 · HubSpot form</b>Course preselected from the Cert IV page</p>
+      <p class="cap"><b>Screen 1 · HubSpot form</b>Course preselected from the page they came from</p>
     </div>
     <div>
       <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
         <span class="tick">✓</span>
-        <div class="t" style="margin-top:8px">Thanks, Jess, your info pack is on its way</div>
-        <div style="color:var(--soft)">Check your inbox for the Cert IV in Fitness info pack. <b style="color:var(--ink)">Tess Szabath</b>, your local Career Advisor, will be in touch <b style="color:var(--ink)">within 1 business day</b>.</div>
+        <div class="t" style="margin-top:8px">Thanks, Jess, your Careers Consult request is in</div>
+        <div style="color:var(--soft)"><b style="color:var(--ink)">Tess Szabath</b>, your local Career Advisor, will call you <b style="color:var(--ink)">within 1 business day</b>.</div>
+        <div style="display:flex;gap:7px;align-items:center;background:var(--mist);border-radius:5px;padding:7px;margin-top:8px"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:var(--black);color:#fff;font-weight:800;font-size:9.5px;display:flex;align-items:center;justify-content:center">TS</span><span style="font-size:9.5px;line-height:1.35"><b style="font-size:10.5px">Tess Szabath</b><br>Your local Career Advisor<br><b style="color:var(--red)">0457 279 143</b> · <b style="color:var(--red)">tess.szabath@…</b></span></div>
+        <div style="font-weight:700;margin:9px 0 5px">Want to lock in a time now?</div>
+        <div class="mbtn" style="text-align:left">📅 Book a time now<br><span style="font-weight:400;font-size:9.5px">Pick a time in Tess's calendar</span></div>
+        <div class="mf" style="margin-top:6px;color:var(--ink)"><b>☎ Call Tess now</b><br><span style="font-size:9.5px;color:var(--soft)">0457 279 143</span></div>
+      </div></div>
+      <p class="cap"><b>Screen 2 · Careers Consult</b>Instant, from the website's lookup table</p>
+    </div>
+    <div>
+      <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
+        <span class="tick">✓</span>
+        <div class="t" style="margin-top:8px">Thanks, Jess, your information pack is on its way</div>
+        <div style="color:var(--soft)">Check your inbox for the Cert IV in Fitness information pack. <b style="color:var(--ink)">Tess Szabath</b>, your local Career Advisor, will be in touch <b style="color:var(--ink)">within 1 business day</b>.</div>
         <div style="display:flex;gap:7px;align-items:center;background:var(--mist);border-radius:5px;padding:7px;margin-top:8px"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:var(--black);color:#fff;font-weight:800;font-size:9.5px;display:flex;align-items:center;justify-content:center">TS</span><span style="font-size:9.5px;line-height:1.35"><b style="font-size:10.5px">Tess Szabath</b><br>Your local Career Advisor<br><b style="color:var(--red)">0457 279 143</b> · <b style="color:var(--red)">tess.szabath@…</b></span></div>
         <div style="font-weight:700;margin:9px 0 5px">Don't want to wait?</div>
         <div class="mbtn" style="text-align:left">📅 Book a time now<br><span style="font-weight:400;font-size:9.5px">Pick a time in Tess's calendar</span></div>
         <div class="mf" style="margin-top:6px;color:var(--ink)"><b>☎ Call Tess now</b><br><span style="font-size:9.5px;color:var(--soft)">0457 279 143</span></div>
       </div></div>
-      <p class="cap"><b>Screen 2 · Instant, from the website's lookup</b>Advisor's name, phone, email and booking link</p>
-    </div>
-    <div>
-      <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
-        <div style="color:var(--soft);font-size:10px">…after tapping "Book a time now"</div>
-        <div class="cal"><b style="font-size:10.5px">Tess Szabath · 15 min call</b>
-          <div class="days"><span>Mon</span><span class="on">Tue</span><span>Wed</span><span>Thu</span><span>Fri</span></div>
-          <div class="slots"><span>9:30am</span><span>11:00am</span><span>2:15pm</span></div></div>
-        <div style="margin-top:10px;color:var(--soft)">Name and email already filled in. No times showing? Call <b style="color:var(--red)">1300 887 017</b>.</div>
-      </div></div>
-      <p class="cap"><b>Booking (optional)</b>Opens Tess's HubSpot calendar in place</p>
+      <p class="cap"><b>Screen 2 · Information Pack</b>Same panel, different wording</p>
     </div>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 4</span></div>
@@ -271,19 +274,19 @@
 <section class="slide">
   <div class="kicker">The routing rules</div>
   <h2>Checked in this order, first match wins</h2>
-  <p class="lede" style="margin-bottom:12px">Runs in the browser from <code>js/advisor-data.js</code>, the instant the form is submitted.</p>
+  <p class="lede" style="margin-bottom:12px">Runs in the browser on the submitted values, using the lookup table in <code>data/advisor-lookup.json</code>.</p>
   <div class="body">
     <div class="rules">
-      <div class="rule r-shay"><div class="k">1</div><p>Course is a <strong>non-fitness course</strong> (next slide), from anywhere, including overseas</p><div class="out">→ Shay Best</div></div>
-      <div class="rule r-fb"><div class="k">2</div><p>Where do you live = <strong>Outside Australia</strong> (fitness course)</p><div class="out">→ Overseas advisor <span class="flag">confirm</span> (team for now)</div></div>
-      <div class="rule r-ok"><div class="k">3</div><p>Postcode <strong>is in POSTCODE MASTER</strong></p><div class="out">→ That postcode's advisor</div></div>
-      <div class="rule r-fb"><div class="k">4</div><p>Postcode <strong>not in the sheet</strong> (e.g. 2055 North Sydney)</p><div class="out">→ Team: "one of our Career Advisors", call option only</div></div>
+      <div class="rule r-shay"><div class="k">1</div><p>Course is a <strong>non-fitness course</strong> (next slide), or not listed</p><div class="out">→ Shay Best</div></div>
+      <div class="rule r-fb"><div class="k">2</div><p>Answered <strong>No</strong> to "Australian citizen or permanent resident?"</p><div class="out">→ International owner <span class="flag">pending</span> (team for now)</div></div>
+      <div class="rule r-ok"><div class="k">3</div><p>Post Code <strong>is in the lookup table</strong> ("800" is read as 0800)</p><div class="out">→ That postcode's advisor</div></div>
+      <div class="rule r-fb"><div class="k">4</div><p>Anything else (postcode not in the table, overseas)</p><div class="out">→ Career Advisor team: 1300 887 017</div></div>
     </div>
     <div class="tester" style="margin-top:16px">
       <span class="lbl">Try it:</span>
       <select id="tc" aria-label="Course"></select>
       <input id="pc" inputmode="numeric" maxlength="4" placeholder="4558" aria-label="Postcode">
-      <output id="pc-out" aria-live="polite">Runs the real routing</output>
+      <output id="pc-out" aria-live="polite">Rules 1, 3 and 4</output>
     </div>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 5</span></div>
@@ -338,39 +341,35 @@
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 7</span></div>
 </section>
 
-<!-- 8 · HubSpot form: what the website needs -->
+<!-- 8 · The HubSpot forms -->
 <section class="slide">
-  <div class="kicker">The HubSpot form · what the website needs</div>
-  <h2>FIT College builds the form; the website plugs into it</h2>
-  <p class="lede" style="margin-bottom:12px">The form and everything after submission is handled in-house. The website only needs these.</p>
+  <div class="kicker">The HubSpot forms</div>
+  <h2>Two live forms (v2 embed, portal 21226391, region ap1)</h2>
+  <p class="lede" style="margin-bottom:12px">Both render in the page, so the website can read and set fields. Embed codes are in SPEC.md §3.</p>
   <div class="body cols3">
     <div class="card">
-      <h3>FIT College sends</h3>
+      <h3>Form IDs</h3>
       <ul class="clean">
-        <li><strong>Portal ID</strong> and <strong>form ID</strong></li>
-        <li>Form editor: <code>new</code> or <code>legacy</code></li>
-        <li>Region: <code>ap1</code></li>
-        <li>Any extra hidden fields the website must fill</li>
-        <li>After submit: <strong>inline message</strong>, not a redirect, so screen 2 can replace it</li>
+        <li><strong>Careers Consult</strong><br><code>2e5b35fb-e821-4f50-9f6f-db82c5eba654</code></li>
+        <li><strong>Information Pack</strong><br><code>cd7c4efe-24e7-4a2d-b495-fc3daf42bd76</code></li>
+        <li>reCAPTCHA on in both</li>
       </ul>
     </div>
     <div class="card">
-      <h3>Website reads (after submit)</h3>
+      <h3>Website reads (routing)</h3>
       <ul class="clean">
-        <li><code>firstname</code> · <code>lastname</code> · <code>email</code>: prefill the calendar</li>
-        <li><code>course_interest</code>: options match <code>course-routing.csv</code> exactly</li>
-        <li><code>where_do_you_live</code>: Australia / Outside Australia</li>
-        <li><code>zip</code> or <code>country</code></li>
+        <li><code>zip</code>: Post Code</li>
+        <li><code>are_you_an_australian_citizen_or_preminent_resident_</code>: Yes / No</li>
+        <li><code>course_enquiry</code>: course</li>
+        <li><code>firstname</code> <code>lastname</code> <code>email</code>: prefill calendar</li>
       </ul>
     </div>
     <div class="card">
       <h3>Website writes (hidden)</h3>
       <ul class="clean">
-        <li><code>lead_source_page</code>: page they came from</li>
-        <li><code>lead_context</code>: e.g. checker-eligible</li>
-        <li>UTMs, gclid, fbclid from the URL</li>
-        <li>Legacy embeds only: <code>assigned_advisor</code>, <code>lead_routing</code></li>
-        <li>Course preselected from the source page</li>
+        <li><code>course_enquiry</code>: preselected from source page <span class="flag">see SPEC §5</span></li>
+        <li><code>utm_widget_*</code>: from URL <code>utm_*</code></li>
+        <li><code>lead_source_page</code>, <code>lead_context</code>, <code>assigned_advisor</code>, <code>lead_routing</code> <span class="flag">being added</span></li>
       </ul>
     </div>
   </div>
@@ -381,7 +380,7 @@
 <section class="slide">
   <div class="kicker">Tracking</div>
   <h2>Website events for GA4</h2>
-  <p class="lede" style="margin-bottom:14px">Pushed to the GTM dataLayer. Each carries <code>assigned_advisor</code> and <code>lead_routing</code>, so book vs call vs wait can be reported per advisor.</p>
+  <p class="lede" style="margin-bottom:14px">Pushed to the GTM dataLayer. Each carries <code>lead_form</code> (consult / infopack), <code>assigned_advisor</code> and <code>lead_routing</code>, so book vs call vs wait can be reported per advisor.</p>
   <div class="body">
     <table class="tbl" style="max-width:900px">
       <thead><tr><th>Event</th><th>Fires when</th><th>Conversion</th></tr></thead>
@@ -397,53 +396,49 @@
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 9</span></div>
 </section>
 
-<!-- 10 · Assets -->
+<!-- 10 · What's in the pack -->
 <section class="slide">
-  <div class="kicker">For Kook · assets</div>
+  <div class="kicker">For Kook · the handover pack</div>
   <h2>Everything needed to build it</h2>
-  <p class="lede" style="margin-bottom:12px">All in the repo under <code>fitcollege-rebuild/</code>. On any page, the whole flow is one tag: <code>&lt;div data-lead-flow&gt;&lt;/div&gt;</code></p>
+  <p class="lede" style="margin-bottom:12px">Documentation and data only. The build is yours: use your own patterns and the CMS's components.</p>
   <div class="body">
     <table class="tbl tight">
-      <thead><tr><th style="width:300px">File</th><th>What it is</th><th style="width:360px">Kook action</th></tr></thead>
+      <thead><tr><th style="width:300px">File</th><th>What it is</th></tr></thead>
       <tbody>
-        <tr><td><code>js/advisor-router.js</code></td><td>HubSpot embed (new + legacy editors), course preselect, routing, screen 2, tracking.</td><td>Ship sitewide. Set portal + form ID in <code>FIT_HUBSPOT</code>. Verify the <code>[KOOK]</code> HubSpot calls.</td></tr>
-        <tr><td><code>js/advisor-data.js</code></td><td>Generated lookup: advisor names, phones, emails, booking links; postcodes; course routing (17 KB). Public by design.</td><td>Ship as-is. Never hand-edit.</td></tr>
-        <tr><td><code>css/site.css</code> (lead capture blocks)</td><td>Form, screen 2 option cards and calendar styles.</td><td>Port into the CMS stylesheet.</td></tr>
-        <tr><td><code>contact.html</code></td><td>Reference placement; <code>#infopack</code> and <code>#book</code> both land on the one form.</td><td>Place one <code>data-lead-flow</code> div; keep both anchors.</td></tr>
-        <tr><td><code>data/postcode-master.csv</code> · <code>advisors.csv</code> · <code>course-routing.csv</code></td><td>The three source files.</td><td>Reference; FIT College maintains them.</td></tr>
-        <tr><td><code>tools/build_advisor_routing.py</code></td><td>Regenerates the data; stops on clashes.</td><td>Run on every sheet or course change.</td></tr>
+        <tr><td><code>00-START-HERE.md</code></td><td>One-page overview and reading order</td></tr>
+        <tr><td><code>SPEC.md</code></td><td>The full spec: buttons, forms and field names, routing rules, screen 2 wording, tracking, acceptance checklist</td></tr>
+        <tr><td><code>cta-inventory.csv</code></td><td>All 283 links on 46 pages: current text, new text, target</td></tr>
+        <tr><td><code>data/advisor-lookup.json</code></td><td>Ready-to-use lookup: advisors (name, phone, email, booking link), 2,664 postcodes, course rules</td></tr>
+        <tr><td><code>data/*.csv</code></td><td>The same data as spreadsheets: advisors, postcodes, course routing</td></tr>
+        <tr><td><code>FIT-College-Advisor-Routing.pdf</code> + deck</td><td>This deck</td></tr>
       </tbody>
     </table>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 10</span></div>
 </section>
 
-<!-- 11 · Edge cases + maintenance -->
+<!-- 11 · Edge cases -->
 <section class="slide">
-  <div class="kicker">Edge cases &amp; upkeep</div>
-  <h2>No dead ends, no code edits</h2>
+  <div class="kicker">Edge cases</div>
+  <h2>No dead ends</h2>
   <div class="body grid2" style="margin-top:14px">
     <div>
       <table class="tbl tight">
-        <thead><tr><th>Situation</th><th>Behaviour</th></tr></thead>
+        <thead><tr><th>Situation</th><th>Screen 2 shows</th></tr></thead>
         <tbody>
-          <tr><td>Postcode not in sheet</td><td>Team promise + call option; <code>lead_routing</code> = unmatched for gap reports</td></tr>
-          <tr><td>Overseas</td><td>Country instead of postcode; international phone via country code</td></tr>
-          <tr><td>Advisor calendar empty (leave, full)</td><td>"No times showing? Call 1300 887 017" under the calendar</td></tr>
-          <tr><td>Came straight to contact page</td><td>Course defaults to "Not sure yet"; source page = contact</td></tr>
-                    <tr><td>Spam bots</td><td>HubSpot reCAPTCHA</td></tr>
-          <tr><td>JavaScript blocked</td><td>Phone number shown instead</td></tr>
+          <tr><td>Postcode not in the table</td><td>"A Career Advisor will…", team card, 1300 887 017, no booking button</td></tr>
+          <tr><td>Not a citizen / PR</td><td>International owner (team until decided)</td></tr>
+          <tr><td>Non-fitness course</td><td>Shay Best, "Career Advisor for [course]"</td></tr>
+          <tr><td>Course "Not sure yet" (info pack)</td><td>"Check your inbox for the course guide"</td></tr>
+          <tr><td>Advisor calendar empty</td><td>"No times showing? Call Tess on …" under the calendar</td></tr>
+          <tr><td>HubSpot submit fails</td><td>HubSpot's own error; screen 2 only after success</td></tr>
         </tbody>
       </table>
     </div>
     <div class="card">
-      <h3>When territories or courses change</h3>
-      <ol class="steps" style="margin-top:8px">
-        <li>Update POSTCODE MASTER and/or <code>course-routing.csv</code>.</li>
-        <li>New advisor? Add a row to <code>advisors.csv</code>.</li>
-        <li>Run <code>python3 tools/build_advisor_routing.py "POSTCODE MASTER.xlsx"</code>. It stops on any clash.</li>
-        <li>Deploy the regenerated <code>js/advisor-data.js</code>.</li>
-      </ol>
+      <h3>When territories or advisors change</h3>
+      <p style="font-size:14.5px;color:var(--soft);margin-top:8px">FIT College sends an updated <code>advisor-lookup.json</code> (same shape). Swapping the file is the only change: nothing else in the build should depend on specific advisors or postcodes.</p>
+      <p style="font-size:14.5px;color:var(--soft);margin-top:10px">If advisor details (phone, email, booking link) live in the CMS instead, agree the field names with FIT College so the shape stays the same.</p>
     </div>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 11</span></div>
@@ -455,28 +450,28 @@
   <h2>How we'll know it works</h2>
   <div class="body grid2" style="margin-top:14px">
     <table class="tbl tight">
-      <thead><tr><th>Came from / course</th><th>Area</th><th>Screen 2 names</th></tr></thead>
+      <thead><tr><th>Course</th><th>Post Code</th><th>Citizen/PR</th><th>Expect</th></tr></thead>
       <tbody>
-        <tr><td>Cert IV page (preselected)</td><td>4558</td><td>Tess Szabath</td></tr>
-        <tr><td>Cert IV page (preselected)</td><td>3000</td><td>Dean Eggins</td></tr>
-        <tr><td>Cert III in Fitness</td><td>2150</td><td>Matthew Johnson</td></tr>
-        <tr><td>Not sure yet</td><td>0800</td><td>Sam Russell</td></tr>
-        <tr><td>Not sure yet</td><td>6027</td><td>Nicky Wood</td></tr>
-        <tr><td>TAE page (preselected)</td><td>4558</td><td>Shay Best</td></tr>
-        <tr><td>First Aid / CPR</td><td>Fiji</td><td>Shay Best</td></tr>
-        <tr><td>Cert III in Fitness</td><td>New Zealand</td><td>Overseas advisor (team for now)</td></tr>
-        <tr><td>Cert III in Fitness</td><td>2055</td><td>"One of our Career Advisors"</td></tr>
+        <tr><td>Cert IV in Fitness</td><td>4558</td><td>Yes</td><td>Tess Szabath</td></tr>
+        <tr><td>Cert IV in Fitness</td><td>4000</td><td>Yes</td><td>Thomas Jordan</td></tr>
+        <tr><td>Cert III in Fitness</td><td>2150</td><td>Yes</td><td>Matthew Johnson</td></tr>
+        <tr><td>Not sure yet</td><td>800</td><td>Yes</td><td>Sam Russell</td></tr>
+        <tr><td>Not sure yet</td><td>6027</td><td>Yes</td><td>Nicky Wood</td></tr>
+        <tr><td>First Aid / CPR</td><td>4558</td><td>Yes</td><td>Shay Best</td></tr>
+        <tr><td>Cert IV in TAE</td><td>2000</td><td>No</td><td>Shay Best</td></tr>
+        <tr><td>Cert III in Fitness</td><td>4558</td><td>No</td><td>International owner</td></tr>
+        <tr><td>Cert III in Fitness</td><td>2055</td><td>Yes</td><td>Career Advisor team</td></tr>
       </tbody>
     </table>
     <div class="card">
       <h3>Before go-live</h3>
       <ul class="clean">
-        <li>☐ HubSpot form embeds and submits on the live domain</li>
-        <li>☐ Website fills its hidden fields before submit (<code>lead_source_page</code>, <code>lead_context</code>, UTMs)</li>
-        <li>☐ Screen 2 appears after submit, with the right advisor</li>
-        <li>☐ "Book a time now" opens the right calendar, name + email prefilled</li>
-        <li>☐ Phone and email links on screen 2 work on mobile</li>
-        <li>☐ GA4 receives submit / booked / call conversions</li>
+        <li>☐ All 283 links: new text, right form</li>
+        <li>☐ Both forms embed and submit on the live domain</li>
+        <li>☐ Course preselected; not "FIT ELITE…" for other courses</li>
+        <li>☐ Screen 2: right advisor, right wording for each form</li>
+        <li>☐ Phone, email and booking links work on mobile</li>
+        <li>☐ GA4 receives the conversions</li>
         <li>☐ Stanley sign-off</li>
       </ul>
     </div>
@@ -490,13 +485,12 @@
   <h2 style="color:#fff">Open items</h2>
   <div class="body" style="margin-top:10px">
     <ul class="clean big-list" style="max-width:1080px">
-      <li style="border-color:#333"><span class="flag flag--red">FIT College</span>&nbsp; <strong>HubSpot portal ID, form ID and editor type</strong>, plus any extra hidden fields the website must fill.</li>
-      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; <strong>Who owns overseas fitness leads?</strong> (rule 2). Team until decided.</li>
-      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; Confirm Diploma of Sport, S&amp;C and CEC courses route <strong>by postcode</strong>, not to Shay.</li>
-      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; <strong>Team booking link</strong> for unmatched and overseas leads (phone only until then).</li>
-      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; <strong>Updated postcode sheet</strong> (6 missing populated postcodes), then a regenerated advisor-data.js.</li>
-      <li style="border-color:#333"><span class="flag">Kook</span>&nbsp; <strong>Verify the HubSpot embed/event method names</strong> in the code against HubSpot's current docs.</li>
-      <li style="border-color:#333"><span class="flag">Kook</span>&nbsp; Click-test all 10 booking links on the live domain.</li>
+      <li style="border-color:#333"><span class="flag flag--red">FIT College</span>&nbsp; <strong>Tidy both HubSpot forms:</strong> course question, remove FIT Elite defaults and promo text, button labels, new hidden fields.</li>
+      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; <strong>International owner</strong> for non-citizen / non-PR leads (rule 2).</li>
+      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; Confirm Diploma of Sport, S&amp;C and CEC courses route <strong>by postcode</strong>.</li>
+      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; <strong>Information pack PDFs</strong> per course, if "Download" should be a real download.</li>
+      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; Updated postcode table (6 missing populated postcodes).</li>
+      <li style="border-color:#333"><span class="flag">Kook</span>&nbsp; Check the HubSpot v2 embed callbacks and meetings booking message against current docs.</li>
     </ul>
   </div>
   <div class="angle"></div>

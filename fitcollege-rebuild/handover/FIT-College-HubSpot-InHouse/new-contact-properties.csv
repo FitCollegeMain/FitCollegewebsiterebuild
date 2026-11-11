@@ -1,7 +1,0 @@
-internal_name,label,field_type,group,options,notes
-where_do_you_live,Where do you live?,dropdown,Contact information,"Australia;Outside Australia",Visible. Controls postcode vs country (conditional logic).
-lead_source_page,Lead source page,single-line text,Conversion information,,Hidden. Page on our site the lead came from. Set by the website.
-lead_context,Lead context,single-line text,Conversion information,,"Hidden. e.g. checker-eligible from the funding checker. Set by the website."
-assigned_advisor,Assigned Career Advisor,dropdown,Conversion information,"Dean Eggins;Marcus Krause;Matthew Johnson;Nicky Wood;Paul Mountain;Ryan Crilly;Sam Russell;Shay Best;Tess Szabath;Thomas Jordan;FIT College Career Advisor",Hidden. Set by the owner workflow (and by the website on legacy embeds).
-lead_routing,Lead routing rule,dropdown,Conversion information,"postcode;course;overseas;unmatched",Hidden. Which rule matched. Use unmatched for sheet-gap reports.
-course_interest,Course interest,dropdown,Contact information,See course-dropdown-options.txt,"Visible. Confirm whether this property already exists; if so, align its options."

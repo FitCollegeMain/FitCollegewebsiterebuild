@@ -147,11 +147,11 @@ def main():
         "Enrol when: form submission on the lead capture form AND Contact owner is unknown.",
         "Branches are checked top to bottom; first match wins (same rules as the website).",
         "",
-        "BRANCH 1  Course interest is any of  ->  " + adv_by_id[course_routing["*unlisted*"]]["display_name"],
+        "BRANCH 1  Course enquiry is any of  ->  " + adv_by_id[course_routing["*unlisted*"]]["display_name"],
         "  " + "; ".join(shay_courses),
         "  (Plus any new course on the site that is not routed by postcode.)",
         "",
-        "BRANCH 2  Where do you live = Outside Australia  ->  " + adv_by_id.get(course_routing["*overseas*"], {}).get("display_name", "team fallback"),
+        "BRANCH 2  Australian citizen or permanent resident = No  ->  " + adv_by_id.get(course_routing["*overseas*"], {}).get("display_name", "team fallback"),
         "",
     ]
     for k, (aid, pcs) in enumerate(sorted(grouped.items(), key=lambda x: -len(x[1])), start=3):

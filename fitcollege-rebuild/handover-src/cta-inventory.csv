@@ -1,0 +1,189 @@
+page,current_text,new_text,current_href,goes_to_form,element_class,count
+about.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+about.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+about.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+affiliate-deal.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+affiliate-deal.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+affiliate-deal.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+contact.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+contact.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,2
+contact.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-calendar.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-calendar.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,2
+course-calendar.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-cert-iii-travel.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-cert-iii-travel.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-cert-iii-travel.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-cert-iii-travel.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-cert-iii-travel.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-cert-iii.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-cert-iii.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-cert-iii.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-cert-iii.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-cert-iii.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-cert-iv.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-cert-iv.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-cert-iv.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-cert-iv.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-cert-iv.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-cpr.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-cpr.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-cpr.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-cpr.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-cpr.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-diploma-sport.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-diploma-sport.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-diploma-sport.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-diploma-sport.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-diploma-sport.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-disability-support.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-disability-support.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-disability-support.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-disability-support.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-disability-support.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-first-aid.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-first-aid.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-first-aid.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-first-aid.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-first-aid.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-fit-elite.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-fit-elite.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-fit-elite.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-fit-elite.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-fit-elite.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-international.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-international.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-international.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-international.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-international.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-short-courses.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-short-courses.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-short-courses.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-short-courses.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-short-courses.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-strength-conditioning.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-strength-conditioning.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-strength-conditioning.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-strength-conditioning.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-strength-conditioning.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-tae-upgrade.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-tae-upgrade.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-tae-upgrade.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-tae-upgrade.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-tae-upgrade.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+course-tae.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+course-tae.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,4
+course-tae.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+course-tae.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+course-tae.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost-dark,1
+courses.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+courses.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,2
+courses.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+faqs.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+faqs.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,2
+faqs.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+funding.html,Book your advisor call,Book a Careers Consult,contact.html?from=checker-eligible#book,consult,btn btn--primary,1
+funding.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+funding.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--ghost,1
+funding.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,2
+funding.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+funding.html,Chat with a Career Advisor,Book a Careers Consult,contact.html?from=checker-notqld#book,consult,btn btn--primary,1
+funding.html,Plan ahead with an advisor,Book a Careers Consult,contact.html?from=checker-school#book,consult,btn btn--primary,1
+funding.html,See your options,Book a Careers Consult,contact.html?from=checker-prior#book,consult,btn btn--primary,1
+funding.html,Talk it through with an advisor,Book a Careers Consult,contact.html?from=checker-checkpoint#book,consult,btn btn--primary,1
+home.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+home.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+home.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+home.html,Request an info pack,Download an Information Pack,contact.html#infopack,info pack,(plain link),1
+location-adelaide-glenelg.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-adelaide-glenelg.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-adelaide-glenelg.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-adelaide-glenelg.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-brisbane-carseldine.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-brisbane-carseldine.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-brisbane-carseldine.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-brisbane-carseldine.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-brisbane-fortitude-valley.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-brisbane-fortitude-valley.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-brisbane-fortitude-valley.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-brisbane-fortitude-valley.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-cairns-city-centre.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-cairns-city-centre.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-cairns-city-centre.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-cairns-city-centre.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-canberra-deakin.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-canberra-deakin.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-canberra-deakin.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-canberra-deakin.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-geelong.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-geelong.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-geelong.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-geelong.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-gold-coast-nerang.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-gold-coast-nerang.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-gold-coast-nerang.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-gold-coast-nerang.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-hobart-aquatic-centre.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-hobart-aquatic-centre.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-hobart-aquatic-centre.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-hobart-aquatic-centre.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-ipswich.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-ipswich.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-ipswich.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-ipswich.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-melbourne-south-melbourne.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-melbourne-south-melbourne.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-melbourne-south-melbourne.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-melbourne-south-melbourne.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-melbourne-wantirna.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-melbourne-wantirna.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-melbourne-wantirna.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-melbourne-wantirna.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-newcastle.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-newcastle.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-newcastle.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-newcastle.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-perth-bibra-lake.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-perth-bibra-lake.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-perth-bibra-lake.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-perth-bibra-lake.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-perth-joondalup.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-perth-joondalup.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-perth-joondalup.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-perth-joondalup.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-sunshine-coast-maroochydore.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-sunshine-coast-maroochydore.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-sunshine-coast-maroochydore.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-sunshine-coast-maroochydore.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-sydney-caringbah.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-sydney-caringbah.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-sydney-caringbah.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-sydney-caringbah.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-sydney-city-centre.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-sydney-city-centre.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-sydney-city-centre.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-sydney-city-centre.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-sydney-parramatta.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-sydney-parramatta.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-sydney-parramatta.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-sydney-parramatta.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-sydney-penrith.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-sydney-penrith.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-sydney-penrith.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-sydney-penrith.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+location-toowoomba.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+location-toowoomba.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+location-toowoomba.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+location-toowoomba.html,Request an Info Pack,Download an Information Pack,contact.html#infopack,info pack,btn btn--ghost,1
+locations.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+locations.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,2
+locations.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+privacy.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+privacy.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+student-handbook.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),2
+student-handbook.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+study-online.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+study-online.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,btn btn--primary,3
+study-online.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1
+terms.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,(plain link),1
+terms.html,Chat with a Career Advisor,Book a Careers Consult,contact.html,consult,nav-cta,1

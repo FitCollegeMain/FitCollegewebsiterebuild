@@ -129,5 +129,5 @@ window.FIT_COURSE_ROUTING = {
  "Cert III in Travel": "shay-best",
  "International Student Pathways": "shay-best",
  "*unlisted*": "shay-best",
- "*overseas*": "_fallback"
+ "*overseas*": "shay-best"
 };

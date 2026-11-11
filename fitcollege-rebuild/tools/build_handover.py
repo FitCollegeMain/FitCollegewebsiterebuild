@@ -83,6 +83,7 @@ def main():
     cp("handover-src/SPEC.md", "SPEC.md")
     cp("handover-src/cta-inventory.csv", "cta-inventory.csv")
     cp("FIT-College-Advisor-Routing.pdf", "FIT-College-Advisor-Routing.pdf")
+    cp("handover-src/FIT-College-Course-Guide-2026.pdf", "assets/FIT-College-Course-Guide-2026.pdf")
     w("data/advisor-lookup.json", lookup_json())
     for f in ["advisors.csv", "postcode-master.csv", "course-routing.csv"]:
         cp(f"data/{f}", f"data/{f}")
@@ -238,10 +239,15 @@ def lookup_json():
         "_about": "FIT College advisor lookup. Rules (first match wins): 1) courses[course] is an advisor id -> that advisor; "
                   "2) not an Australian citizen/PR -> courses['*overseas*']; 3) postcodes[postcode] -> that advisor; "
                   "4) otherwise -> advisors['_fallback']. Courses not listed -> courses['*unlisted*']. "
+                  "infoPacks: courses whose Information Pack screen shows a 'Download the course guide' button (host the PDF in assets/). "
                   "Generated " + TODAY + " from POSTCODE MASTER vNOV26.",
         "advisors": advs,
         "postcodes": dict(sorted(pcs.items())),
         "courses": routing,
+        # The 2026 Course Guide covers Cert III, Cert IV and FIT Elite only.
+        "infoPacks": {c: "FIT-College-Course-Guide-2026.pdf" for c in
+                      ["Not sure yet", "FIT Elite™ Dual-Career PT Program", "Cert III in Fitness", "Cert IV in Fitness"]
+                      if c in routing},
     }
     return json.dumps(doc, ensure_ascii=False, indent=1) + "\n"
 
@@ -265,6 +271,7 @@ The site gets two lead buttons: **Book a Careers Consult** and **Download an Inf
 | `cta-inventory.csv` | All 283 buttons and links on 46 pages: current text, new text, where they go |
 | `data/advisor-lookup.json` | The lookup table, ready to use: advisors, 2,664 postcodes, course rules |
 | `data/*.csv` | The same data as spreadsheets |
+| `assets/FIT-College-Course-Guide-2026.pdf` | The information pack: host it on the site for the screen 2 download button |
 
 ## What you're building
 
@@ -280,10 +287,8 @@ How you build it is up to you. Nothing in this pack is code to copy.
 ## Waiting on FIT College
 
 These don't block starting the build:
-- [ ] HubSpot form tidy-up: course question, FIT Elite defaults removed, button labels, new hidden fields
-- [ ] Owner for international (non-citizen / non-PR) leads
+- [ ] HubSpot form tidy-up, including the new course dropdown (FIT College will confirm its field name), FIT Elite defaults removed, button labels and new hidden fields
 - [ ] Confirm Diploma of Sport, Strength & Conditioning and CEC route by postcode
-- [ ] Information pack PDFs per course (optional; enables a real download button)
 - [ ] Updated postcode table (6 missing populated postcodes)
 
 FIT College will send an updated `advisor-lookup.json` whenever territories or advisor details change.
@@ -307,9 +312,9 @@ def inhouse_readme():
 ## Still to do
 
 - [ ] Fix both live forms (`hubspot-form-fixes.md`)
-- [ ] Info pack guide for each course, plus the "Not sure yet" guide
-- [ ] Info pack PDF links per course, if "Download" should be a real download (Kook adds a button)
-- [ ] Owner for international (non-citizen / non-PR) leads
+- [ ] Add the course dropdown to both forms (options in `hubspot-form-fixes.md`) and tell Kook the field name
+- [ ] Make Post Code optional, or hidden, when citizen/PR = No, so international leads can come through with a blank postcode
+- [ ] Information pack email: the 2026 Course Guide covers Cert III, Cert IV and FIT Elite; decide what other courses receive (Diploma, S&C, CEC and the non-fitness courses)
 - [ ] Confirm Diploma of Sport, Strength & Conditioning and CEC route by postcode
 - [ ] Round-robin team booking link
 - [ ] Compliance check on the consent wording (phone, SMS and email)

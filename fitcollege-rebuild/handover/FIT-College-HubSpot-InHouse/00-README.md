@@ -14,9 +14,9 @@
 ## Still to do
 
 - [ ] Fix both live forms (`hubspot-form-fixes.md`)
-- [ ] Info pack guide for each course, plus the "Not sure yet" guide
-- [ ] Info pack PDF links per course, if "Download" should be a real download (Kook adds a button)
-- [ ] Owner for international (non-citizen / non-PR) leads
+- [ ] Add the course dropdown to both forms (options in `hubspot-form-fixes.md`) and tell Kook the field name
+- [ ] Make Post Code optional, or hidden, when citizen/PR = No, so international leads can come through with a blank postcode
+- [ ] Information pack email: the 2026 Course Guide covers Cert III, Cert IV and FIT Elite; decide what other courses receive (Diploma, S&C, CEC and the non-fitness courses)
 - [ ] Confirm Diploma of Sport, Strength & Conditioning and CEC route by postcode
 - [ ] Round-robin team booking link
 - [ ] Compliance check on the consent wording (phone, SMS and email)

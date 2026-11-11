@@ -77,9 +77,9 @@ Both forms currently have the same fields:
 | `lastname` | Last Name* | text | Prefilling the booking calendar |
 | `email` | Email* | email | Prefilling the booking calendar |
 | `phone` | Phone Number* | tel | |
-| `zip` | Post Code* | text | **Routing** (§4) |
+| `zip` | Post Code* | text (FIT College may make it optional for international visitors) | **Routing** (§4). Can be blank when citizen/PR = No |
 | `are_you_an_australian_citizen_or_preminent_resident_` | Are you an Australian citizen or permanent resident?* | select: Yes / No | **Routing** (§4) |
-| `course_enquiry` | Course Enquiry | hidden | **Routing** (§4). The website must set it (§5) |
+| `course_enquiry` | Course Enquiry | hidden today; **becoming a visible dropdown** (§5) | **Routing** (§4) |
 | `utm_widget_source`, `utm_widget_medium`, `utm_widget_campaign`, `utm_widget_term` | | hidden | Filled from the page URL's `utm_*` parameters |
 | `leadsource`, `hs_lead_status`, `widgetanalyticsid`, `n00n6f00000emalt`, `n00n6f00000luzqn`, `have_you_put_this_person_through_the_unquailed_email_sequence_` | | hidden | Leave alone: FIT College manages these |
 
@@ -96,9 +96,9 @@ Apply these rules to the submitted values. **The first match wins.**
 | # | Rule | Advisor shown |
 |---|---|---|
 | 1 | Course is a **non-fitness course** (see `course-routing.csv`, column `route_to` ≠ `postcode`), or any course not listed there | **Shay Best** |
-| 2 | Answered **No** to "Australian citizen or permanent resident?" | Overseas/international owner: **[decision pending]**. Use the Career Advisor team until confirmed |
+| 2 | Answered **No** to "Australian citizen or permanent resident?" (international). The postcode may be blank | **Shay Best** |
 | 3 | Postcode is in the lookup table | That postcode's advisor |
-| 4 | Anything else (postcode not in the table, blank, overseas) | **Career Advisor team** (head office details) |
+| 4 | Anything else (postcode not in the table, or blank) | **Career Advisor team** (head office details) |
 
 **Postcode clean-up before lookup:**
 - strip everything but digits
@@ -121,7 +121,7 @@ Apply these rules to the submitted values. **The first match wins.**
   },
   "postcodes": { "4558": "tess-szabath", "...": "..." },
   "courses":   { "Cert IV in Fitness": "postcode", "First Aid / CPR": "shay-best", "...": "...",
-                 "*unlisted*": "shay-best", "*overseas*": "_fallback" }
+                 "*unlisted*": "shay-best", "*overseas*": "shay-best" }
 }
 ```
 
@@ -139,18 +139,16 @@ Apply these rules to the submitted values. **The first match wins.**
 | Not sure yet | 6027 | Yes | Nicky Wood |
 | First Aid / CPR | 4558 | Yes | Shay Best |
 | Cert IV in Training & Assessment | 2000 | No | Shay Best |
-| Cert III in Fitness | 4558 | No | International owner (team for now) |
+| Cert III in Fitness | (blank) | No | Shay Best |
 | Cert III in Fitness | 2055 | Yes | Career Advisor team (2055 isn't in the table yet) |
 
 ---
 
 ## 5. What the website sends into the form
 
-**Course (`course_enquiry`).** The live forms have no visible course question. The hidden `course_enquiry` currently defaults to "FIT ELITE™ PERSONAL TRAINER COURSE", which would tag every lead as FIT Elite. FIT College is choosing between:
-- **(A) Recommended:** FIT College adds a visible course dropdown to both forms, with options exactly as in `course-routing.csv`. The website preselects it from the page the visitor came from.
-- **(B)** The website shows its own course dropdown above the form and writes the choice into `course_enquiry`.
+**Course.** FIT College is adding a **visible "Course you're interested in" dropdown** to both forms in HubSpot. Its options will match `course-routing.csv` exactly. The field is expected to be `course_enquiry`; FIT College will confirm the name. Until then, `course_enquiry` is hidden and defaults to "FIT ELITE™ PERSONAL TRAINER COURSE": don't rely on that default.
 
-Either way, **preselect the course from the page the visitor came from**. A "Download an Information Pack" button on the Cert IV page should arrive with Cert IV selected. Page → course:
+**Preselect the course from the page the visitor came from**, by setting the dropdown in `onFormReady`. A "Download an Information Pack" button on the Cert IV page should arrive with Cert IV selected. Page → course:
 
 | Came from | Course |
 |---|---|
@@ -199,7 +197,9 @@ Replace the form with this panel. Layout is identical for both forms; the wordin
 
 **Information Pack**
 > **Thanks, Jess, your information pack is on its way**
-> Check your inbox for the Cert IV in Fitness information pack. Tess Szabath, your local Career Advisor, will be in touch **within 1 business day**.
+> Check your inbox, or download it now. Tess Szabath, your local Career Advisor, will be in touch **within 1 business day**.
+>
+> [⬇ Download the course guide (PDF)]
 >
 > [Advisor card]
 >
@@ -218,9 +218,9 @@ Replace the form with this panel. Layout is identical for both forms; the wordin
 | Situation | Change |
 |---|---|
 | Matched by course (rule 1) | "Shay Best, the Career Advisor for First Aid / CPR, will…" |
-| No match (rule 4) or international (pending) | "A Career Advisor will…". Card shows "Career Advisor team", 1300 887 017, info@fitcollege.edu.au. No booking button; the call button says "Call the Career Advisor team" |
-| Course is "Not sure yet" (Information Pack) | "Check your inbox for the course guide." |
-| Information pack PDF available for the course **[optional, pending]** | Add a "Download the [course] information pack" button, so "Download" is literal. FIT College will supply PDF links per course if wanted |
+| No match (rule 4) | "A Career Advisor will…". Card shows "Career Advisor team", 1300 887 017, info@fitcollege.edu.au. No booking button; the call button says "Call the Career Advisor team" |
+| Matched by citizen/PR = No (rule 2) | Shay Best's card, "Shay Best, your Career Advisor, will…" |
+| **Download button** (Information Pack only) | Shown for courses in `advisor-lookup.json` → `infoPacks`: Cert III, Cert IV, FIT Elite and "Not sure yet", which are the courses the 2026 Course Guide covers. Links to `FIT-College-Course-Guide-2026.pdf` (in `assets/`; host it on the site). Other courses: no button, and the intro reads "Check your inbox for course details." |
 
 **Book a time now:**
 - opens the advisor's `meetingUrl` (a HubSpot meetings page)
@@ -242,6 +242,7 @@ Push these events. Each one carries `lead_form` (consult or infopack), `assigned
 | `advisor_meeting_booked` | Booking completed in the HubSpot calendar (it posts a message to the page; confirm the payload) | yes |
 | `advisor_call_clicked` | Advisor phone number or "Call … now" tapped | yes |
 | `advisor_email_clicked` | Advisor email tapped | |
+| `info_pack_downloaded` | "Download the course guide" tapped | yes |
 
 ---
 
@@ -264,11 +265,11 @@ Push these events. Each one carries `lead_form` (consult or infopack), `assigned
 ## 9. Being handled by FIT College (FYI, no action for Kook)
 
 These affect what you receive, not what you build:
-- **Course question and hidden field defaults.** Remove the FIT Elite defaults and add a course dropdown (§5, option A).
+- **Course dropdown** added to both forms by FIT College (§5). FIT Elite defaults removed.
 - **Form copy.** Remove the FIT Elite promo text from both forms ("Become a Fitness Professional in 14 Weeks…"). Set the submit buttons: "Book my Careers Consult" and "Get the Information Pack".
 - **New hidden fields:** `lead_source_page`, `lead_context`, `assigned_advisor`, `lead_routing`.
 - **Lead source** values per form, replacing "August 2024 Promo Page".
-- **Decisions:** the international owner, and information pack PDFs per course.
+- **Post Code** may become optional for international visitors (citizen/PR = No).
 - **Updated postcode table:** 6 populated postcodes are missing, including 2055 North Sydney.
 
 ## 10. Questions

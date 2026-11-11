@@ -7,7 +7,7 @@ All four trigger on a submission of either website form: **Careers Consult** or 
 - **Enrol:** form submitted AND Contact owner is unknown. Never overwrite an existing owner: a returning lead stays with the advisor they already know.
 - **Branches, top to bottom, first match wins.** These are the same rules the website uses on screen 2:
   1. `course_enquiry` is any of the non-fitness courses → **Shay Best**
-  2. Australian citizen or permanent resident = No → **FIT College Career Advisor** [PENDING decision]
+  2. Australian citizen or permanent resident = No → **Shay Best** [PENDING decision]
   3. to 11. `zip` is any of [list] → that advisor (one branch per advisor)
   - None matched → round-robin across Career Advisors
 - In every branch, also set `assigned_advisor` and `lead_routing` (postcode / course / overseas / unmatched).

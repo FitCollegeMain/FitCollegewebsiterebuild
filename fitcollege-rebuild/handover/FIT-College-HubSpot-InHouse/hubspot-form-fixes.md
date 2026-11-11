@@ -11,10 +11,9 @@ Both forms are currently **identical copies of the August 2024 FIT Elite promo f
 
 ## Must fix before go-live
 
-1. **`course_enquiry` defaults to "FIT ELITE™ PERSONAL TRAINER COURSE"** (hidden) in both forms.
-   - Recommended: make it a **visible dropdown**, "Course you're interested in", with the options below.
-   - Kook will preselect it from the page the visitor came from.
-   - Whatever you choose, remove the FIT Elite default.
+1. **Add the course dropdown** (Stanley doing this). `course_enquiry` currently defaults to "FIT ELITE™ PERSONAL TRAINER COURSE" (hidden) in both forms.
+   - Make it a **visible dropdown**, "Course you're interested in", with the options below. Remove the FIT Elite default.
+   - Tell Kook the field's internal name; they'll preselect it from the page the visitor came from.
 2. **`leadsource` is "August 2024 Promo Page"** in both forms. Set a value per form, e.g. "Website – Careers Consult" and "Website – Information Pack".
 3. **Promo copy is built into both forms.** Remove "Become a Fitness Professional in 14 Weeks" and "Study Certificate III (SIS30321) & IV (SIS40221) in Fitness 100% on Campus". Both forms now appear on every course page.
 4. **Both submit buttons say "Request Info Pack".** Change them to:
@@ -51,8 +50,8 @@ If `course_enquiry` must keep its existing option values, send Kook a mapping (w
 
 ## Worth reviewing
 
-- **Post Code is required.** Overseas visitors must enter something. A non-Australian postcode simply won't match an advisor and goes to the team.
-- **Citizen / permanent resident question.** The website treats **No** as an international lead (routing rule 2). Decide who owns those leads.
+- **Post Code is required.** International leads should come through with it blank, so make it optional, or show it only when citizen/PR = Yes (dependent field).
+- **Citizen / permanent resident = No** → the website shows **Shay Best** on screen 2. Shay sorts them in HubSpot.
 - **Consent text** says "FIT College needs the contact information you provide to contact you about our products and services". Every lead now gets an SMS, so consider naming phone, SMS and email.
 - **Old hidden fields:**
   - `n00n6f00000emalt` and `n00n6f00000luzqn` look like old Salesforce field IDs

@@ -1,5 +1,5 @@
 {
- "_about": "FIT College advisor lookup. Rules (first match wins): 1) courses[course] is an advisor id -> that advisor; 2) not an Australian citizen/PR -> courses['*overseas*']; 3) postcodes[postcode] -> that advisor; 4) otherwise -> advisors['_fallback']. Courses not listed -> courses['*unlisted*']. Generated 11 November 2026 from POSTCODE MASTER vNOV26.",
+ "_about": "FIT College advisor lookup. Rules (first match wins): 1) courses[course] is an advisor id -> that advisor; 2) not an Australian citizen/PR -> courses['*overseas*']; 3) postcodes[postcode] -> that advisor; 4) otherwise -> advisors['_fallback']. Courses not listed -> courses['*unlisted*']. infoPacks: courses whose Information Pack screen shows a 'Download the course guide' button (host the PDF in assets/). Generated 11 November 2026 from POSTCODE MASTER vNOV26.",
  "advisors": {
   "dean-eggins": {
    "name": "Dean Eggins",
@@ -2760,6 +2760,12 @@
   "Cert III in Travel": "shay-best",
   "International Student Pathways": "shay-best",
   "*unlisted*": "shay-best",
-  "*overseas*": "_fallback"
+  "*overseas*": "shay-best"
+ },
+ "infoPacks": {
+  "Not sure yet": "FIT-College-Course-Guide-2026.pdf",
+  "FIT Elite™ Dual-Career PT Program": "FIT-College-Course-Guide-2026.pdf",
+  "Cert III in Fitness": "FIT-College-Course-Guide-2026.pdf",
+  "Cert IV in Fitness": "FIT-College-Course-Guide-2026.pdf"
  }
 }

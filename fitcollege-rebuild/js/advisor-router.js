@@ -17,9 +17,9 @@
                day", with two options: book a time now (Tess's HubSpot
                calendar) or call now.
 
-   Routing (who the advisor is) is worked out from the submitted values.
-   HubSpot sets the contact owner with a workflow using the same rules
-   (data/hubspot-workflow-lists.txt).
+   Routing (who the advisor is) is worked out in the browser from the
+   submitted values and js/advisor-data.js, so screen 2 is instant
+   (HubSpot's own owner assignment lags ~6 minutes).
    Full spec: advisor-routing-deck.html
    ========================================================================== */
 (function () {
@@ -56,7 +56,7 @@
   };
 
   /* ======================================================================
-     1. ROUTING (same rules as the HubSpot owner workflow)
+     1. ROUTING (who screen 2 shows)
      ====================================================================== */
   var index = null;
   function buildIndex() {
@@ -183,7 +183,7 @@
             });
           },
           /* Legacy forms render in the page, so routing can also be written
-             into hidden fields before submit (backs up the HubSpot workflow). */
+             into hidden fields before submit. */
           onBeforeFormSubmit: function (form, data) {
             var el = form.jquery ? form[0] : form, v = {};
             (data || []).forEach(function (f) { v[f.name] = f.value; });

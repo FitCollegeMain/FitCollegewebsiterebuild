@@ -28,15 +28,3 @@ All four trigger on a submission of **Website - Lead capture (advisor routing) 2
 ## 4. Task for the owner
 
 - "Call new lead", due in 1 business day, so the promise on screen 2 is kept.
-
-## Tracking (GTM dataLayer → GA4)
-
-The website pushes these events. Each one carries `assigned_advisor` and `lead_routing`.
-
-| Event | Fires when | Conversion? |
-|---|---|---|
-| `lead_submitted` | HubSpot submission succeeded | yes |
-| `advisor_book_opened` | tapped "Book a time now" | |
-| `advisor_meeting_booked` | HubSpot calendar booking completed | yes |
-| `advisor_call_clicked` | tapped the advisor's phone number or "Call … now" | yes |
-| `advisor_email_clicked` | tapped the advisor's email | |

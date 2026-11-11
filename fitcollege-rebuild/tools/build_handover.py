@@ -1,21 +1,28 @@
 #!/usr/bin/env python3
 """
-Build the Kook handover pack for the lead capture + advisor routing work.
+Build the two handover packs for the lead capture + advisor routing work.
 
   python3 tools/build_handover.py
 
-Writes handover/FIT-College-Lead-Capture-Handover/ and a .zip of it.
-Re-run after any change (sheet, courses, HubSpot IDs, router) so the pack
-always matches the repo. Run build_advisor_routing.py and build_demo.py first.
+  handover/FIT-College-Lead-Capture-Handover/   for Kook: the WEBSITE only
+      (form embed, advisor lookup, screen 2, tracking). Ends at the moment
+      the HubSpot form is submitted.
+  handover/FIT-College-HubSpot-InHouse/         for FIT College: building the
+      HubSpot form, properties and workflows in-house.
+
+Each folder is also zipped. Re-run after any change (sheet, courses, HubSpot
+IDs, router) so both packs match the repo. Run build_advisor_routing.py and
+build_demo.py first.
 """
 import csv, datetime, re, shutil, zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_PARENT = ROOT / "handover"
-NAME = "FIT-College-Lead-Capture-Handover"
-OUT = OUT_PARENT / NAME
+KOOK = "FIT-College-Lead-Capture-Handover"
+INHOUSE = "FIT-College-HubSpot-InHouse"
 TODAY = datetime.date.today().strftime("%-d %B %Y")
+OUT = None  # set per pack
 
 
 def w(rel, text):
@@ -46,58 +53,63 @@ def advisors():
     return list(csv.DictReader(open(ROOT / "data" / "advisors.csv", encoding="utf-8")))
 
 
-def main():
+def start_pack(name):
+    global OUT
+    OUT = OUT_PARENT / name
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
-    course_rows, routing = courses()
-    advs = advisors()
-    adv_name = {a["advisor_id"]: a["display_name"] for a in advs}
 
-    # ---------- 01 overview ----------
+
+def zip_pack(name):
+    zpath = OUT_PARENT / f"{name}.zip"
+    if zpath.exists():
+        zpath.unlink()
+    with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
+        for p in sorted(OUT.rglob("*")):
+            if p.is_file():
+                z.write(p, Path(name) / p.relative_to(OUT))
+    files = [p for p in OUT.rglob("*") if p.is_file()]
+    print(f"Built {OUT.relative_to(ROOT)} ({len(files)} files) and {zpath.relative_to(ROOT)} ({zpath.stat().st_size // 1024} KB)")
+
+
+def main():
+    course_rows, routing = courses()
+    adv_name = {a["advisor_id"]: a["display_name"] for a in advisors()}
+
+    # ================= KOOK: website only =================
+    start_pack(KOOK)
     cp("FIT-College-Advisor-Routing.pdf", "01-overview/FIT-College-Advisor-Routing.pdf")
     cp("advisor-routing-deck.html", "01-overview/deck/advisor-routing-deck.html")
     cp("js/advisor-data.js", "01-overview/deck/js/advisor-data.js")
     cp("js/advisor-router.js", "01-overview/deck/js/advisor-router.js")
     cp("lead-capture-demo.html", "01-overview/lead-capture-demo.html")
-
-    # ---------- 02 website code ----------
     cp("js/advisor-router.js", "02-website-code/js/advisor-router.js")
     cp("js/advisor-data.js", "02-website-code/js/advisor-data.js")
     w("02-website-code/css/lead-capture.css", lead_css())
     cp("contact.html", "02-website-code/reference/contact.html")
     cp("css/site.css", "02-website-code/reference/site.css")
     w("02-website-code/snippet.html", SNIPPET)
+    for f in ["postcode-master.csv", "advisors.csv", "course-routing.csv"]:
+        cp(f"data/{f}", f"03-data-and-tools/data/{f}")
+    cp("tools/build_advisor_routing.py", "03-data-and-tools/tools/build_advisor_routing.py")
+    w("00-START-HERE.md", start_here(course_rows, routing, adv_name))
+    zip_pack(KOOK)
 
-    # ---------- 03 HubSpot ----------
-    w("03-hubspot/form-spec.csv", form_spec_csv(course_rows))
-    w("03-hubspot/new-contact-properties.csv", PROPS_CSV)
-    w("03-hubspot/course-dropdown-options.txt",
+    # ================= IN-HOUSE: HubSpot =================
+    start_pack(INHOUSE)
+    w("00-README.md", inhouse_readme())
+    w("form-spec.csv", form_spec_csv(course_rows))
+    w("new-contact-properties.csv", PROPS_CSV)
+    w("course-dropdown-options.txt",
       "Paste these as the course_interest dropdown options, in this order.\n"
       "Labels AND internal values must match exactly: the website routes on them.\n\n"
       + "\n".join(r["course_label"] for r in course_rows) + "\n")
-    cp("data/hubspot-workflow-lists.txt", "03-hubspot/owner-workflow-branch-values.txt")
-    cp("data/hubspot-postcode-owner.csv", "03-hubspot/postcode-owner-lookup.csv")
-    w("03-hubspot/workflows.md", workflows_md(routing, adv_name))
-
-    # ---------- 04 data + tools ----------
-    for f in ["postcode-master.csv", "advisors.csv", "course-routing.csv", "postcode-sheet-gaps.csv"]:
-        cp(f"data/{f}", f"04-data-and-tools/data/{f}")
-    cp("tools/build_advisor_routing.py", "04-data-and-tools/tools/build_advisor_routing.py")
-
-    # ---------- start here ----------
-    w("00-START-HERE.md", start_here(course_rows, routing, adv_name))
-
-    # ---------- zip ----------
-    zpath = OUT_PARENT / f"{NAME}.zip"
-    if zpath.exists():
-        zpath.unlink()
-    with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
-        for p in sorted(OUT.rglob("*")):
-            if p.is_file():
-                z.write(p, Path(NAME) / p.relative_to(OUT))
-    files = [p for p in OUT.rglob("*") if p.is_file()]
-    print(f"Built {OUT.relative_to(ROOT)} ({len(files)} files) and {zpath.relative_to(ROOT)} ({zpath.stat().st_size // 1024} KB)")
+    w("workflows.md", workflows_md(routing, adv_name))
+    cp("data/hubspot-workflow-lists.txt", "owner-workflow-branch-values.txt")
+    cp("data/hubspot-postcode-owner.csv", "postcode-owner-lookup.csv")
+    cp("data/postcode-sheet-gaps.csv", "postcode-sheet-gaps.csv")
+    zip_pack(INHOUSE)
 
 
 SNIPPET = """<!-- =====================================================================
@@ -118,7 +130,8 @@ SNIPPET = """<!-- ==============================================================
      Otherwise the course is preselected from the page the visitor came from.
 <div data-lead-flow data-course="Cert IV in Fitness"></div> -->
 
-<!-- 2. HubSpot config, BEFORE the router. Fill in once the form exists. -->
+<!-- 2. HubSpot config, BEFORE the router. FIT College supplies these once
+        it has built the form in-house. -->
 <script>
   window.FIT_HUBSPOT = {
     region: 'ap1',          // FIT College portal is on the AP1 data centre
@@ -214,109 +227,145 @@ All four trigger on a submission of **Website - Lead capture (advisor routing) 2
 ## 4. Task for the owner
 
 - "Call new lead", due in 1 business day, so the promise on screen 2 is kept.
-
-## Tracking (GTM dataLayer → GA4)
-
-The website pushes these events. Each one carries `assigned_advisor` and `lead_routing`.
-
-| Event | Fires when | Conversion? |
-|---|---|---|
-| `lead_submitted` | HubSpot submission succeeded | yes |
-| `advisor_book_opened` | tapped "Book a time now" | |
-| `advisor_meeting_booked` | HubSpot calendar booking completed | yes |
-| `advisor_call_clicked` | tapped the advisor's phone number or "Call … now" | yes |
-| `advisor_email_clicked` | tapped the advisor's email | |
 """
 
 
 def start_here(course_rows, routing, adv_name):
     postcode_courses = [r["course_label"] for r in course_rows if r["route_to"] == "postcode"]
     other = [r["course_label"] for r in course_rows if r["route_to"] != "postcode"]
-    return f"""# FIT College: lead capture + Career Advisor routing
+    return f"""# FIT College: lead capture + Career Advisor routing (website)
 
 **Handover for Kook · {TODAY}**
 Owner: Stanley Campbell. Nothing goes live without Stanley's sign-off.
+
+**Scope:** the website side only, up to the moment the form is submitted. FIT College builds the HubSpot form and everything that happens to the lead inside HubSpot in-house. You only need the form's IDs and field names (below).
 
 ## What it does
 
 Every enquiry uses one form. Every submission gets the information pack and becomes a lead.
 
-1. **Screen 1: the HubSpot form.** Name, email, mobile, course, where they live (postcode, or country if overseas). reCAPTCHA is on. The course is preselected from the page the visitor came from.
-2. **Screen 2: shown by our code** once HubSpot reports the submission succeeded:
+1. **Screen 1: the HubSpot form**, embedded on the page. The course is preselected from the page the visitor came from.
+2. **Screen 2: shown by our code** the moment HubSpot reports the submission succeeded:
    > "Thanks, Jess, your info pack is on its way. Tess Szabath, your local Career Advisor, will be in touch within 1 business day."
 
-   It shows Tess's **phone, email and booking link**, with **Book a time now** (Tess's HubSpot calendar) and **Call Tess now** buttons. Unmatched leads see 1300 887 017 and info@fitcollege.edu.au.
+   It shows Tess's **phone, email and booking link**, with **Book a time now** (her HubSpot calendar) and **Call Tess now** buttons. Unmatched leads see 1300 887 017 and info@fitcollege.edu.au.
 
-   **Why the lookup lives in the website:** HubSpot takes about 6 minutes to assign a contact owner. Screen 2 can't wait for that, so the advisor table (`js/advisor-data.js`) is in the website code and the match happens in the browser, instantly. HubSpot's owner workflow applies the same rules separately.
+**Why the advisor lookup lives in the website:** HubSpot takes about 6 minutes to assign a contact owner. Screen 2 can't wait for that, so the advisor table (`js/advisor-data.js`) is in the website code and the match happens in the browser, instantly.
 
-## Who gets the lead (first match wins)
+## Who the website shows (first match wins)
 
 1. **Non-fitness course** → {adv_name.get(routing['*unlisted*'], 'Shay Best')}. This covers {', '.join(other)}, and any new course added later.
 2. **Lives outside Australia** → {adv_name.get(routing['*overseas*'], 'team')} [PENDING decision].
 3. **Postcode in POSTCODE MASTER vNOV26** (2,664 postcodes) → that postcode's advisor. Applies to {', '.join(postcode_courses)}.
-4. **Anything else** → the team ("one of our Career Advisors").
+4. **Anything else** → the Career Advisor team.
 
 ## Start here
 
 1. Open `01-overview/lead-capture-demo.html` in a browser and click through it. It's the whole flow, working offline.
-2. Skim `01-overview/FIT-College-Advisor-Routing.pdf` (13 slides).
-3. Build the HubSpot side from `03-hubspot/`, or confirm Stanley has: the form, properties and workflows.
-4. Put `02-website-code/` into the CMS (steps below).
-5. Run the acceptance tests (deck slide 12).
+2. Skim `01-overview/FIT-College-Advisor-Routing.pdf`.
+3. Build it from `02-website-code/` (steps below).
+4. Run the acceptance tests (deck slide 12).
 
 ## Website steps
 
 1. Add `js/advisor-data.js` and `js/advisor-router.js` sitewide, in that order.
 2. Add `css/lead-capture.css` to the main stylesheet. It uses the existing design tokens.
 3. On the contact page, place the markup from `snippet.html`. Keep both `#book` and `#infopack`: every sitewide CTA already links to one or the other.
-4. Fill in `window.FIT_HUBSPOT`: `portalId`, `formId`, `editor`. Until then the page shows a labelled stand-in form, so the flow can be tested end to end.
-5. **Verify** the HubSpot method and event names marked `[KOOK]` in `advisor-router.js` against HubSpot's current developer docs. They couldn't be checked from where the prototype was built.
-6. Set up GTM to forward the dataLayer events to GA4 (`03-hubspot/workflows.md`, Tracking).
+4. Fill in `window.FIT_HUBSPOT` (`portalId`, `formId`, `editor`) when FIT College sends them. Until then the page shows a labelled stand-in form, so the flow can be built and tested end to end.
+5. **Verify** the HubSpot embed method and event names marked `[KOOK]` in `advisor-router.js` against HubSpot's current developer docs. They couldn't be checked from where the prototype was built.
+6. Push the tracking events below to GA4 through GTM.
 
 `02-website-code/reference/` has the prototype's contact page and full stylesheet, for context only.
 
-## HubSpot steps
+## The HubSpot form: what the website needs
 
-| File | Use it to |
-|---|---|
-| `form-spec.csv` | Build the form: every field, hidden field and setting |
-| `new-contact-properties.csv` | Create the new properties first |
-| `course-dropdown-options.txt` | Set the course dropdown. Labels must match exactly |
-| `workflows.md` | Build the owner, info pack, SMS and task workflows |
-| `owner-workflow-branch-values.txt` | Paste-ready postcode lists for each owner branch |
-| `postcode-owner-lookup.csv` | Postcode → advisor table (custom code or imports) |
+FIT College builds the form in-house and will send:
+- the **portal ID** and **form ID**
+- the **form editor** used: `new` or `legacy`
+
+The region is `ap1`. The form is set to show an inline thank-you message, not a redirect, so screen 2 can replace it.
+
+**Fields the website reads** after submit, to pick the advisor and prefill the calendar:
+- `firstname`, `lastname`, `email`
+- `course_interest`: options match `03-data-and-tools/data/course-routing.csv` exactly
+- `where_do_you_live`: Australia / Outside Australia
+- `zip`, `country`
+
+**Hidden fields the website writes:**
+- `lead_source_page`: the page they came from
+- `lead_context`: e.g. checker-eligible
+- UTMs, `gclid`, `fbclid`, taken from the URL
+- On legacy embeds only, also `assigned_advisor` and `lead_routing`
+
+**Extra hidden fields:** if FIT College adds any that the website must fill in, they'll tell you, and they go in `context()` in `advisor-router.js`.
+
+## Tracking events (GTM dataLayer → GA4)
+
+Each event carries `assigned_advisor` and `lead_routing`.
+
+| Event | Fires when | Conversion? |
+|---|---|---|
+| `lead_submitted` | the HubSpot form submitted successfully | yes |
+| `advisor_book_opened` | tapped "Book a time now" | |
+| `advisor_meeting_booked` | the HubSpot calendar booking completed | yes |
+| `advisor_call_clicked` | tapped the advisor's phone number or "Call … now" | yes |
+| `advisor_email_clicked` | tapped the advisor's email | |
 
 ## When the postcode sheet or course list changes
 
-Nobody edits code. Run from the repo:
+Nobody edits code. FIT College runs this from the repo, and you redeploy `js/advisor-data.js`:
 
 ```
 python3 tools/build_advisor_routing.py "POSTCODE MASTER.xlsx"
 ```
 
-Then:
-- redeploy `js/advisor-data.js`
-- re-paste any changed branch in the owner workflow from `owner-workflow-branch-values.txt`
+The script stops if a postcode has two owners or an owner isn't in `advisors.csv`. Sources are in `03-data-and-tools/`.
 
-The script stops if a postcode has two owners or an owner isn't in `advisors.csv`. Sources are in `04-data-and-tools/`.
+## Waiting on FIT College
 
-## Still pending (from Stanley)
-
-- [ ] **Promotion form's hidden fields and settings**, to copy into the new form
-- [ ] **HubSpot portal ID, form ID and editor type**, once the form is built
-- [ ] **Info pack guides for each course**, and the "Not sure yet" pack
-- [ ] **Owner for overseas fitness leads**
-- [ ] **Confirm** Diploma of Sport, Strength & Conditioning and CEC route by postcode
-- [ ] **Round-robin team booking link**, for unmatched and overseas leads
-- [ ] **Owners for 6 populated postcodes** missing from the sheet (`postcode-sheet-gaps.csv`)
-- [ ] **Confirm** "NICOLA WILLIAMS" in the sheet is Nicky Wood
-- [ ] **Compliance check** on the consent wording (phone, SMS and email)
+- [ ] HubSpot portal ID, form ID and editor type
+- [ ] Any extra hidden fields the website must fill
+- [ ] Owner for overseas fitness leads (rule 2)
+- [ ] Confirm Diploma of Sport, Strength & Conditioning and CEC route by postcode
+- [ ] Team booking link for unmatched and overseas leads (they see the phone number only until then)
 
 ## Notes
 
-- **Advisor mobiles and emails are in the website data on purpose** (Stanley's decision), so screen 2 can show them instantly. The file is public, so anyone can read all ten numbers. Keep it to work numbers.
-- **Managing advisor details in the CMS (optional):** if the CMS has editable collections, advisor name, phone, email and booking link could live there so marketing can update them without a deploy. The CMS would then output `window.FIT_ADVISORS` in the same shape as `advisor-data.js`. Keep postcodes generated from the sheet, and keep one source per field so the two can't disagree.
+- **Advisor mobiles and emails are in the website data on purpose** (Stanley's decision), so screen 2 can show them instantly. The file is public, so anyone can read all ten numbers.
+- **Managing advisor details in the CMS (optional).** If the CMS has editable collections, advisor name, phone, email and booking link could live there, so marketing can update them without a deploy.
+  - The CMS would output `window.FIT_ADVISORS` in the same shape as `advisor-data.js`.
+  - Postcodes stay generated from the sheet.
+  - Keep one source per field so the two can't disagree.
 - **Booking links** are on the AP1 HubSpot meetings domain (`meetings-ap1.hubspot.com/...`). Click-test all 10 on the live domain.
+"""
+
+
+def inhouse_readme():
+    return f"""# FIT College: HubSpot side of the lead capture (in-house)
+
+**{TODAY} · Not for Kook.** Kook's pack covers the website only and ends at form submission.
+
+## Build order
+
+1. **Create the properties** in `new-contact-properties.csv`.
+2. **Build the form** to `form-spec.csv`. Then send Kook:
+   - the portal ID and form ID
+   - which form editor was used (new or legacy)
+   - any extra hidden fields the website must fill
+3. **Paste the course dropdown options** from `course-dropdown-options.txt`. Labels and values must match exactly, because the website routes on them.
+4. **Build the workflows** in `workflows.md`: owner, info pack, SMS and call task.
+   - Owner branch values: `owner-workflow-branch-values.txt`
+   - Postcode lookup: `postcode-owner-lookup.csv`
+5. **Fix the postcode sheet gaps** in `postcode-sheet-gaps.csv`, then re-run `tools/build_advisor_routing.py` and give Kook the new `js/advisor-data.js`.
+
+## Still to do
+
+- [ ] Copy the latest promotion capture form's hidden fields and settings into the new form
+- [ ] Info pack guide for each course, plus the "Not sure yet" pack
+- [ ] Owner for overseas fitness leads
+- [ ] Round-robin team booking link
+- [ ] Compliance check on the consent wording (phone, SMS and email)
+- [ ] Confirm "NICOLA WILLIAMS" in the sheet is Nicky Wood
 """
 
 

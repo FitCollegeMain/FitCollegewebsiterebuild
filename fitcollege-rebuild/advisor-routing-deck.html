@@ -200,7 +200,7 @@
         <div>One form, all details<small>Everyone gets the info pack; every submission is a lead</small></div>
         <div>"Tess will be in touch within 1 business day"<small>Named advisor, clear timeframe</small></div>
         <div>Don't want to wait? Book a time or call now<small>Tess's calendar, details prefilled</small></div>
-        <div>Owner set to Tess in HubSpot, SMS names her</div>
+        <div>Lead lands in HubSpot with course, postcode and source page</div>
       </div>
       <p class="so">Everyone gets a promise; the keen ones book on the spot.</p>
     </div>
@@ -218,7 +218,7 @@
     <div class="step hot"><div class="dot">2</div><h3>Screen 1: one form</h3><p>Name, email, mobile, course, where they live (postcode or country), consent. reCAPTCHA on.</p><span class="who who--hs">HubSpot form</span></div>
     <div class="step hot"><div class="dot">3</div><h3>Routing</h3><p>On HubSpot's success event, our code applies the routing rules to the submitted values.</p><span class="who who--site">Website</span></div>
     <div class="step hot"><div class="dot">4</div><h3>Screen 2: promise + options</h3><p>Tess's name, phone and email, "in touch within 1 business day", plus Book a time now or Call Tess now.</p><span class="who who--site">Website</span></div>
-    <div class="step"><div class="dot">5</div><h3>Automation</h3><p>Workflow sets owner (same rules, only if blank), SMS names the advisor, info pack emailed.</p><span class="who who--hs">HubSpot</span></div>
+    <div class="step"><div class="dot">5</div><h3>Into HubSpot</h3><p>The lead is in HubSpot. From here FIT College handles everything in-house.</p><span class="who who--hs">HubSpot</span></div>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 3</span></div>
 </section>
@@ -271,11 +271,11 @@
 <section class="slide">
   <div class="kicker">The routing rules</div>
   <h2>Checked in this order, first match wins</h2>
-  <p class="lede" style="margin-bottom:12px">The website (screen 2) and the HubSpot owner workflow use the same rules.</p>
+  <p class="lede" style="margin-bottom:12px">Runs in the browser from <code>js/advisor-data.js</code>, the instant the form is submitted.</p>
   <div class="body">
     <div class="rules">
       <div class="rule r-shay"><div class="k">1</div><p>Course is a <strong>non-fitness course</strong> (next slide), from anywhere, including overseas</p><div class="out">→ Shay Best</div></div>
-      <div class="rule r-fb"><div class="k">2</div><p>Where do you live = <strong>Outside Australia</strong> (fitness course)</p><div class="out">→ Overseas owner <span class="flag">confirm</span> (team for now)</div></div>
+      <div class="rule r-fb"><div class="k">2</div><p>Where do you live = <strong>Outside Australia</strong> (fitness course)</p><div class="out">→ Overseas advisor <span class="flag">confirm</span> (team for now)</div></div>
       <div class="rule r-ok"><div class="k">3</div><p>Postcode <strong>is in POSTCODE MASTER</strong></p><div class="out">→ That postcode's advisor</div></div>
       <div class="rule r-fb"><div class="k">4</div><p>Postcode <strong>not in the sheet</strong> (e.g. 2055 North Sydney)</p><div class="out">→ Team: "one of our Career Advisors", call option only</div></div>
     </div>
@@ -317,7 +317,7 @@
 <section class="slide">
   <div class="kicker">Who covers what</div>
   <h2>Postcode territories</h2>
-  <p class="lede" style="margin-bottom:12px">From POSTCODE MASTER vNOV26. Six populated postcodes are missing from the sheet (e.g. 2055 North Sydney): see <code>data/postcode-sheet-gaps.csv</code>.</p>
+  <p class="lede" style="margin-bottom:12px">From POSTCODE MASTER vNOV26. Six populated postcodes are missing from the sheet (e.g. 2055 North Sydney): FIT College is updating the sheet.</p>
   <div class="body">
     <table class="tbl tight">
       <thead><tr><th>Advisor</th><th>Covers</th><th style="width:250px">Postcodes</th><th>Booking link (meetings-ap1.hubspot.com/…)</th><th>Status</th></tr></thead>
@@ -338,72 +338,61 @@
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 7</span></div>
 </section>
 
-<!-- 8 · HubSpot form spec -->
+<!-- 8 · HubSpot form: what the website needs -->
 <section class="slide">
-  <div class="kicker">HubSpot · form build spec</div>
-  <h2>One form, every detail on one screen</h2>
-  <p class="lede" style="margin-bottom:12px">Name: <strong>Website – Lead capture (advisor routing) 2026</strong>. One form for every enquiry: each submission triggers the info pack and creates the lead.</p>
+  <div class="kicker">The HubSpot form · what the website needs</div>
+  <h2>FIT College builds the form; the website plugs into it</h2>
+  <p class="lede" style="margin-bottom:12px">The form and everything after submission is handled in-house. The website only needs these.</p>
   <div class="body cols3">
     <div class="card">
-      <h3>Visible fields</h3>
+      <h3>FIT College sends</h3>
       <ul class="clean">
-        <li>First name* · Last name* · Email*</li>
-        <li>Mobile* with <strong>country code dropdown</strong> (AU default)</li>
-        <li><code>course_interest</code>* dropdown: labels <strong>exactly</strong> as <code>course-routing.csv</code></li>
-        <li><code>where_do_you_live</code>*: Australia / Outside Australia <span class="flag flag--red">new</span></li>
-        <li>→ if Australia: <code>zip</code>* (4 characters)</li>
-        <li>→ if Outside: <code>country</code>* (conditional logic)</li>
-        <li>Consent naming <strong>phone, SMS and email</strong></li>
+        <li><strong>Portal ID</strong> and <strong>form ID</strong></li>
+        <li>Form editor: <code>new</code> or <code>legacy</code></li>
+        <li>Region: <code>ap1</code></li>
+        <li>Any extra hidden fields the website must fill</li>
+        <li>After submit: <strong>inline message</strong>, not a redirect, so screen 2 can replace it</li>
       </ul>
     </div>
     <div class="card">
-      <h3>Hidden fields</h3>
+      <h3>Website reads (after submit)</h3>
       <ul class="clean">
-        <li><code>lead_source_page</code>: page they came from <span class="flag flag--red">new</span></li>
-        <li><code>lead_context</code>: e.g. checker-eligible <span class="flag flag--red">new</span></li>
-        <li><code>assigned_advisor</code> · <code>lead_routing</code> <span class="flag flag--red">new</span>: set by workflow (and by our code on legacy embeds)</li>
-        <li>UTMs, gclid, fbclid</li>
-        <li><strong>Promotion form's hidden fields</strong> <span class="flag">to copy</span></li>
+        <li><code>firstname</code> · <code>lastname</code> · <code>email</code>: prefill the calendar</li>
+        <li><code>course_interest</code>: options match <code>course-routing.csv</code> exactly</li>
+        <li><code>where_do_you_live</code>: Australia / Outside Australia</li>
+        <li><code>zip</code> or <code>country</code></li>
       </ul>
     </div>
     <div class="card">
-      <h3>Form settings</h3>
+      <h3>Website writes (hidden)</h3>
       <ul class="clean">
-        <li><strong>CAPTCHA (reCAPTCHA): on</strong></li>
-        <li>After submit: <strong>inline message</strong>, never a redirect (screen 2 replaces it)</li>
-        <li>Pre-populate known values: <strong>off</strong> for hidden fields</li>
-        <li>Region <code>ap1</code>; tell Kook the editor (new / legacy)</li>
-        <li>Send Kook the portal ID + form ID</li>
+        <li><code>lead_source_page</code>: page they came from</li>
+        <li><code>lead_context</code>: e.g. checker-eligible</li>
+        <li>UTMs, gclid, fbclid from the URL</li>
+        <li>Legacy embeds only: <code>assigned_advisor</code>, <code>lead_routing</code></li>
+        <li>Course preselected from the source page</li>
       </ul>
     </div>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 8</span></div>
 </section>
 
-<!-- 9 · HubSpot automation -->
+<!-- 9 · Tracking -->
 <section class="slide">
-  <div class="kicker">HubSpot · automation &amp; tracking</div>
-  <h2>What happens after submit</h2>
-  <div class="body grid2" style="margin-top:14px">
-    <div class="card">
-      <h3>Workflows</h3>
-      <ol class="steps">
-        <li><strong>Set contact owner, only if blank.</strong> Branches in rule order; values are paste-ready in <code>data/hubspot-workflow-lists.txt</code>. Also sets <code>assigned_advisor</code> + <code>lead_routing</code>. <span class="flag">Kook: check HubSpot's limit on "is any of" values (Ryan has 1,057)</span></li>
-        <li><strong>SMS speed-to-lead</strong> names the advisor and repeats "within 1 business day". Skip it if they've already booked.</li>
-        <li><strong>Info pack to everyone</strong>: email the guide for <code>course_interest</code> (general guide for "Not sure yet").</li>
-        <li><strong>Task</strong> for the owner: due in 1 business day, so the promise is kept.</li>
-      </ol>
-    </div>
-    <div class="card">
-      <h3>Tracking (GTM dataLayer → GA4)</h3>
-      <ul class="clean">
-        <li><code>lead_submitted</code> <span class="flag flag--ok">conversion</span></li>
-        <li><code>advisor_book_opened</code>: tapped "Book a time now"</li>
-        <li><code>advisor_meeting_booked</code> <span class="flag flag--ok">conversion</span></li>
-        <li><code>advisor_call_clicked</code> · <code>advisor_email_clicked</code> <span class="flag flag--ok">conversion</span></li>
-        <li>Each carries <code>assigned_advisor</code> + <code>lead_routing</code>: book vs call vs wait, per advisor</li>
-      </ul>
-    </div>
+  <div class="kicker">Tracking</div>
+  <h2>Website events for GA4</h2>
+  <p class="lede" style="margin-bottom:14px">Pushed to the GTM dataLayer. Each carries <code>assigned_advisor</code> and <code>lead_routing</code>, so book vs call vs wait can be reported per advisor.</p>
+  <div class="body">
+    <table class="tbl" style="max-width:900px">
+      <thead><tr><th>Event</th><th>Fires when</th><th>Conversion</th></tr></thead>
+      <tbody>
+        <tr><td><code>lead_submitted</code></td><td>The HubSpot form submitted successfully</td><td><span class="flag flag--ok">yes</span></td></tr>
+        <tr><td><code>advisor_book_opened</code></td><td>Tapped "Book a time now"</td><td></td></tr>
+        <tr><td><code>advisor_meeting_booked</code></td><td>The HubSpot calendar booking completed</td><td><span class="flag flag--ok">yes</span></td></tr>
+        <tr><td><code>advisor_call_clicked</code></td><td>Tapped the advisor's phone number or "Call … now"</td><td><span class="flag flag--ok">yes</span></td></tr>
+        <tr><td><code>advisor_email_clicked</code></td><td>Tapped the advisor's email</td><td></td></tr>
+      </tbody>
+    </table>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 9</span></div>
 </section>
@@ -421,9 +410,7 @@
         <tr><td><code>js/advisor-data.js</code></td><td>Generated lookup: advisor names, phones, emails, booking links; postcodes; course routing (17 KB). Public by design.</td><td>Ship as-is. Never hand-edit.</td></tr>
         <tr><td><code>css/site.css</code> (lead capture blocks)</td><td>Form, screen 2 option cards and calendar styles.</td><td>Port into the CMS stylesheet.</td></tr>
         <tr><td><code>contact.html</code></td><td>Reference placement; <code>#infopack</code> and <code>#book</code> both land on the one form.</td><td>Place one <code>data-lead-flow</code> div; keep both anchors.</td></tr>
-        <tr><td><code>data/postcode-master.csv</code> · <code>advisors.csv</code> · <code>course-routing.csv</code></td><td>The three source files.</td><td>Add HubSpot owner IDs to <code>advisors.csv</code>.</td></tr>
-        <tr><td><code>data/hubspot-workflow-lists.txt</code> · <code>hubspot-postcode-owner.csv</code></td><td>Paste-ready owner workflow branches; postcode → advisor table.</td><td>Build the owner workflow (slide 9).</td></tr>
-        <tr><td><code>data/postcode-sheet-gaps.csv</code></td><td>Postcodes missing from / wrong in the sheet.</td><td>For the sheet owner, not Kook.</td></tr>
+        <tr><td><code>data/postcode-master.csv</code> · <code>advisors.csv</code> · <code>course-routing.csv</code></td><td>The three source files.</td><td>Reference; FIT College maintains them.</td></tr>
         <tr><td><code>tools/build_advisor_routing.py</code></td><td>Regenerates the data; stops on clashes.</td><td>Run on every sheet or course change.</td></tr>
       </tbody>
     </table>
@@ -444,8 +431,7 @@
           <tr><td>Overseas</td><td>Country instead of postcode; international phone via country code</td></tr>
           <tr><td>Advisor calendar empty (leave, full)</td><td>"No times showing? Call 1300 887 017" under the calendar</td></tr>
           <tr><td>Came straight to contact page</td><td>Course defaults to "Not sure yet"; source page = contact</td></tr>
-          <tr><td>Returning lead, new postcode</td><td>Owner kept (owner-if-blank rule)</td></tr>
-          <tr><td>Spam bots</td><td>HubSpot reCAPTCHA</td></tr>
+                    <tr><td>Spam bots</td><td>HubSpot reCAPTCHA</td></tr>
           <tr><td>JavaScript blocked</td><td>Phone number shown instead</td></tr>
         </tbody>
       </table>
@@ -456,7 +442,7 @@
         <li>Update POSTCODE MASTER and/or <code>course-routing.csv</code>.</li>
         <li>New advisor? Add a row to <code>advisors.csv</code>.</li>
         <li>Run <code>python3 tools/build_advisor_routing.py "POSTCODE MASTER.xlsx"</code>. It stops on any clash.</li>
-        <li>Deploy <code>js/advisor-data.js</code> and re-paste the changed branch in the HubSpot workflow from <code>hubspot-workflow-lists.txt</code>.</li>
+        <li>Deploy the regenerated <code>js/advisor-data.js</code>.</li>
       </ol>
     </div>
   </div>
@@ -478,19 +464,18 @@
         <tr><td>Not sure yet</td><td>6027</td><td>Nicky Wood</td></tr>
         <tr><td>TAE page (preselected)</td><td>4558</td><td>Shay Best</td></tr>
         <tr><td>First Aid / CPR</td><td>Fiji</td><td>Shay Best</td></tr>
-        <tr><td>Cert III in Fitness</td><td>New Zealand</td><td>Overseas owner</td></tr>
+        <tr><td>Cert III in Fitness</td><td>New Zealand</td><td>Overseas advisor (team for now)</td></tr>
         <tr><td>Cert III in Fitness</td><td>2055</td><td>"One of our Career Advisors"</td></tr>
       </tbody>
     </table>
     <div class="card">
       <h3>Before go-live</h3>
       <ul class="clean">
-        <li>☐ reCAPTCHA on; a scripted submit is blocked</li>
-        <li>☐ All hidden fields land on the contact (incl. promo-form ones, <code>lead_source_page</code>)</li>
+        <li>☐ HubSpot form embeds and submits on the live domain</li>
+        <li>☐ Website fills its hidden fields before submit (<code>lead_source_page</code>, <code>lead_context</code>, UTMs)</li>
         <li>☐ Screen 2 appears after submit, with the right advisor</li>
         <li>☐ "Book a time now" opens the right calendar, name + email prefilled</li>
-        <li>☐ Owner set by workflow for a new lead; NOT changed for an existing one</li>
-        <li>☐ SMS &lt; 5 min; owner task due in 1 business day</li>
+        <li>☐ Phone and email links on screen 2 work on mobile</li>
         <li>☐ GA4 receives submit / booked / call conversions</li>
         <li>☐ Stanley sign-off</li>
       </ul>
@@ -501,17 +486,17 @@
 
 <!-- 13 · Open items -->
 <section class="slide dark">
-  <div class="kicker">Before build starts</div>
+  <div class="kicker">Before go-live</div>
   <h2 style="color:#fff">Open items</h2>
   <div class="body" style="margin-top:10px">
     <ul class="clean big-list" style="max-width:1080px">
-      <li style="border-color:#333"><span class="flag flag--red">Copy</span>&nbsp; <strong>Promotion form's hidden fields and settings</strong> into the new form (HubSpot access needed).</li>
-      <li style="border-color:#333"><span class="flag flag--red">Build</span>&nbsp; <strong>The HubSpot form</strong> to slide 8 and the owner workflow to slide 9; send Kook the portal ID, form ID and editor type.</li>
-      <li style="border-color:#333"><span class="flag">Decide</span>&nbsp; <strong>Who owns overseas fitness leads?</strong> Team until decided.</li>
-      <li style="border-color:#333"><span class="flag">Confirm</span>&nbsp; Diploma of Sport, S&amp;C and CEC courses route <strong>by postcode</strong>, not to Shay.</li>
-      <li style="border-color:#333"><span class="flag">Fix</span>&nbsp; Add the <strong>6 populated postcodes</strong> missing from the sheet; check 3 typos.</li>
-      <li style="border-color:#333"><span class="flag">Supply</span>&nbsp; Round-robin team link · confirm "NICOLA WILLIAMS" = Nicky Wood.</li>
-      <li style="border-color:#333"><span class="flag">Kook</span>&nbsp; Verify the HubSpot embed/event method names against HubSpot's current docs.</li>
+      <li style="border-color:#333"><span class="flag flag--red">FIT College</span>&nbsp; <strong>HubSpot portal ID, form ID and editor type</strong>, plus any extra hidden fields the website must fill.</li>
+      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; <strong>Who owns overseas fitness leads?</strong> (rule 2). Team until decided.</li>
+      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; Confirm Diploma of Sport, S&amp;C and CEC courses route <strong>by postcode</strong>, not to Shay.</li>
+      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; <strong>Team booking link</strong> for unmatched and overseas leads (phone only until then).</li>
+      <li style="border-color:#333"><span class="flag">FIT College</span>&nbsp; <strong>Updated postcode sheet</strong> (6 missing populated postcodes), then a regenerated advisor-data.js.</li>
+      <li style="border-color:#333"><span class="flag">Kook</span>&nbsp; <strong>Verify the HubSpot embed/event method names</strong> in the code against HubSpot's current docs.</li>
+      <li style="border-color:#333"><span class="flag">Kook</span>&nbsp; Click-test all 10 booking links on the live domain.</li>
     </ul>
   </div>
   <div class="angle"></div>

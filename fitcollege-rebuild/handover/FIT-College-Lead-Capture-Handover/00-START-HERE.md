@@ -1,6 +1,6 @@
 # FIT College: lead capture + Career Advisor routing
 
-**Handover for Kook · 9 November 2026**
+**Handover for Kook · 11 November 2026**
 Owner: Stanley Campbell. Nothing goes live without Stanley's sign-off.
 
 ## What it does
@@ -11,7 +11,9 @@ Every enquiry uses one form. Every submission gets the information pack and beco
 2. **Screen 2: shown by our code** once HubSpot reports the submission succeeded:
    > "Thanks, Jess, your info pack is on its way. Tess Szabath, your local Career Advisor, will be in touch within 1 business day."
 
-   It then offers **Book a time now** (Tess's HubSpot calendar) and **Call us now** (1300 887 017).
+   It shows Tess's **phone, email and booking link**, with **Book a time now** (Tess's HubSpot calendar) and **Call Tess now** buttons. Unmatched leads see 1300 887 017 and info@fitcollege.edu.au.
+
+   **Why the lookup lives in the website:** HubSpot takes about 6 minutes to assign a contact owner. Screen 2 can't wait for that, so the advisor table (`js/advisor-data.js`) is in the website code and the match happens in the browser, instantly. HubSpot's owner workflow applies the same rules separately.
 
 ## Who gets the lead (first match wins)
 
@@ -78,5 +80,6 @@ The script stops if a postcode has two owners or an owner isn't in `advisors.csv
 
 ## Notes
 
-- **Staff mobiles are deliberately not in the website data.** The data file is public. The phone option is 1300 887 017.
+- **Advisor mobiles and emails are in the website data on purpose** (Stanley's decision), so screen 2 can show them instantly. The file is public, so anyone can read all ten numbers. Keep it to work numbers.
+- **Managing advisor details in the CMS (optional):** if the CMS has editable collections, advisor name, phone, email and booking link could live there so marketing can update them without a deploy. The CMS would then output `window.FIT_ADVISORS` in the same shape as `advisor-data.js`. Keep postcodes generated from the sheet, and keep one source per field so the two can't disagree.
 - **Booking links** are on the AP1 HubSpot meetings domain (`meetings-ap1.hubspot.com/...`). Click-test all 10 on the live domain.

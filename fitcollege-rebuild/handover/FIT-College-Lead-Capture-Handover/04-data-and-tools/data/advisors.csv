@@ -1,12 +1,12 @@
-advisor_id,display_name,sheet_owner_name,email,meeting_url,hubspot_owner_id,notes
-dean-eggins,Dean Eggins,DEAN EGGINS,dean.eggins@fitcollege.edu.au,https://meetings-ap1.hubspot.com/dean-eggins,,
-marcus-krause,Marcus Krause,MARCUS KRAUSE,marcus.krause@fitcollege.edu.au,https://meetings-ap1.hubspot.com/marcus-krause,,
-matthew-johnson,Matthew Johnson,MATTHEW JOHNSON,matthew.johnson@fitcollege.edu.au,https://meetings-ap1.hubspot.com/matthew-johnson,,
-nicky-wood,Nicky Wood,NICOLA WILLIAMS,nicola.wood@fitcollege.edu.au,https://meetings-ap1.hubspot.com/nicky-wood,,[CONFIRM] Postcode sheet says NICOLA WILLIAMS; staff list says Nicky Wood (nicola.wood@). Assumed same person.
-paul-mountain,Paul Mountain,PAUL MOUNTAIN,paul.mountain@fitcollege.edu.au,https://meetings-ap1.hubspot.com/paul-mountain,,
-ryan-crilly,Ryan Crilly,RYAN CRILLY,ryan.crilly@fitcollege.edu.au,https://meetings-ap1.hubspot.com/ryan-crilly,,
-sam-russell,Sam Russell,SAM RUSSELL,sam.russell@fitcollege.edu.au,https://meetings-ap1.hubspot.com/sam-russell2,,
-shay-best,Shay Best,SHAY BEST,shay.best@fitcollege.edu.au,https://meetings-ap1.hubspot.com/shay-best,,Handles non-fitness courses (see course-routing.csv). No postcode territory, by design.
-tess-szabath,Tess Szabath,TESS SZABATH,tess.szabath@fitcollege.edu.au,https://meetings-ap1.hubspot.com/tess-szabath,,
-thomas-jordan,Thomas Jordan,THOMAS JORDAN,thomas.jordan@fitcollege.edu.au,https://meetings-ap1.hubspot.com/thomas-jordan2,,
-_fallback,FIT College Career Advisor,,info@fitcollege.edu.au,,,Used when a postcode isn't in the sheet. [CONFIRM] Recommend a HubSpot round-robin team meeting link.
+advisor_id,display_name,sheet_owner_name,email,phone,meeting_url,hubspot_owner_id,notes
+dean-eggins,Dean Eggins,DEAN EGGINS,dean.eggins@fitcollege.edu.au,0418 263 653,https://meetings-ap1.hubspot.com/dean-eggins,,
+marcus-krause,Marcus Krause,MARCUS KRAUSE,marcus.krause@fitcollege.edu.au,0400 873 123,https://meetings-ap1.hubspot.com/marcus-krause,,
+matthew-johnson,Matthew Johnson,MATTHEW JOHNSON,matthew.johnson@fitcollege.edu.au,0473 371 780,https://meetings-ap1.hubspot.com/matthew-johnson,,
+nicky-wood,Nicky Wood,NICOLA WILLIAMS,nicola.wood@fitcollege.edu.au,0475 705 050,https://meetings-ap1.hubspot.com/nicky-wood,,[CONFIRM] Postcode sheet says NICOLA WILLIAMS; staff list says Nicky Wood (nicola.wood@). Assumed same person.
+paul-mountain,Paul Mountain,PAUL MOUNTAIN,paul.mountain@fitcollege.edu.au,0467 434 534,https://meetings-ap1.hubspot.com/paul-mountain,,
+ryan-crilly,Ryan Crilly,RYAN CRILLY,ryan.crilly@fitcollege.edu.au,0455 655 650,https://meetings-ap1.hubspot.com/ryan-crilly,,
+sam-russell,Sam Russell,SAM RUSSELL,sam.russell@fitcollege.edu.au,0460 844 442,https://meetings-ap1.hubspot.com/sam-russell2,,
+shay-best,Shay Best,SHAY BEST,shay.best@fitcollege.edu.au,0438 303 005,https://meetings-ap1.hubspot.com/shay-best,,"Handles non-fitness courses (see course-routing.csv). No postcode territory, by design."
+tess-szabath,Tess Szabath,TESS SZABATH,tess.szabath@fitcollege.edu.au,0457 279 143,https://meetings-ap1.hubspot.com/tess-szabath,,
+thomas-jordan,Thomas Jordan,THOMAS JORDAN,thomas.jordan@fitcollege.edu.au,0407 220 808,https://meetings-ap1.hubspot.com/thomas-jordan2,,
+_fallback,FIT College Career Advisor,,info@fitcollege.edu.au,1300 887 017,,,Used when a postcode isn't in the sheet. [CONFIRM] Recommend a HubSpot round-robin team meeting link.

@@ -321,6 +321,27 @@
     return meetingSrc(url, v).replace('?embed=true&', '?').replace('?embed=true', '');
   }
 
+  /* The advisor's contact card. Comes from js/advisor-data.js, so it shows
+     instantly: HubSpot's own owner assignment lags by ~6 minutes. */
+  function advisorCard(m, a) {
+    var phone = a.phone || PHONE, tel = a.phoneTel || PHONE_TEL;
+    var email = a.email || 'info@fitcollege.edu.au';
+    var initials = m.matched ? a.name.split(' ').map(function (p) { return p.charAt(0); }).join('').slice(0, 2) : 'FC';
+    var role = !m.matched ? 'FIT College Career Advisors'
+      : m.routing === 'course' ? 'Your Career Advisor for this course' : 'Your local Career Advisor';
+    return '<div class="advisor-card">' +
+        '<span class="advisor-card__avatar" aria-hidden="true">' + esc(initials) + '</span>' +
+        '<div class="advisor-card__body">' +
+          '<strong class="advisor-card__name">' + esc(m.matched ? a.name : 'Career Advisor team') + '</strong>' +
+          '<span class="advisor-card__role">' + role + '</span>' +
+          '<span class="advisor-card__contact">' +
+            '<a href="tel:' + esc(tel) + '" data-call>' + esc(phone) + '</a>' +
+            '<a href="mailto:' + esc(email) + '" data-email>' + esc(email) + '</a>' +
+          '</span>' +
+        '</div>' +
+      '</div>';
+  }
+
   function renderScreen2(root, state, v) {
     var m = route(v), a = m.advisor;
     var who = m.matched ? (a.firstName || a.name) : 'our team';
@@ -343,6 +364,7 @@
         '<span class="advisor-result__tick" aria-hidden="true">✓</span>' +
         '<h3 tabindex="-1">' + heading + '</h3>' +
         '<p class="advisor-result__intro">' + promise + '</p>' +
+        advisorCard(m, a) +
         '<p class="advisor-result__or">Don’t want to wait?</p>' +
         '<div class="next-options">' +
           (a.meetingUrl
@@ -353,9 +375,9 @@
                 '<span>Pick a time in ' + (m.matched ? esc(who) + '’s' : 'our') + ' calendar</span>' +
               (HS.bookingMode === 'link' ? '</a>' : '</button>')
             : '') +
-          '<a class="next-option next-option--call" href="tel:' + PHONE_TEL + '" data-call>' +
-            '<span class="next-option__icon" aria-hidden="true">☎</span><strong>Call us now</strong>' +
-            '<span>' + PHONE + (m.matched ? ' · ask for ' + esc(who) : '') + '</span></a>' +
+          '<a class="next-option next-option--call" href="tel:' + esc(a.phoneTel || PHONE_TEL) + '" data-call>' +
+            '<span class="next-option__icon" aria-hidden="true">☎</span><strong>' + (m.matched ? 'Call ' + esc(who) + ' now' : 'Call us now') + '</strong>' +
+            '<span>' + esc(a.phone || PHONE) + '</span></a>' +
         '</div>' +
         '<div class="advisor-cal-wrap" hidden></div>' +
       '</div>';
@@ -378,7 +400,11 @@
     });
     var bl = root.querySelector('[data-book-link]');
     if (bl) bl.addEventListener('click', function () { track('advisor_book_opened', info); });
-    root.querySelector('[data-call]').addEventListener('click', function () { track('advisor_call_clicked', info); });
+    Array.prototype.forEach.call(root.querySelectorAll('[data-call]'), function (el) {
+      el.addEventListener('click', function () { track('advisor_call_clicked', info); });
+    });
+    var em = root.querySelector('[data-email]');
+    if (em) em.addEventListener('click', function () { track('advisor_email_clicked', info); });
   }
 
   /* HubSpot's meetings embed posts a message when a booking completes.

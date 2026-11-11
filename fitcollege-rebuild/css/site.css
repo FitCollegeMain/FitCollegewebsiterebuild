@@ -345,6 +345,13 @@ ul.check li::after{content:"✓";position:absolute;left:3.5px;top:8px;font-size:
 .next-option--book{background:var(--energy-red);border-color:var(--energy-red);color:#fff}
 .next-option--book span:last-child{color:#FBDADA}
 .advisor-cal-wrap{margin-top:16px}
+.advisor-card{display:flex;gap:14px;align-items:center;background:var(--mist);border-radius:var(--radius);padding:14px 16px;margin:0 0 18px}
+.advisor-card__avatar{flex:none;width:48px;height:48px;border-radius:50%;background:var(--core-black);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:.04em}
+.advisor-card__body{display:flex;flex-direction:column;min-width:0}
+.advisor-card__name{font-size:1.05rem}
+.advisor-card__role{font-size:.82rem;color:var(--ink-soft)}
+.advisor-card__contact{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:4px;font-size:.9rem}
+.advisor-card__contact a{color:var(--energy-red);font-weight:600;overflow-wrap:anywhere}
 .advisor-cal{width:100%;height:700px;border:0;border-radius:var(--radius);background:var(--mist)}
 
 /* Contact page: "What happens next" panel + anchor offset under the sticky header */

@@ -212,12 +212,12 @@
 <section class="slide">
   <div class="kicker">How it works</div>
   <h2>Two screens for the lead</h2>
-  <p class="lede">HubSpot handles capture, spam protection and automation; our code works out the advisor and shows screen 2.</p>
+  <p class="lede">HubSpot takes about 6 minutes to assign an owner, so the advisor lookup lives in the website code: screen 2 names the advisor the instant the form is submitted.</p>
   <div class="body flow">
     <div class="step"><div class="dot">1</div><h3>Lead clicks a CTA</h3><p>From any page. The page they came from is recorded (<code>lead_source_page</code>) and its course preselected.</p><span class="who who--lead">Lead</span></div>
     <div class="step hot"><div class="dot">2</div><h3>Screen 1: one form</h3><p>Name, email, mobile, course, where they live (postcode or country), consent. reCAPTCHA on.</p><span class="who who--hs">HubSpot form</span></div>
     <div class="step hot"><div class="dot">3</div><h3>Routing</h3><p>On HubSpot's success event, our code applies the routing rules to the submitted values.</p><span class="who who--site">Website</span></div>
-    <div class="step hot"><div class="dot">4</div><h3>Screen 2: promise + options</h3><p>"Tess will be in touch within 1 business day." Book a time now (Tess's calendar) or call now.</p><span class="who who--site">Website</span></div>
+    <div class="step hot"><div class="dot">4</div><h3>Screen 2: promise + options</h3><p>Tess's name, phone and email, "in touch within 1 business day", plus Book a time now or Call Tess now.</p><span class="who who--site">Website</span></div>
     <div class="step"><div class="dot">5</div><h3>Automation</h3><p>Workflow sets owner (same rules, only if blank), SMS names the advisor, info pack emailed.</p><span class="who who--hs">HubSpot</span></div>
   </div>
   <div class="foot"><b>FIT <span>COLLEGE</span></b><span>Advisor routing · 3</span></div>
@@ -246,11 +246,12 @@
         <span class="tick">✓</span>
         <div class="t" style="margin-top:8px">Thanks, Jess, your info pack is on its way</div>
         <div style="color:var(--soft)">Check your inbox for the Cert IV in Fitness info pack. <b style="color:var(--ink)">Tess Szabath</b>, your local Career Advisor, will be in touch <b style="color:var(--ink)">within 1 business day</b>.</div>
-        <div style="font-weight:700;margin:12px 0 6px">Don't want to wait?</div>
+        <div style="display:flex;gap:7px;align-items:center;background:var(--mist);border-radius:5px;padding:7px;margin-top:8px"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:var(--black);color:#fff;font-weight:800;font-size:9.5px;display:flex;align-items:center;justify-content:center">TS</span><span style="font-size:9.5px;line-height:1.35"><b style="font-size:10.5px">Tess Szabath</b><br>Your local Career Advisor<br><b style="color:var(--red)">0457 279 143</b> · <b style="color:var(--red)">tess.szabath@…</b></span></div>
+        <div style="font-weight:700;margin:9px 0 5px">Don't want to wait?</div>
         <div class="mbtn" style="text-align:left">📅 Book a time now<br><span style="font-weight:400;font-size:9.5px">Pick a time in Tess's calendar</span></div>
-        <div class="mf" style="margin-top:6px;color:var(--ink)"><b>☎ Call us now</b><br><span style="font-size:9.5px;color:var(--soft)">1300 887 017 · ask for Tess</span></div>
+        <div class="mf" style="margin-top:6px;color:var(--ink)"><b>☎ Call Tess now</b><br><span style="font-size:9.5px;color:var(--soft)">0457 279 143</span></div>
       </div></div>
-      <p class="cap"><b>Screen 2 · Pack + promise + options</b>Info pack sent, named advisor, clear timeframe</p>
+      <p class="cap"><b>Screen 2 · Instant, from the website's lookup</b>Advisor's name, phone, email and booking link</p>
     </div>
     <div>
       <div class="phone"><div class="bar">FIT <b>COLLEGE</b></div><div class="pb">
@@ -399,7 +400,7 @@
         <li><code>lead_submitted</code> <span class="flag flag--ok">conversion</span></li>
         <li><code>advisor_book_opened</code>: tapped "Book a time now"</li>
         <li><code>advisor_meeting_booked</code> <span class="flag flag--ok">conversion</span></li>
-        <li><code>advisor_call_clicked</code> <span class="flag flag--ok">conversion</span></li>
+        <li><code>advisor_call_clicked</code> · <code>advisor_email_clicked</code> <span class="flag flag--ok">conversion</span></li>
         <li>Each carries <code>assigned_advisor</code> + <code>lead_routing</code>: book vs call vs wait, per advisor</li>
       </ul>
     </div>
@@ -417,7 +418,7 @@
       <thead><tr><th style="width:300px">File</th><th>What it is</th><th style="width:360px">Kook action</th></tr></thead>
       <tbody>
         <tr><td><code>js/advisor-router.js</code></td><td>HubSpot embed (new + legacy editors), course preselect, routing, screen 2, tracking.</td><td>Ship sitewide. Set portal + form ID in <code>FIT_HUBSPOT</code>. Verify the <code>[KOOK]</code> HubSpot calls.</td></tr>
-        <tr><td><code>js/advisor-data.js</code></td><td>Generated: advisors, postcodes, course routing (16 KB). No staff mobiles.</td><td>Ship as-is. Never hand-edit.</td></tr>
+        <tr><td><code>js/advisor-data.js</code></td><td>Generated lookup: advisor names, phones, emails, booking links; postcodes; course routing (17 KB). Public by design.</td><td>Ship as-is. Never hand-edit.</td></tr>
         <tr><td><code>css/site.css</code> (lead capture blocks)</td><td>Form, screen 2 option cards and calendar styles.</td><td>Port into the CMS stylesheet.</td></tr>
         <tr><td><code>contact.html</code></td><td>Reference placement; <code>#infopack</code> and <code>#book</code> both land on the one form.</td><td>Place one <code>data-lead-flow</code> div; keep both anchors.</td></tr>
         <tr><td><code>data/postcode-master.csv</code> · <code>advisors.csv</code> · <code>course-routing.csv</code></td><td>The three source files.</td><td>Add HubSpot owner IDs to <code>advisors.csv</code>.</td></tr>

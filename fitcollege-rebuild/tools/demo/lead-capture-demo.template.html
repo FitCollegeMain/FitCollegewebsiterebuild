@@ -99,6 +99,13 @@ main{padding-block:28px 48px}
 .next-option--book{background:var(--red);border-color:var(--red);color:var(--red-ink)}
 .next-option--book span:last-child{color:color-mix(in srgb,var(--red-ink) 82%,transparent);user-select:auto}
 .small{font-size:13px;color:var(--soft)}
+.advisor-card{display:flex;gap:14px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 18px}
+.advisor-card__avatar{flex:none;width:48px;height:48px;border-radius:50%;background:var(--ink);color:var(--surface);font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:.04em}
+.advisor-card__body{display:flex;flex-direction:column;min-width:0}
+.advisor-card__name{font-size:1.05rem}
+.advisor-card__role{font-size:13px;color:var(--soft)}
+.advisor-card__contact{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:4px;font-size:14px}
+.advisor-card__contact a{color:var(--red);font-weight:600;overflow-wrap:anywhere;user-select:all}
 
 /* ---- HubSpot receives ---- */
 .recv-empty{color:var(--faint);font-size:13.5px;margin:0}
@@ -160,7 +167,7 @@ main{padding-block:28px 48px}
     <aside class="panel" aria-label="What HubSpot receives" aria-live="polite">
       <h2>What HubSpot receives</h2>
       <div id="recv"><p class="recv-empty">Submit the form to see every field HubSpot would get, including the hidden ones, and why this advisor was chosen.</p></div>
-      <p class="note">In the demo, "Book a time now" opens the advisor's real HubSpot booking page in a new tab. On the website it opens in the page.</p>
+      <p class="note">Screen 2 comes from the lookup table in the website code, so it appears instantly. HubSpot's own owner assignment lags about 6 minutes. In the demo, "Book a time now" opens the advisor's real HubSpot booking page in a new tab; on the website it opens in the page.</p>
     </aside>
   </div>
 </div></main>

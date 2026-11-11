@@ -38,4 +38,5 @@ The website pushes these events. Each one carries `assigned_advisor` and `lead_r
 | `lead_submitted` | HubSpot submission succeeded | yes |
 | `advisor_book_opened` | tapped "Book a time now" | |
 | `advisor_meeting_booked` | HubSpot calendar booking completed | yes |
-| `advisor_call_clicked` | tapped "Call us now" | yes |
+| `advisor_call_clicked` | tapped the advisor's phone number or "Call … now" | yes |
+| `advisor_email_clicked` | tapped the advisor's email | |

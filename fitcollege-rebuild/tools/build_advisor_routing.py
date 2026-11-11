@@ -93,15 +93,22 @@ def main():
             continue
         if not counts.get(a["advisor_id"]) and a["advisor_id"] not in course_routing.values():
             warnings.append(f"{a['display_name']} owns no postcodes and no courses, so is never matched")
+        if not a.get("phone", "").strip():
+            warnings.append(f"{a['display_name']} has no phone number")
         if not a["meeting_url"].strip():
             warnings.append(f"{a['display_name']} has no meeting_url yet")
 
-    # Website data: advisor details (no staff mobiles, by design) + postcodes grouped per advisor.
+    # Website data: advisor contact details + postcodes grouped per advisor.
+    # Lives in the website (not HubSpot) so screen 2 can name the advisor the
+    # instant the form is submitted: HubSpot's owner assignment lags ~6 minutes.
+    # NOTE: this file is public, so every phone/email here is visible to anyone.
     public_advisors = {
         a["advisor_id"]: {
             "name": a["display_name"],
             "firstName": a["display_name"].split()[0] if a["advisor_id"] != "_fallback" else "",
-            "email": a["email"],
+            "email": a["email"].strip().lower(),
+            "phone": a["phone"].strip(),
+            "phoneTel": re.sub(r"\D", "", a["phone"]),
             "meetingUrl": a["meeting_url"].strip(),
             "hubspotOwnerId": a["hubspot_owner_id"].strip(),
         }
